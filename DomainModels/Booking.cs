@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 namespace DomainModels;
 
-// Booking.cs
+// Booking.cssss
 public class Booking : Common
 {
     public int UserId { get; set; }
