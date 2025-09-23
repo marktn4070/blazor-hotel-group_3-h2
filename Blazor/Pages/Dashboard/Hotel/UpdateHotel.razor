@@ -1,0 +1,142 @@
+﻿@page "/dashboard/updatehotel/{hotelId:int}"
+@using DomainModels
+@inject Blazor.Services.APIService ApiService
+@using System.Net.Http
+@inject NavigationManager Navigation
+
+<PageTitle>Update Hotel</PageTitle>
+@if (hotel == null)
+{
+    <p><em>Loading hotel...</em></p>
+}
+
+else
+{
+    <EditForm Model="@hotel" OnValidSubmit="SaveHotel">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="mb-3">
+            <label class="form-label">Name</label>
+            <InputText class="form-control" @bind-Value="hotel.Name" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Road</label>
+            <InputText class="form-control" @bind-Value="hotel.Road" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Zip</label>
+            <InputText class="form-control" @bind-Value="hotel.Zip" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">City</label>
+            <InputText class="form-control" @bind-Value="hotel.City" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Country</label>
+            <InputText class="form-control" @bind-Value="hotel.Country" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">E-mail</label>
+            <InputText class="form-control" @bind-Value="hotel.Email" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">phonenumber</label>
+            <InputNumber class="form-control" @bind-Value="hotel.Phone" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Percentage Price</label>
+            <InputNumber class="form-control" @bind-Value="hotel.PercentagePrice" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">open at</label>
+            <InputDate Type="InputDateType.Time" class="form-control" @bind-Value="hotel.OpenedAt" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">closed at</label>
+            <InputDate Type="InputDateType.Time" class="form-control" @bind-Value="hotel.ClosedAt" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">CheckInFrom</label>
+            <InputDate Type="InputDateType.Time" class="form-control" @bind-Value="hotel.CheckInFrom" />
+        </div>        <div class="mb-3">
+            <label class="form-label">CheckInUntil</label>
+            <InputDate Type="InputDateType.Time" class="form-control" @bind-Value="hotel.CheckInUntil" />
+        </div>        <div class="mb-3">
+            <label class="form-label">CheckOutUntil </label>
+            <InputDate Type="InputDateType.Time" class="form-control" @bind-Value="hotel.CheckOutUntil" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Description</label>
+            <InputTextArea class="form-control" @bind-Value="hotel.Description" />
+        </div>
+
+        <!-- Facilities -->
+        @*         <div class="form-check">
+            <InputCheckbox class="form-check-input" @bind-Value="hotel.Facility.Pool" />
+            <label class="form-check-label">Pool</label>
+        </div>
+        <div class="form-check">
+            <InputCheckbox class="form-check-input" @bind-Value="hotel.Facility.Fitness" />
+            <label class="form-check-label">Fitness</label>
+        </div>
+        <div class="form-check">
+            <InputCheckbox class="form-check-input" @bind-Value="hotel.Facility.Restaurant" />
+            <label class="form-check-label">Restaurant</label>
+        </div> *@
+
+        <button class="btn btn-primary mt-3" type="submit">Save</button>
+    </EditForm>
+
+}
+@code {
+    [Parameter] public int hotelId { get; set; }
+    private HotelPutDto hotel = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var details = await ApiService.GetHotelByIdAsync(hotelId);
+        if (details != null)
+        {
+            hotel = new HotelPutDto
+            {
+                Id = details.Id,
+                Name = details.Name,
+                Road = details.Road,
+                Zip = details.Zip,
+                City = details.City,
+                Country = details.Country,
+                Phone = details.Phone,
+                Email = details.Email,
+                Description = details.Description,
+                PercentagePrice = details.PercentagePrice,
+                OpenedAt = details.OpenedAt,
+                ClosedAt = details.ClosedAt,
+                CheckInFrom = details.CheckInFrom,
+                CheckInUntil = details.CheckInUntil,
+                CheckOutUntil = details.CheckOutUntil
+                // Facility = details.Facility != null
+                // ? new Facility
+                // {
+                //     Pool = details.Facility.Pool,
+                //     Fitness = details.Facility.Fitness,
+                //     Restaurant = details.Facility.Restaurant
+                // }
+                // : new Facility()
+            };
+        }
+    }
+
+    private async Task SaveHotel()
+    {
+        await ApiService.UpdateHotelAsync(hotel);
+        Navigation.NavigateTo("/dashboard/hotels");
+    }
+}
+
+
+

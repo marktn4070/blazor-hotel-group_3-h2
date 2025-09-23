@@ -1,0 +1,109 @@
+﻿@page "/"
+@using DomainModels
+@using System.Linq
+@inject Blazor.Services.APIService ApiService
+@using System.Net.Http
+
+<PageTitle>Suite Dreams - Home</PageTitle>
+
+<div class="home_page">
+    <div class="text-center mb-4">
+        <h3 class="fw-bold">Hotels</h3>
+    </div>
+
+    @if (hotels == null)
+    {
+        <p><em>Loading hotels...</em></p>
+    }
+    else if (hotels.Length == 0)
+    {
+        <div class="alert alert-info">No hotels found.</div>
+    }
+    else
+    {
+        <div class="d-flex justify-content-center">
+            <div class="row w-100 g-3">
+                @foreach (var h in hotels)
+                {
+                    <!-- Responsive kolonne -->
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-4">
+
+                        <!-- Card -->
+                        <div class="card h-100 rounded-3 overflow-hidden shadow-sm">
+                            <a href="/hotel/@h.Id" class="text-dark text-decoration-none d-flex flex-column h-100">
+
+                                <!-- Card-img-top -->
+                                <div class="ratio ratio-16x9">
+                                    <img src="images/hotel_@(h.Id)_outside.jpg" class="card-img-top w-100 h-100 object-fit-cover" alt="billede af et hotel">
+                                </div>
+
+                                <!-- Card-body -->
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-start mb-2">
+                                        <div class="fw-bold h5 mb-0">@h.Name</div>
+                                        <span class="badge bg-warning text-dark ms-2">@h.PercentagePrice%</span>
+                                    </div>
+
+                                    <!-- Card-subtitle -->
+                                    <p class="card-subtitle small text-muted mb-2">
+                                        <i>@h.Road,<br /> @h.Zip @h.City, @h.Country</i>
+                                    </p>
+                                </div>
+
+                                <!-- Card-footer -->
+                                <div class="card-footer bg-white">
+                                    <small class="text-body-secondary">
+                                        @if (rooms == null)
+                                        {
+                                            <p><em>Loading room amount...</em></p>
+                                        }
+                                        else if (rooms.Length != 0)
+                                        {
+                                            int roomCounter = 0;
+
+                                            @foreach (var r in rooms)
+                                            {
+                                                if (r.HotelId == h.Id)
+                                                {
+                                                    roomCounter++;
+                                                }
+                                            }
+                                            @(roomCounter + " rooms available today")
+                                        }
+                                    </small>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        }
+</div>
+
+@code {
+    private HotelGetDto[]? hotels;
+    private RoomGetDto[]? rooms;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            hotels = await ApiService.GetHotelsAsync(3);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Fejl ved hentning af hoteller: {ex.Message}");
+            hotels = Array.Empty<HotelGetDto>();
+        }
+        try
+        {
+            rooms = await ApiService.GetRoomsAsync(0);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Fejl ved hentning af rum: {ex.Message}");
+            rooms = Array.Empty<RoomGetDto>();
+        }
+    }
+}
