@@ -230,9 +230,9 @@ namespace API.Controllers
                     {
                         id = user.Id,
                         email = user.Email,
-                        //firstname = user.FirstName,
-                        //lastname = user.LastName,
-                        //role = user.Role?.Name ?? "User"
+                        firstname = user.FirstName,
+                        lastname = user.LastName,
+                        role = user.Role?.Name ?? "User"
                     }
                 });
             }
