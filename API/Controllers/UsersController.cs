@@ -232,7 +232,7 @@ namespace API.Controllers
                         email = user.Email,
                         //firstname = user.FirstName,
                         //lastname = user.LastName,
-                        role = user.Role?.Name ?? "User"
+                        //role = user.Role?.Name ?? "User"
                     }
                 });
             }
