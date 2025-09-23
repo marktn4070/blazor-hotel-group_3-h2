@@ -1,5 +1,42 @@
-﻿<h3>View</h3>
+﻿@page "/dashboard/users"
+@using System.Net.Http
+
+<PageTitle>Suite Dreams - View Users</PageTitle>
+
+<h1 class="mb-4">Dashboard</h1>
+
+@if (users == null)
+{
+    <p><em>Loading users...</em></p>
+}
+else if (users.Length == 0)
+{
+    <div class="alert alert-info">No users found.</div>
+}
+else
+{
+    <div class="mx-5">
+        <div class="row">
+            <div class="col-12">
+                <UserTable users="@users" />
+            </div>
+        </div>
+    </div>
+}
 
 @code {
+    private UserGetDto[]? users;
 
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            users = await ApiService.GetUsersAsync(0);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Fejl ved hentning af hoteller: {ex.Message}");
+            users = Array.Empty<UserGetDto>();
+        }
+    }
 }
