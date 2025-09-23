@@ -57,5 +57,21 @@ public partial class APIService
 
         return room is null ? Array.Empty<RoomGetDto>() : new[] { room };
     }
+    //wip
+	public async Task CreateRoomAsync(RoomPostDto room)
+	{
+		var response = await _httpClient.PostAsJsonAsync("api/rooms", room);
 
+		if (!response.IsSuccessStatusCode)
+		{
+			var error = await response.Content.ReadAsStringAsync();
+			throw new Exception($"API error: {error}");
+		}
+	}
+	public async Task UpdateRoomAsync(RoomPutDto room)
+	{
+		// Example implementation using HttpClient (adjust endpoint and logic as needed)
+		var response = await _httpClient.PutAsJsonAsync($"api/rooms/{room.Id}", room);
+		response.EnsureSuccessStatusCode();
+	}
 }

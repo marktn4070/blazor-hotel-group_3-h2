@@ -1,0 +1,31 @@
+﻿@using DomainModels
+
+<div class="card shadow-sm mt-4">
+    <div class="card-body">
+        <h5 class="card-title">
+            <i class="bi bi-house-door-fill"></i> Roomtypes
+        </h5>
+        <div class="table-responsive">
+            <table class="table table-striped align-middle">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var r in roomtypes)
+                    {
+                        <tr>
+                            <td>@r.Name</td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter] public RoomtypeGetDto[]? roomtypes { get; set; }
+}

@@ -1,0 +1,82 @@
+﻿@page "/dashboard/createroom"
+@using DomainModels
+@inject Blazor.Services.APIService ApiService
+@inject NavigationManager Navigation
+
+<PageTitle>Create Room</PageTitle>
+
+<h3>Create New Room</h3>
+
+@if (isSubmitting)
+{
+    <div class="alert alert-info">Submitting room, please wait...</div>
+}
+else if (!string.IsNullOrEmpty(errorMessage))
+{
+    <div class="alert alert-danger">@errorMessage</div>
+}
+
+<EditForm Model="@newRoom" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="mb-3">
+        <label class="form-label">Hotel for Værelset</label>
+        <InputNumber class="form-control" @bind-Value="newRoom.HotelId" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Nummmeret på værelsen </label>
+        <InputNumber class="form-control" @bind-Value="newRoom.RoomNumber" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Værelse type</label>
+        <InputSelect class="form-control" @bind-Value="newRoom.RoomtypeId">
+            @foreach (var type in Roomtypes)
+            {
+                <option value="@type.Id">@type.Name</option>
+			}
+            </InputSelect>
+    </div>
+    <button type="submit" class="btn btn-primary">Save Room</button>
+</EditForm>
+
+@code {
+    private RoomPostDto newRoom = new();
+    private bool isSubmitting = false;
+    private string? errorMessage;
+	private List<RoomtypeGetDto> Roomtypes = new();
+
+ //    protected override async Task OnInitializedAsync()
+ //    {
+ //        try
+ //        {
+ //            Roomtypes = await ApiService.GetRoomtypesAsync();
+ //        }
+ //        catch (Exception ex)
+ //        {
+ //            errorMessage = $"Failed to load room types: {ex.Message}";
+ //        }
+	// }
+
+    private async Task HandleValidSubmit()
+    {
+        isSubmitting = true;
+        errorMessage = null;
+
+        try
+        {
+            await ApiService.CreateRoomAsync(newRoom);
+            // Redirect back to hotel list page
+            Navigation.NavigateTo("/dashboard/rooms");
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Failed to create room: {ex.Message}";
+        }
+        finally
+        {
+            isSubmitting = false;
+        }
+    }
+}
