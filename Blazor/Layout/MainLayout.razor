@@ -1,0 +1,39 @@
+﻿@* @inherits LayoutComponentBase
+<div class="page">
+    <div class="sidebar">
+        <NavMenu />
+    </div>
+
+    <main>
+        <div class="top-row px-4">
+            <a href="https://mercantec.notion.site/h2" target="_blank">Notion</a>
+        </div>
+
+        <article class="content px-4">
+            @Body
+        </article>
+    </main>
+</div> *@
+
+
+@inherits LayoutComponentBase
+<div class="">
+    <NavMenu />
+</div>
+<div class="page">
+    <div class="sidebar_left">
+        <SideBar />
+    </div>
+
+    <main>
+        <div class="content w-100 h-100">
+            <div class="container-lg py-4">
+                <div class="mx-lg-5">
+                    @Body
+                </div>
+            </div>
+        </div>
+    </main>
+    <div class="sidebar_right">
+    </div>
+</div> 

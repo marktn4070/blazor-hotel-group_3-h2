@@ -1,0 +1,294 @@
+﻿@* @using Blazor.Services
+@inject AuthenticationService AuthService
+@implements IDisposable
+
+<nav class="navbar navbar-expand-lg">
+    <div class="container-lg">
+        <!-- Brand -->
+        <NavLink class="navbar-brand" href="/">
+            <img src="ico/favicon.svg" width="30" height="30" alt="Logo"> Suite Dreams
+        </NavLink>
+
+        <!-- Toggler - Blazor @onclick -->
+        <button class="navbar-toggler" type="button" @onclick="ToggleNavMenu"
+                aria-controls="mainNavbar" aria-expanded="@(!collapseNavMenu)" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Collapsible menu (klasse styres af Blazor: tilføj 'show' for at åbne) -->
+        <div class="collapse navbar-collapse @(collapseNavMenu ? "" : "show")" id="mainNavbar">
+            <!-- Centered main nav -->
+            <ul class="navbar-nav mb-2 mb-lg-0">
+                <li class="nav-item p-1">
+                    <NavLink class="nav-link" href="/" Match="NavLinkMatch.All">Home</NavLink>
+                </li>
+                @*                 <li class="nav-item p-1">
+                    <NavLink class="nav-link" href="/dashboard/hotels">Hotels Table</NavLink>
+                </li>
+                <li class="nav-item p-1">
+                    <NavLink class="nav-link" href="/dashboard/rooms">Room Table</NavLink>
+                </li> *@
+@*                 <li class="nav-item p-1">
+                    <NavLink class="nav-link" href="/about">About</NavLink>
+                </li>
+                <li class="nav-item p-1">
+                    <NavLink class="nav-link" href="/contact">Contact</NavLink>
+                </li>
+            </ul>
+
+            <!-- Right aligned login (bliver en del af collapse) -->
+            <ul class="navbar-nav ms-lg-auto mb-2 mb-lg-0">
+                <li class="nav-item p-1">
+                    <!-- User info in top bar -->
+                    @if (isAuthenticated && currentUser != null)
+                    {
+                        <NavLink class="nav-link" href="/login">@loginText</NavLink>
+                    }
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</nav>  *@
+@* _______________________________ *@
+@* @using Blazor.Services
+@inject AuthenticationService AuthService
+@implements IDisposable
+
+<nav class="navbar navbar-expand-lg">
+    <div class="container-lg">
+        <!-- Brand -->
+        <NavLink class="navbar-brand" href="/">
+            <img src="ico/favicon.svg" width="30" height="30" alt="Logo"> Suite Dreams
+        </NavLink>
+
+        <!-- Toggler - Blazor @onclick -->
+        <button class="navbar-toggler" type="button" @onclick="ToggleNavMenu"
+                aria-controls="mainNavbar" aria-expanded="@(!collapseNavMenu)" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Collapsible menu (klasse styres af Blazor: tilføj 'show' for at åbne) -->
+        <div class="collapse navbar-collapse @(collapseNavMenu ? "" : "show")" id="mainNavbar">
+            <!-- Centered main nav -->
+            <ul class="navbar-nav mb-2 mb-lg-0">
+                <li class="nav-item p-1">
+                    <NavLink class="nav-link" href="/" Match="NavLinkMatch.All">Home</NavLink>
+                </li>
+                <li class="nav-item p-1">
+                    <NavLink class="nav-link" href="/about">About</NavLink>
+                </li>
+                <li class="nav-item p-1">
+                    <NavLink class="nav-link" href="/contact">Contact</NavLink>
+                </li>
+            </ul>
+
+            <!-- Mobile / tablet: auth-links inde i collapse -->
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 d-lg-none">
+                @if (isAuthenticated && currentUser != null)
+                {
+                    <li class="nav-item p-1">
+                        <NavLink class="nav-link" href="/profile">
+                            <i class="bi bi-person-circle" aria-hidden="true"></i> @currentUser.Email
+                        </NavLink>
+                    </li>
+                    <li class="nav-item p-1">
+                        <button class="nav-link btn btn-link text-start w-100 p-0" @onclick="HandleLogout" disabled="@isLoggingOut">
+                            @if (isLoggingOut)
+                            {
+                                <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                            }
+                            else
+                            {
+                                <i class="bi bi-box-arrow-right" aria-hidden="true"></i>
+                            }
+                            Log ud
+                        </button>
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item p-1">
+                        <NavLink class="nav-link" href="/login">
+                             Login
+                        </NavLink>
+                    </li>
+                }
+            </ul>
+        </div>
+
+        <!-- Desktop: vis brugerinfo til højre (ikke i collapse) -->
+        <div class="d-none d-lg-flex align-items-center ms-3">
+            @if (isAuthenticated && currentUser != null)
+            {
+                <div class="navbar-text me-2">
+                    <i class="bi bi-person-circle"></i> @currentUser.Username
+                </div>
+                <button class="btn btn-outline-secondary btn-sm" @onclick="HandleLogout" disabled="@isLoggingOut">
+                    @if (isLoggingOut)
+                    {
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    }
+                    else
+                    {
+                                <i class="bi bi-box-arrow-in-right" aria-hidden="true"></i> 
+                    }
+                </button>
+            }
+            else
+            {
+                <li class="nav-item p-1">
+                    <NavLink class="nav-link" href="/login">
+                        Login
+                    </NavLink>
+                </li>
+            }
+        </div>
+    </div>
+</nav>
+ *@
+
+
+
+  @using Blazor.Services
+@inject AuthenticationService AuthService
+@implements IDisposable
+
+<nav class="navbar navbar-expand-lg">
+    <div class="container-lg">
+        <!-- Brand -->
+        <NavLink class="navbar-brand" href="/">
+            <img src="ico/favicon.svg" width="30" height="30" alt="Logo"> Suite Dreams
+        </NavLink>
+
+        <!-- Toggler - Blazor @onclick -->
+        <button class="navbar-toggler" type="button" @onclick="ToggleNavMenu"
+                aria-controls="mainNavbar" aria-expanded="@(!collapseNavMenu)" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Collapsible menu (klasse styres af Blazor: tilføj 'show' for at åbne) -->
+        <div class="collapse navbar-collapse @(collapseNavMenu ? "" : "show")" id="mainNavbar">
+            <!-- Centered main nav -->
+            <ul class="navbar-nav mb-2 mb-lg-0">
+                <li class="nav-item p-1">
+                    <NavLink class="nav-link" href="/" Match="NavLinkMatch.All">Home</NavLink>
+                </li>
+                 <li class="nav-item p-1">
+                    <NavLink class="nav-link" href="/about">About</NavLink>
+                </li>
+                <li class="nav-item p-1">
+                    <NavLink class="nav-link" href="/contact">Contact</NavLink>
+                </li>
+            </ul>
+
+            <!-- Right aligned login (bliver en del af collapse) -->
+            <ul class="navbar-nav ms-lg-auto mb-2 mb-lg-0">
+                    <!-- User info in top bar -->
+                    @if (isAuthenticated && currentUser != null)
+                    {
+                <li class="nav-item p-1">
+                        <i class="bi bi-person-circle"></i> @currentUser.Email
+                    </li>
+                <li class="nav-item p-1">
+                        <button class="btn btn-outline-secondary btn-sm" @onclick="HandleLogout" disabled="@isLoggingOut">
+                            @if (isLoggingOut)
+                            {
+                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            }
+                            else
+                            {
+                                <i class="bi bi-box-arrow-in-right" aria-hidden="true"></i>
+                            }
+                        </button>
+                    </li>
+                    }
+                    else
+{
+                <li class="nav-item p-1">
+                        <NavLink class="nav-link" href="/login">
+                            Login
+                        </NavLink>
+                    </li>
+                }
+            </ul>
+
+        </div>
+    </div>
+</nav>  
+
+
+
+
+@code {
+    private bool collapseNavMenu = true;
+    private bool isAuthenticated = false;
+    private bool isLoggingOut = false;
+    private AuthUserInfo? currentUser;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await CheckAuthenticationStatus();
+        AuthService.AuthenticationStateChanged += OnAuthenticationStateChanged;
+    }
+
+    private async Task CheckAuthenticationStatus()
+    {
+        isAuthenticated = await AuthService.IsAuthenticatedAsync();
+        if (isAuthenticated)
+        {
+            currentUser = await AuthService.GetCurrentUserAsync();
+        }
+        else
+        {
+            currentUser = null;
+        }
+        StateHasChanged();
+    }
+
+    private async Task HandleLogout()
+    {
+        isLoggingOut = true;
+        StateHasChanged();
+
+        try
+        {
+            await AuthService.LogoutAsync();
+            // AuthService should udløse AuthenticationStateChanged så UI opdateres
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Logout fejl: {ex.Message}");
+        }
+        finally
+        {
+            isLoggingOut = false;
+            StateHasChanged();
+        }
+    }
+
+    private async void OnAuthenticationStateChanged(object? sender, bool authenticated)
+    {
+        isAuthenticated = authenticated;
+        if (authenticated)
+        {
+            currentUser = await AuthService.GetCurrentUserAsync();
+        }
+        else
+        {
+            currentUser = null;
+        }
+        await InvokeAsync(StateHasChanged);
+    }
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+
+    public void Dispose()
+    {
+        AuthService.AuthenticationStateChanged -= OnAuthenticationStateChanged;
+    }
+}
+
