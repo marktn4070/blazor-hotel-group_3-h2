@@ -1,0 +1,92 @@
+﻿@page "/dashboard/createhotel"
+@using DomainModels
+@inject Blazor.Services.APIService ApiService
+@inject NavigationManager Navigation
+
+<PageTitle>Create Hotel</PageTitle>
+
+<h3>Create New Hotel</h3>
+
+@if (isSubmitting)
+{
+    <div class="alert alert-info">Submitting hotel, please wait...</div>
+}
+else if (!string.IsNullOrEmpty(errorMessage))
+{
+    <div class="alert alert-danger">@errorMessage</div>
+}
+
+<EditForm Model="@newHotel" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="mb-3">
+        <label class="form-label">Hotel Name</label>
+        <InputText class="form-control" @bind-Value="newHotel.Name" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Road</label>
+        <InputText class="form-control" @bind-Value="newHotel.Road" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Zip</label>
+        <InputText class="form-control" @bind-Value="newHotel.Zip" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">City</label>
+        <InputText class="form-control" @bind-Value="newHotel.City" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Country</label>
+        <InputText class="form-control" @bind-Value="newHotel.Country" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">E-mail</label>
+        <InputText class="form-control" @bind-Value="newHotel.Email" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">phonenumber</label>
+        <InputNumber class="form-control" @bind-Value="newHotel.Phone" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Percentage Price</label>
+        <InputNumber class="form-control" @bind-Value="newHotel.PercentagePrice" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Description</label>
+        <InputText class="form-control" @bind-Value="newHotel.Description" />
+    </div>
+    <button type="submit" class="btn btn-primary">Save Hotel</button>
+</EditForm>
+
+@code {
+    private HotelPostDto newHotel = new();
+    private bool isSubmitting = false;
+    private string? errorMessage;
+
+    private async Task HandleValidSubmit()
+    {
+        isSubmitting = true;
+        errorMessage = null;
+
+        try
+        {
+            await ApiService.CreateHotelAsync(newHotel);
+            // Redirect back to hotel list page
+            Navigation.NavigateTo("/dashboard/hotels");
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Failed to create hotel: {ex.Message}";
+        }
+        finally
+        {
+            isSubmitting = false;
+        }
+    }
+}

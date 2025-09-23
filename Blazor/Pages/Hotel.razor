@@ -1,0 +1,75 @@
+﻿@page "/hotel/{hotelId:int}"
+@using DomainModels
+@inject Blazor.Services.APIService ApiService
+@using System.Net.Http
+
+<PageTitle>Suite Dreams - Rooms</PageTitle>
+
+<div class="hotel_page">
+	<div class="text-center mb-4">
+		<h3 class="fw-bold">Rooms</h3>
+	</div>
+
+	@if (rooms == null)
+	{
+		<p><em>Loading rooms...</em></p>
+	}
+	else if (rooms.Length == 0)
+	{
+		<div class="alert alert-info">No rooms found.</div>
+	}
+	else
+	{
+		<div class="row justify-content-center">
+
+			@foreach (var r in rooms)
+			{
+				if (r.HotelId == hotelId)
+				{
+					<!-- Responsive kolonne -->
+					<div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4 d-flex">
+						<!-- Card -->
+						<div class="card w-100 h-100">
+							<a href="/hotel/@hotelId/room/@r.Id" class="text-black text-decoration-none">
+								<div class="h-100 d-flex flex-column">
+									<div class="card-body border-bottom row row-cols-1 row-cols-sm-2 gy-1 text-nowrap">
+										<div class="fw-bold mb-2">@r.RoomNumber</div>
+										<div class="col text-end">
+										</div>
+									</div>
+
+									<div class="card-body">
+										<span class="mx-1"></span>
+										<div class="col text-center">
+											<div class="active text-alert fw-semibold me-1"></div>
+										</div>
+									</div>
+								</div>
+							</a>
+						</div>
+					</div>
+				}
+			}
+		</div>
+	}
+</div>
+
+@code {
+	[Parameter]
+	public int hotelId { get; set; } // Denne parameter binder værdien fra URL'en
+
+	private RoomGetDto[]? rooms;
+
+	protected override async Task OnInitializedAsync()
+	{
+		try
+		{
+			rooms = await ApiService.GetRoomsAsync(0);
+		}
+		catch (Exception ex)
+		{
+			Console.WriteLine($"Fejl ved hentning af rum: {ex.Message}");
+			rooms = Array.Empty<RoomGetDto>();
+		}
+	}
+}

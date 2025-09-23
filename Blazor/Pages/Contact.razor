@@ -1,0 +1,100 @@
+﻿@page "/contact"
+@using DomainModels
+@inject Blazor.Services.APIService ApiService
+@using System.Net.Http
+
+<PageTitle>Suite Dreams - Contact</PageTitle>
+
+<div class="contact_page">
+	<div class="text-center mb-4">
+		<h3 class="fw-bold">Contact</h3>
+	</div>
+	@if (hotels == null)
+	{
+		<p><em>Loading hotels...</em></p>
+	}
+	else if (hotels.Length == 0)
+	{
+		<div class="alert alert-info">No hotels found.</div>
+	}
+	else
+	{
+	<div class="row g-4">
+		@foreach (var h in hotels)
+		{
+			<div class="col-12 mb-5">
+				<div class="card h-100 rounded-3 shadow-sm">
+					<div class="card-header bg-light">
+						<div class="d-flex justify-content-between align-items-center">
+							<div class="fw-semibold">@h.Name</div>
+							<span class="badge bg-dark">Hotel</span>
+						</div>
+					</div>
+
+					<div class="card-body">
+						<div class="row gy-2">
+							<!-- Adresse / info (fuld bredde) -->
+							<!-- Åbningstider -->
+							<div class="col-12 col-md-6">
+								<div class="d-flex align-items-center">
+									<i class="bi bi-clock-fill me-2" aria-hidden="true"></i>
+									<span class="text-body">@h.OpenedAt - @h.ClosedAt</span>
+								</div>
+							</div>
+
+							<!-- Telefon -->
+							<div class="col-12 col-md-6">
+								<div class="d-flex align-items-center">
+									<i class="bi bi-telephone-fill me-2" aria-hidden="true"></i>
+									<a class="text-decoration-none text-break" href="tel:@h.Phone">
+										<span class="text-body">@h.Phone</span>
+									</a>
+								</div>
+							</div>
+
+							<!-- Adresse (flere linjer) -->
+							<div class="col-12 col-md-6">
+								<div class="d-flex align-items-start">
+									<!-- mt-1 trækker ikonet lidt ned så det passer bedre ved multi-line tekst -->
+									<i class="bi bi-geo-alt-fill me-2 mt-1" aria-hidden="true"></i>
+									<div class="text-body">
+										<div>@h.Road,</div>
+										<div>@h.Zip @h.City, @h.Country</div>
+									</div>
+								</div>
+							</div>
+
+							<!-- Email -->
+							<div class="col-12 col-md-6">
+								<div class="d-flex align-items-center">
+									<i class="bi bi-envelope-fill me-2" aria-hidden="true"></i>
+									<a class="text-decoration-none text-break" href="mailto:@h.Email">
+										<span class="text-body">@h.Email</span>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		}
+	</div>
+	}
+</div>
+
+@code {
+	private HotelGetDto[]? hotels;
+
+	protected override async Task OnInitializedAsync()
+	{
+		try
+		{
+			hotels = await ApiService.GetHotelsAsync(3);
+		}
+		catch (Exception ex)
+		{
+			Console.WriteLine($"Fejl ved hentning af hoteller: {ex.Message}");
+			hotels = Array.Empty<HotelGetDto>();
+		}
+	}
+}
