@@ -1,0 +1,42 @@
+﻿@page "/dashboard/roomtypes"
+@using System.Net.Http
+
+<PageTitle>Suite Dreams - View Rooms</PageTitle>
+
+<h1 class="mb-4">Dashboard</h1>
+
+@if (roomtypes == null)
+{
+    <p><em>Loading roomtypes...</em></p>
+}
+else if (roomtypes.Length == 0)
+{
+    <div class="alert alert-info">No roomtypes found.</div>
+}
+else
+{
+    <div class="mx-5">
+        <div class="row">
+            <div class="col-12">
+                <RoomtypeTable roomtypes="@roomtypes" />
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    private RoomtypeGetDto[]? roomtypes;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            roomtypes = await ApiService.GetRoomtypesAsync(0);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Fejl ved hentning af rum: {ex.Message}");
+            roomtypes = Array.Empty<RoomtypeGetDto>();
+        }
+    }
+}
