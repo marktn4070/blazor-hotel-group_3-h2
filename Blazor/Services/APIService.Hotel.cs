@@ -45,6 +45,7 @@ public partial class APIService
     }
     public async Task UpdateHotelAsync(HotelPutDto hotel)
     {
+        // Example implementation using HttpClient (adjust endpoint and logic as needed)
         var response = await _httpClient.PutAsJsonAsync($"api/hotels/{hotel.Id}", hotel);
         response.EnsureSuccessStatusCode();
     }
