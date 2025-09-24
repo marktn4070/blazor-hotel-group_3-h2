@@ -52,4 +52,10 @@ public partial class APIService
     {
         return await _httpClient.GetFromJsonAsync<HotelDetailsDto>($"api/hotels/{id}");
     }
+    public async Task DeleteHotelAsync(int id)
+    {
+        var response = await _httpClient.DeleteAsync($"api/hotels/{id}");
+        response.EnsureSuccessStatusCode();
+    }
+
 }
