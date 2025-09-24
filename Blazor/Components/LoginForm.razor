@@ -88,17 +88,17 @@
                     </div>
 
 
-                                  <div class="form-group mb-3">
-                    <label for="Firstname" class="form-label">F�rsteNavn</label>
-                        <InputText id="Firstname" @bind-Value="registerModel.FirstName" class="form-control" placeholder="Your FirstName" disabled="@isLoading" />
-                        <ValidationMessage For="@(() => registerModel.FirstName)" class="text-danger" />
+                    @*               <div class="form-group mb-3">
+                    <label for="Firstname" class="form-label">FørsteNavn</label>
+                        <InputText id="Firstname" @bind-Value="registerModel.Firstname" class="form-control" placeholder="Dit navn" disabled="@isLoading" />
+                        <ValidationMessage For="@(() => registerModel.Firstname)" class="text-danger" />
                 </div>
 
                 <div class="form-group mb-3">
                     <label for="Lastname" class="form-label">Efternavn</label>
-                        <InputText id="Lastname" @bind-Value="registerModel.LastName" class="form-control" placeholder="Your LastName" disabled="@isLoading" />
-                        <ValidationMessage For="@(() => registerModel.LastName)" class="text-danger" />
-                </div>  
+                        <InputText id="Lastname" @bind-Value="registerModel.Lastname" class="form-control" placeholder="Dit Efternavn" disabled="@isLoading" />
+                        <ValidationMessage For="@(() => registerModel.Lastname)" class="text-danger" />
+                </div>  *@
 
                     <div class="form-group mb-3">
                         <label for="reg-password" class="form-label">Password</label>
@@ -107,13 +107,7 @@
                     </div>
 
                     <div class="form-group mb-3">
-                        <label for="reg-Phone" class="form-label">Phone</label>
-                        <InputNumber id="reg-Phone" type="password" @bind-Value="registerModel.Phone" class="form-control" placeholder="Your Phone number" disabled="@isLoading" />
-                        <ValidationMessage For="@(() => registerModel.Phone)" class="text-danger" />
-                    </div>
-
-                    <div class="form-group mb-3">
-                        <button type="submit" class="btn btn-success w-100" disabled ="@isLoading">
+                        <button type="submit" class="btn btn-success w-100" disabled="@isLoading">
                             @if (isLoading)
                             {
                                 <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
@@ -159,13 +153,13 @@
         border-bottom: 1px solid rgba(59, 130, 246, 0.1);
     }
 
-    .vacation-header h3 {
-        font-size: 1.75rem;
-        font-weight: 700;
-        color: #1c1917;
-        margin: 0 0 0.5rem 0;
-        background-clip: text;
-    }
+        .vacation-header h3 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #1c1917;
+            margin: 0 0 0.5rem 0;
+            background-clip: text;
+        }
 
     .card-body {
         padding: 2rem;
@@ -201,18 +195,18 @@
         height: auto;
     }
 
-    .form-control:focus {
-        background: rgba(255, 255, 255, 1);
-        border-color: #3b82f6;
-        box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
-        color: #1c1917;
-        outline: none;
-    }
+        .form-control:focus {
+            background: rgba(255, 255, 255, 1);
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+            color: #1c1917;
+            outline: none;
+        }
 
-    .form-control::placeholder {
-        color: #6b7280;
-        font-weight: 400;
-    }
+        .form-control::placeholder {
+            color: #6b7280;
+            font-weight: 400;
+        }
 
     /* Modern Button Styling */
     .btn {
@@ -228,46 +222,45 @@
         letter-spacing: 0.05em;
     }
 
-    .btn::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        transition: left 0.5s;
-    }
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            transition: left 0.5s;
+        }
 
-    .btn:hover::before {
-        left: 100%;
-    }
+        .btn:hover::before {
+            left: 100%;
+        }
 
     .btn-primary {
         box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
         color: white;
     }
 
-    .btn-primary:hover:not(:disabled) {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 30px rgba(59, 130, 246, 0.6);
-    }
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(59, 130, 246, 0.6);
+        }
 
-    .btn-primary:disabled {
-        box-shadow: none;
-        cursor: not-allowed;
-        transform: none;
-    }
+        .btn-primary:disabled {
+            box-shadow: none;
+            cursor: not-allowed;
+            transform: none;
+        }
 
     .btn-success {
         box-shadow: 0 4px 20px rgba(16, 185, 129, 0.4);
         color: white;
     }
 
-    .btn-success:hover:not(:disabled) {
-
-        transform: translateY(-2px);
-        box-shadow: 0 8px 30px rgba(16, 185, 129, 0.6);
-    }
+        .btn-success:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(16, 185, 129, 0.6);
+        }
 
     .btn-link {
         color: #3b82f6;
@@ -279,12 +272,12 @@
         border-radius: 8px;
     }
 
-    .btn-link:hover {
-        color: #2563eb;
-        background: rgba(59, 130, 246, 0.1);
-        text-decoration: none;
-        transform: translateY(-1px);
-    }
+        .btn-link:hover {
+            color: #2563eb;
+            background: rgba(59, 130, 246, 0.1);
+            text-decoration: none;
+            transform: translateY(-1px);
+        }
 
     /* Vacation Alert Styling */
     .alert {
@@ -316,8 +309,13 @@
     }
 
     @@keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
     }
 
     /* Validation Messages */
@@ -335,16 +333,28 @@
         animation-fill-mode: both;
     }
 
-    .form-group:nth-child(1) { animation-delay: 0.1s; }
-    .form-group:nth-child(2) { animation-delay: 0.2s; }
-    .form-group:nth-child(3) { animation-delay: 0.3s; }
-    .form-group:nth-child(4) { animation-delay: 0.4s; }
+        .form-group:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .form-group:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .form-group:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .form-group:nth-child(4) {
+            animation-delay: 0.4s;
+        }
 
     @@keyframes slideInUp {
         from {
             opacity: 0;
             transform: translateY(20px);
         }
+
         to {
             opacity: 1;
             transform: translateY(0);
@@ -385,7 +395,14 @@
     private bool showLoginForm = true;
     private int remainingLockoutSeconds = 0;
 
+
+
+
+
+    private bool isSubmitting = false;
+
     [Parameter] public EventCallback OnLoginSuccess { get; set; }
+    [Parameter] public EventCallback OnRegisterSuccess { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -413,7 +430,7 @@
                 successMessage = "Login succesfuldt! Omdirigerer...";
                 StateHasChanged();
 
-                // Vent kort s� brugeren kan se success besked
+                // Vent kort så brugeren kan se success besked
                 await Task.Delay(1000);
 
                 // Trigger event for parent component
@@ -429,13 +446,13 @@
 
                 if (result.DelayApplied > 0)
                 {
-                    errorMessage += $" (Forsinkelse p� {result.DelayApplied} sekunder blev anvendt)";
+                    errorMessage += $" (Forsinkelse på {result.DelayApplied} sekunder blev anvendt)";
                 }
             }
         }
         catch (Exception ex)
         {
-            errorMessage = "Der opstod en uventet fejl. Pr�v igen.";
+            errorMessage = "Der opstod en uventet fejl. Prøv igen.";
             Console.WriteLine($"Login fejl: {ex.Message}");
         }
         finally
@@ -445,50 +462,131 @@
         }
     }
 
+
+
+
+    // private async Task HandleRegister()
+    // {
+    //     isSubmitting = true;
+    //     errorMessage = null;
+
+    //     try
+    //     {
+    //         var response = await ApiService.RegisterAsync(registerModel);
+    //         // Redirect back to home page
+    //         Navigation.NavigateTo("/");
+    //     }
+    //     catch (Exception ex)
+    //     {
+    //         errorMessage = $"Failed to registerg: {ex.Message}. Try again.";
+    //         Console.WriteLine($"Registrering fejl: {ex.Message}");
+    //     }
+    //     finally
+    //     {
+    //         isSubmitting = false;
+    //     }
+    // }
+
+
+
+
     private async Task HandleRegister()
     {
-        isLoading = true;
+        isSubmitting = true;
         errorMessage = string.Empty;
         successMessage = string.Empty;
         StateHasChanged();
 
         try
         {
-            // Lav HTTP request direkte da vi ikke har en APIService metode til registrering
-            using var httpClient = new HttpClient();
-            httpClient.BaseAddress = new Uri("https://suitedreams.mercantec.tech/");
+            var result = await ApiService.RegisterAsync(registerModel);
 
-            var response = await httpClient.PostAsJsonAsync("api/users/register", registerModel);
-
-            if (response.IsSuccessStatusCode)
+            if (result.Success)
             {
-                successMessage = "Konto oprettet succesfuldt! Du kan nu logge ind.";
+                successMessage = result.Message ?? "Konto oprettet succesfuldt! Du kan nu logge ind.";
                 showRegisterForm = false;
-                var currentEmail = registerModel.Email; // Gem email f�r reset
+                var currentEmail = registerModel.Email; // Gem email før reset
                 registerModel = new RegisterDto(); // Reset form
 
                 // Kopier email til login form
                 loginModel.Email = currentEmail;
+
+                // Vent kort så brugeren kan se success besked
+                await Task.Delay(1000);
+
+                // Naviger til forsiden
+                Navigation.NavigateTo("/");
             }
             else
             {
-                var errorContent = await response.Content.ReadAsStringAsync();
-                errorMessage = errorContent.Contains("email findes allerede")
-                    ? "En bruger med denne email findes allerede."
-                    : "Der opstod en fejl ved oprettelse af kontoen.";
+                errorMessage = result.Message ?? "Der opstod en fejl ved oprettelse af kontoen.";
             }
         }
         catch (Exception ex)
         {
-            errorMessage = "Der opstod en uventet fejl. Pr�v igen.";
+            errorMessage = "Der opstod en uventet fejl. Prøv igen.";
             Console.WriteLine($"Registrering fejl: {ex.Message}");
         }
         finally
         {
-            isLoading = false;
+            isSubmitting = false;
             StateHasChanged();
         }
     }
+
+
+
+
+
+
+
+    // private async Task HandleRegister()
+    // {
+    //     isLoading = true;
+    //     errorMessage = string.Empty;
+    //     successMessage = string.Empty;
+    //     StateHasChanged();
+
+    //     try
+    //     {
+    //         // Lav HTTP request direkte da vi ikke har en APIService metode til registrering
+    //         using var httpClient = new HttpClient();
+    //         httpClient.BaseAddress = new Uri("https://25h2-mags.mercantec.tech/");
+
+    //         var response = await httpClient.PostAsJsonAsync("api/users/register", registerModel);
+
+    //         if (response.IsSuccessStatusCode)
+    //         {
+    //             successMessage = "Konto oprettet succesfuldt! Du kan nu logge ind.";
+    //             showRegisterForm = false;
+    //             var currentEmail = registerModel.Email; // Gem email før reset
+    //             registerModel = new RegisterDto(); // Reset form
+
+    //             // Kopier email til login form
+    //             loginModel.Email = currentEmail;
+    //         }
+    //         else
+    //         {
+    //             var errorContent = await response.Content.ReadAsStringAsync();
+    //             errorMessage = errorContent.Contains("email findes allerede")
+    //                 ? "En bruger med denne email findes allerede."
+    //                 : "Der opstod en fejl ved oprettelse af kontoen.";
+    //         }
+    //     }
+    //     catch (Exception ex)
+    //     {
+    //         errorMessage = "Der opstod en uventet fejl. Prøv igen.";
+    //         Console.WriteLine($"Registrering fejl: {ex.Message}");
+    //     }
+    //     finally
+    //     {
+    //         isLoading = false;
+    //         StateHasChanged();
+    //     }
+    // }
+
+
+
 
     private void ShowRegister()
     {
@@ -506,5 +604,8 @@
         successMessage = string.Empty;
         registerModel = new RegisterDto(); // Reset form
     }
+
+
+
 
 }
