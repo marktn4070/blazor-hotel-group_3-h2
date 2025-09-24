@@ -1,4 +1,4 @@
-﻿@* @page "/dashboard/createroomtype"
+﻿@page "/dashboard/createroomtype"
 @using DomainModels
 @inject Blazor.Services.APIService ApiService
 @inject NavigationManager Navigation
@@ -26,46 +26,25 @@ else if (!string.IsNullOrEmpty(errorMessage))
     </div>
 
     <div class="mb-3">
-        <label class="form-label">Road</label>
-        <InputText class="form-control" @bind-Value="newRoomtype.Road" />
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label">Zip</label>
-        <InputText class="form-control" @bind-Value="newRoomtype.Zip" />
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label">City</label>
-        <InputText class="form-control" @bind-Value="newRoomtype.City" />
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label">Country</label>
-        <InputText class="form-control" @bind-Value="newRoomtype.Country" />
-    </div>
-    <div class="mb-3">
-        <label class="form-label">E-mail</label>
-        <InputText class="form-control" @bind-Value="newRoomtype.Email" />
-    </div>
-    <div class="mb-3">
-        <label class="form-label">phonenumber</label>
-        <InputNumber class="form-control" @bind-Value="newRoomtype.Phone" />
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label">Percentage Price</label>
-        <InputNumber class="form-control" @bind-Value="newRoomtype.PercentagePrice" />
-    </div>
-    <div class="mb-3">
         <label class="form-label">Description</label>
         <InputText class="form-control" @bind-Value="newRoomtype.Description" />
     </div>
-    <button type="submit" class="btn btn-primary">Save Hotel</button>
+
+    <div class="mb-3">
+        <label class="form-label">NumberOfBeds</label>
+        <InputNumber class="form-control" @bind-Value="newRoomtype.NumberOfBeds" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">PricePerNight</label>
+        <InputNumber class="form-control" @bind-Value="newRoomtype.PricePerNight" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save Roomtype</button>
 </EditForm>
 
 @code {
-    private HotelPostDto newHotel = new();
+    private RoomtypePostDto newRoomtype = new();
     private bool isSubmitting = false;
     private string? errorMessage;
 
@@ -76,9 +55,9 @@ else if (!string.IsNullOrEmpty(errorMessage))
 
         try
         {
-            await ApiService.CreateHotelAsync(newHotel);
+            await ApiService.CreateRoomtypeAsync(newRoomtype);
             // Redirect back to hotel list page
-            Navigation.NavigateTo("/dashboard/hotels");
+            Navigation.NavigateTo("/dashboard/roomtypes");
         }
         catch (Exception ex)
         {
@@ -90,4 +69,3 @@ else if (!string.IsNullOrEmpty(errorMessage))
         }
     }
 }
- *@
