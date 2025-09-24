@@ -592,6 +592,7 @@ namespace API.Migrations
                             LastLogin = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastName = "test",
                             PasswordBackdoor = "!MyVerySecureSecretKeyThatIsAtLeast32CharactersLong123456789",
+                            Phone = 12345678,
                             RoleId = 4,
                             UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
                         });

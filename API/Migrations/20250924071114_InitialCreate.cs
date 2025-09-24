@@ -252,7 +252,7 @@ namespace API.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "CreatedAt", "Email", "FirstName", "HashedPassword", "LastLogin", "LastName", "PasswordBackdoor", "Phone", "RoleId", "Salt", "UpdatedAt" },
-                values: new object[] { 1, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc), "test@test.com", "test", "$2a$11$BJtEDbA0yeNpnSNKPeGh7eCmVA6tIUoC.QLBFqMjGh.7MWUSGtKJe", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "test", "!MyVerySecureSecretKeyThatIsAtLeast32CharactersLong123456789", null, 4, null, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc) });
+                values: new object[] { 1, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc), "test@test.com", "test", "$2a$11$BJtEDbA0yeNpnSNKPeGh7eCmVA6tIUoC.QLBFqMjGh.7MWUSGtKJe", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "test", "!MyVerySecureSecretKeyThatIsAtLeast32CharactersLong123456789", 12345678, 4, null, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc) });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Bookings_HotelId",
