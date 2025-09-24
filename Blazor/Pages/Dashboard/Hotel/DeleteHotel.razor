@@ -31,7 +31,7 @@ else
     private async Task ConfirmDelete()
     {
         await ApiService.DeleteHotelAsync(Id);
-        Navigation.NavigateTo("/dashboard/hotels"); 
+        Navigation.NavigateTo("/dashboard/hotels");
     }
 
     private void Cancel()

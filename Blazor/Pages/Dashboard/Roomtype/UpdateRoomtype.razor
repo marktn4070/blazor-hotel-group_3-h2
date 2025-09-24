@@ -12,7 +12,7 @@
 
 else
 {
-@*     <EditForm Model="@roomtype" OnValidSubmit="SaveRoomtype">
+    @*     <EditForm Model="@roomtype" OnValidSubmit="SaveRoomtype">
         <DataAnnotationsValidator />
         <ValidationSummary />
 
@@ -123,7 +123,7 @@ else
                 // CheckInFrom = details.CheckInFrom,
                 // CheckInUntil = details.CheckInUntil,
                 // CheckOutUntil = details.CheckOutUntil
-                
+
             };
         }
     }
@@ -133,7 +133,7 @@ else
 
         if (roomtype is null) return;
 
-  
+
 
         await ApiService.UpdateRoomtypeAsync(roomtype);
         Navigation.NavigateTo("/dashboard/roomtypes");

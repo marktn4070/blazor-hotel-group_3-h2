@@ -16,7 +16,6 @@
                         <th>Værelsesnr.</th>
                         <th>Hotel Id</th>
                         <th>Rumtype Id</th>
-                        <th>Pris / nat</th>
                         <th>Oprettet</th>
                         <th>Opdateret</th>
                     </tr>
@@ -37,7 +36,6 @@
                                 <td>@r.RoomNumber</td>
                                 <td>@r.HotelId</td>
                                 <td>@r.RoomtypeId</td>
-                                <td class="text-end">@((r.RoomtypePricePerNight ?? 0).ToString("F2"))</td>
                                 <td>@r.CreatedAt.ToString("yyyy-MM-dd HH:mm")</td>
                                 <td>@r.UpdatedAt.ToString("yyyy-MM-dd HH:mm")</td>
                             </tr>
