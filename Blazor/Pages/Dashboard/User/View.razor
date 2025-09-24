@@ -32,6 +32,12 @@ else
         try
         {
             users = await ApiService.GetAllUsersAsync(0);
+
+            // Sortér brugere efter UserId i stigende rækkefølge
+            if (users != null && users.Length > 1)
+            {
+                users = users.OrderBy(u => u.Id).ToArray();
+            }
         }
         catch (Exception ex)
         {
