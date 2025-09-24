@@ -40,6 +40,11 @@
                                 <td class="text-end">@r.PricePerNight.ToString("F2")</td>
                                 <td>@r.CreatedAt.ToString("yyyy-MM-dd HH:mm")</td>
                                 <td>@r.UpdatedAt.ToString("yyyy-MM-dd HH:mm")</td>
+                                <td>
+                                    <NavLink href="@($"/dashboard/updateroomtype/{r.Id}")" class="nav-link">
+                                        <img src="images/edit.png" style="width:20px; height:20px;" alt="Edit" />
+									</NavLink>
+								</td>
                             </tr>
                         }
                     }
