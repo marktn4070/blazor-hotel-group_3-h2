@@ -21,7 +21,9 @@ public class HotelMapping
             ClosedAt = hotel.ClosedAt,
             CheckInFrom = hotel.CheckInFrom,
             CheckInUntil = hotel.CheckInUntil,
-            CheckOutUntil = hotel.CheckOutUntil
+            CheckOutUntil = hotel.CheckOutUntil,
+         
+
         };
     }
 

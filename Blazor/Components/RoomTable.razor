@@ -6,7 +6,7 @@
             <h5 class="card-title mb-0">
                 <i class="bi bi-door-open-fill"></i> Værelser
             </h5>
-            <a class="btn btn-secondary" href="/dashboard/createroom">+</a>
+            <a class="btn btn-light" href="/dashboard/createroom"><i class="bi bi-plus"></i></a>
         </div>
         <div class="table-responsive">
             <table class="table table-striped align-middle">
@@ -19,6 +19,8 @@
                         <th>Pris / nat</th>
                         <th>Oprettet</th>
                         <th>Opdateret</th>
+                        <th></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -40,6 +42,17 @@
                                 <td class="text-end">@((r.RoomtypePricePerNight ?? 0).ToString("F2"))</td>
                                 <td>@r.CreatedAt.ToString("yyyy-MM-dd HH:mm")</td>
                                 <td>@r.UpdatedAt.ToString("yyyy-MM-dd HH:mm")</td>
+                                <td>
+                                    <NavLink href="@($"/dashboard/updateroom/{r.Id}")" class="nav-link">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </NavLink>
+
+                                </td>
+                                <td>
+                                    <NavLink data-toggle="modal" href="@($"/dashboard/deleteroom/{r.Id}")" class="nav-link">
+                                        <i class="bi bi-trash3"></i>
+                                    </NavLink>
+                                </td>
                             </tr>
                         }
                     }

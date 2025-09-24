@@ -97,12 +97,17 @@ else
     [Parameter] public int hotelId { get; set; }
     private HotelPutDto hotel = new()
     {
-        Facility = new FacilityPostDto()
+        Facility = new FacilityDto()
     };
 
     protected override async Task OnInitializedAsync()
-    {
+    {var facilities = await ApiService.GetFacilityByIdAsync(hotelId);
+        if (facilities != null)
+        {
+           
+        }
         var details = await ApiService.GetHotelByIdAsync(hotelId);
+        
         if (details != null)
         {
             hotel = new HotelPutDto
@@ -122,15 +127,16 @@ else
                 CheckInFrom = details.CheckInFrom,
                 CheckInUntil = details.CheckInUntil,
                 CheckOutUntil = details.CheckOutUntil,
-                Facility = details.Facility != null
-                ? new FacilityPostDto
-                {
-                    Pool = details.Facility.Pool,
-                    Fitness = details.Facility.Fitness,
-                    Restaurant = details.Facility.Restaurant,
-                    HotelId = hotelId
-                }
-                : new FacilityPostDto { HotelId = hotelId } // tom facility så bindings ikke fejler
+                // Facility = details.Facility != null
+                // ? new FacilityDto
+                // {
+                //     Pool = details.Facility.Pool,
+                //     Fitness = details.Facility.Fitness,
+                //     Restaurant = details.Facility.Restaurant,
+                //     HotelId = hotelId
+                // }
+                // : new FacilityDto { HotelId = hotelId } // tom facility så bindings ikke fejler
+
             };
         }
     }

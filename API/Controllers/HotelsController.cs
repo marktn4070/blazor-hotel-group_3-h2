@@ -257,7 +257,24 @@ namespace API.Controllers
                 return StatusCode(500, "Der opstod en intern serverfejl ved sletning af hotel");
             }
         }
+        [HttpGet("facility/{hotelId}")]
+        public async Task<ActionResult<FacilityDto>> GetFacilityByHotelId(int hotelId)
+        {
+            var facility = await _context.Facilities
+                .Where(f => f.HotelId == hotelId)
+                .Select(f => new FacilityDto
+                {
+                    Pool = f.Pool,
+                    Fitness = f.Fitness,
+                    Restaurant = f.Restaurant
+                })
+                .FirstOrDefaultAsync();
 
+            if (facility == null)
+                return NotFound();
+
+            return Ok(facility);
+        }
         private bool HotelExists(int id)
         {
             return _context.Hotels.Any(e => e.Id == id);
