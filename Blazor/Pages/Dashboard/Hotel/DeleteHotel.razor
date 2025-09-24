@@ -1,0 +1,16 @@
+﻿@page "/dashboard/deletehotel/{hotelId:int}"
+@using DomainModels
+@inject Blazor.Services.APIService ApiService
+@using System.Net.Http
+@inject NavigationManager Navigation
+
+@code {
+    [Parameter] public int hotelId { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await ApiService.DeleteHotelAsync(hotelId);
+        Navigation.NavigateTo("/dashboard/hotels");
+    }
+
+}

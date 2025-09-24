@@ -116,7 +116,7 @@ else
                 Phone = details.Phone,
                 Email = details.Email,
                 Description = details.Description,
-                PercentagePrice = -100 * details.PercentagePrice + 100,
+                PercentagePrice = Math.Round(-100 * details.PercentagePrice + 100),
                 OpenedAt = details.OpenedAt,
                 ClosedAt = details.ClosedAt,
                 CheckInFrom = details.CheckInFrom,
