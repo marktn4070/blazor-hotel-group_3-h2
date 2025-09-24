@@ -44,10 +44,12 @@ else if (!string.IsNullOrEmpty(errorMessage))
         <label class="form-label">Country</label>
         <InputText class="form-control" @bind-Value="newHotel.Country" />
     </div>
+
     <div class="mb-3">
         <label class="form-label">E-mail</label>
         <InputText class="form-control" @bind-Value="newHotel.Email" />
     </div>
+
     <div class="mb-3">
         <label class="form-label">phonenumber</label>
         <InputNumber class="form-control" @bind-Value="newHotel.Phone" />
@@ -57,11 +59,14 @@ else if (!string.IsNullOrEmpty(errorMessage))
         <label class="form-label">Percentage Price</label>
         <InputNumber class="form-control" @bind-Value="newHotel.PercentagePrice" />
     </div>
+
     <div class="mb-3">
         <label class="form-label">Description</label>
         <InputText class="form-control" @bind-Value="newHotel.Description" />
     </div>
+
     <button type="submit" class="btn btn-primary">Save Hotel</button>
+
 </EditForm>
 
 @code {
@@ -74,10 +79,13 @@ else if (!string.IsNullOrEmpty(errorMessage))
         isSubmitting = true;
         errorMessage = null;
 
+        // Konverter percentage fra helt tal til decimal
+        newHotel.PercentagePrice = (100 - newHotel.PercentagePrice) / 100;
+
         try
         {
             await ApiService.CreateHotelAsync(newHotel);
-            // Redirect back to hotel list page
+            // Redirect tilbage til hotel tabellen efter oprettelse
             Navigation.NavigateTo("/dashboard/hotels");
         }
         catch (Exception ex)

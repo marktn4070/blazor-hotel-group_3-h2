@@ -108,19 +108,61 @@ namespace API.Controllers
                 return BadRequest("Id i route stemmer ikke med hotellets id");
             }
 
-            //_context.Entry(hotel).State = EntityState.Modified;
-            var hotel = await _context.Hotels.FindAsync(id);
+            // Hent hotel inkl. Facility så vi kan opdatere eller oprette
+            var hotel = await _context.Hotels
+                .Include(h => h.Facility)
+                .FirstOrDefaultAsync(h => h.Id == id);
+
             if (hotel == null)
             {
+                _logger.LogWarning("Hotel med id {Id} ikke fundet ved update", id);
                 return NotFound();
             }
 
+            // Map standard hotelfelter (opdater UpdatedAt i mapping)
             HotelMapping.PutHotelFromDto(hotel, hotelDto);
 
+            // Håndter nested Facility hvis client har sendt en
             try
             {
+                if (hotelDto.Facility != null)
+                {
+                    // Hvis der allerede findes en facility, opdatér den
+                    if (hotel.Facility != null)
+                    {
+                        hotel.Facility.Pool = hotelDto.Facility.Pool;
+                        hotel.Facility.Fitness = hotelDto.Facility.Fitness;
+                        hotel.Facility.Restaurant = hotelDto.Facility.Restaurant;
+
+                        _context.Facilities.Update(hotel.Facility);
+                    }
+                    else
+                    {
+                        // Opret en ny facility og associer den til hotellet
+                        var newFacility = new Facility
+                        {
+                            Pool = hotelDto.Facility.Pool,
+                            Fitness = hotelDto.Facility.Fitness,
+                            Restaurant = hotelDto.Facility.Restaurant,
+                            HotelId = hotel.Id
+                        };
+
+                        _context.Facilities.Add(newFacility);
+
+                        // Sæt navigation property så EF kender relationen i denne context
+                        hotel.Facility = newFacility;
+                    }
+                }
+                else
+                {
+                    // Hvis dto.Facility == null: vi lader eksisterende facility være uændret.
+                    // Hvis du vil slette facility når dto.Facility == null, gør det her:
+                    // if (hotel.Facility != null) { _context.Facilities.Remove(hotel.Facility); }
+                }
+
                 await _context.SaveChangesAsync();
-                _logger.LogInformation("Hotel {Id} opdateret succesfuldt", id);
+
+                _logger.LogInformation("Hotel med id'et {Id} opdateret succesfuldt", id);
                 return NoContent();
             }
             catch (DbUpdateConcurrencyException ex)
@@ -151,26 +193,28 @@ namespace API.Controllers
         // POST: api/Hotels
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Hotel>> PostHotel(HotelPostDto hotelDto)
+        public async Task<ActionResult<Hotel>> PostHotel(HotelPostDto hotelPostDto)
         {
            try
             {
-                Hotel hotel = HotelMapping.PostHotelFromDto(hotelDto);
+                Hotel hotel = HotelMapping.PostHotelFromDto(hotelPostDto);
                 _context.Hotels.Add(hotel);
 
+                // Tjek om hotel navn allerede eksisterer
+                var hotelExists = await _context.Hotels.AnyAsync(h => h.Name == hotelPostDto.Name);
+
+                if (hotelExists)
+                {
+                    _logger.LogWarning("Hotel navn {Name} eksisterer allerede", hotelPostDto.Name);
+                    return Conflict("En Hotel med dette navn eksisterer allerede");
+                }
+
                 await _context.SaveChangesAsync();
-                _logger.LogInformation("Hotel {Id} oprettet succesfuldt", hotel.Id);
+                _logger.LogInformation("Hotel med id'et {Id} oprettet succesfuldt", hotel.Id);
 
                 return CreatedAtAction("GetHotel", new { id = hotel.Id }, hotel);
             }
-            catch (DbUpdateException ex)
-            {
-                _logger.LogWarning(ex, "DbUpdateException ved oprettelse af hotel {Id}", hotelDto.Id);
-                if (HotelExists(hotelDto.Id))
-                    return Conflict("Hotel med dette id findes allerede");
-                else
-                    throw;
-            }
+
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Fejl ved oprettelse af hotel");
@@ -204,7 +248,7 @@ namespace API.Controllers
                 _context.Hotels.Remove(hotel);
                 await _context.SaveChangesAsync();
 
-                _logger.LogInformation("Hotel {Id} slettet succesfuldt", id);
+                _logger.LogInformation("Hotel med id'et {Id} slettet succesfuldt", id);
                 return NoContent();
             }
             catch (Exception ex)
