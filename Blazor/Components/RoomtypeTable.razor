@@ -2,23 +2,46 @@
 
 <div class="card shadow-sm mt-4">
     <div class="card-body">
-        <h5 class="card-title">
-            <i class="bi bi-house-door-fill"></i> Roomtypes
-        </h5>
+        <div class="d-flex justify-content-between align-items-center mb-2">
+            <h5 class="card-title mb-0">
+                <i class="bi bi-door-open-fill"></i> Roomtypes
+            </h5>
+            <a class="btn btn-secondary" href="/dashboard/createroomtype">+</a>
+        </div>
         <div class="table-responsive">
             <table class="table table-striped align-middle">
                 <thead>
                     <tr>
                         <th>Id</th>
+                        <th>Navn</th>
+                        <th>Beskrivelse</th>
+                        <th>Senge</th>
+                        <th>Pris / nat</th>
+                        <th>Oprettet</th>
+                        <th>Opdateret</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var r in roomtypes)
+                    @if (roomtypes == null || roomtypes.Length == 0)
                     {
                         <tr>
-                            <td>@r.Name</td>
-
+                            <td colspan="7" class="text-center">Ingen rumtyper</td>
                         </tr>
+                    }
+                    else
+                    {
+                        @foreach (var r in roomtypes)
+                        {
+                            <tr>
+                                <td>@r.Id</td>
+                                <td>@r.Name</td>
+                                <td>@r.Description</td>
+                                <td class="text-center">@r.NumberOfBeds</td>
+                                <td class="text-end">@r.PricePerNight.ToString("F2")</td>
+                                <td>@r.CreatedAt.ToString("yyyy-MM-dd HH:mm")</td>
+                                <td>@r.UpdatedAt.ToString("yyyy-MM-dd HH:mm")</td>
+                            </tr>
+                        }
                     }
                 </tbody>
             </table>
