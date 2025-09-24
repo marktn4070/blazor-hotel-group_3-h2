@@ -118,8 +118,8 @@ namespace Blazor.Services
                 };
             }
         }
-
-        public async Task<UserGetDto[]?> GetUsersAsync()
+		// /api/users endpoint get all users
+		public async Task<UserGetDto[]?> GetUsersAsync()
         {
             try
             {
@@ -131,8 +131,8 @@ namespace Blazor.Services
                 return null;
             }
         }
-
-        public async Task<UserGetDto?> GetUserAsync(int id)
+		// /me endpoint get current user
+		public async Task<UserGetDto?> GetUserAsync(int id)
         {
             try
             {
@@ -144,7 +144,7 @@ namespace Blazor.Services
                 return null;
             }
         }
-		public async Task<UserGetDto[]> GetUsersAsync(
+		public async Task<UserGetDto[]> GetAllUsersAsync(
 		int maxItems,
 		CancellationToken cancellationToken = default
 	)
