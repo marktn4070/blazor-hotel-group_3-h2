@@ -1,0 +1,50 @@
+﻿@using DomainModels
+
+<div class="card shadow-sm mt-4">
+    <div class="card-body">
+        <h5 class="card-title">
+            <i class="bi bi-house-door-fill"></i> Users
+        </h5>
+        <a type="button" href="/dashboard/createusers" class="btn btn-secondary">+</a>
+        <div class="table-responsive">
+            <table class="table table-striped align-middle">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Address</th>
+                        <th>Zip</th>
+                        <th>City</th>
+                        <th>Country</th>
+                        <th>Percentage Price</th>
+                        <th>Phone</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var h in users)
+                    {
+                        <tr>
+                            <td>@h.Email</td>
+                            <td>@h.FirstName</td>
+                            <td>@h.LastName</td>
+                            <td>@h.Phone</td>
+                            <td>@h.Role</td>
+                            <td>@h.UpdatedAt</td>
+                            <td>@h.CreatedAt</td>
+                            <td>
+                                <NavLink href="@($"/dashboard/updateusers/{h.Id}")" class="nav-link">
+                                    <img src="images/edit.png" style="width:20px; height:20px;" alt="Edit" />
+                                </NavLink>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter] public UserGetDto[]? users { get; set; }
+}
