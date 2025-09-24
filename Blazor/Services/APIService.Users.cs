@@ -118,7 +118,7 @@ namespace Blazor.Services
                 };
             }
         }
-
+        // /api/users endpoint get all users
         public async Task<UserGetDto[]?> GetUsersAsync()
         {
             try
@@ -131,7 +131,7 @@ namespace Blazor.Services
                 return null;
             }
         }
-
+        // /me endpoint get current user
         public async Task<UserGetDto?> GetUserAsync(int id)
         {
             try
