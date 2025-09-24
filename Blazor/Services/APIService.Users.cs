@@ -144,6 +144,33 @@ namespace Blazor.Services
                 return null;
             }
         }
+        public async Task<UserGetDto[]> GetAllUsersAsync(
+        int maxItems,
+        CancellationToken cancellationToken = default
+    )
+        {
+            List<UserGetDto>? users = null;
+
+            await foreach (
+                var user in _httpClient.GetFromJsonAsAsyncEnumerable<UserGetDto>(
+                    "/api/Users",
+                    cancellationToken
+                )
+            )
+            {
+                if (users?.Count >= maxItems && maxItems != 0)
+                {
+                    break;
+                }
+                if (user is not null)
+                {
+                    users ??= [];
+                    users.Add(user);
+                }
+            }
+
+            return users?.ToArray() ?? [];
+        }
 
         public async Task<UserGetDto?> GetCurrentUserAsync()
         {

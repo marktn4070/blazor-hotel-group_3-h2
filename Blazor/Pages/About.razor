@@ -60,6 +60,12 @@
         try
         {
             hotels = await ApiService.GetHotelsAsync(3);
+
+            // Sortér hoteller efter HotelId i stigende rækkefølge
+            if (hotels != null && hotels.Length > 1)
+            {
+                hotels = hotels.OrderBy(h => h.Id).ToArray();
+            }
         }
         catch (Exception ex)
         {
