@@ -118,15 +118,15 @@ else
                 ClosedAt = details.ClosedAt,
                 CheckInFrom = details.CheckInFrom,
                 CheckInUntil = details.CheckInUntil,
-                CheckOutUntil = details.CheckOutUntil
-                // Facility = details.Facility != null
-                // ? new Facility
-                // {
-                //     Pool = details.Facility.Pool,
-                //     Fitness = details.Facility.Fitness,
-                //     Restaurant = details.Facility.Restaurant
-                // }
-                // : new Facility()
+                CheckOutUntil = details.CheckOutUntil,
+                Facility = details.Facility != null
+                ? new Facility
+                {
+                    Pool = details.Facility.Pool,
+                    Fitness = details.Facility.Fitness,
+                    Restaurant = details.Facility.Restaurant
+                }
+                : new Facility()
             };
         }
     }
