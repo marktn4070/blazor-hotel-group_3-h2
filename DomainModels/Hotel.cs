@@ -50,8 +50,6 @@ public class HotelGetDto
 // DTO for hotel creation / POST
 public class HotelPostDto
 {
-    public int Id { get; set; }
-
     [Required(ErrorMessage = "Hotel name is required")]
     public string Name { get; set; } = string.Empty;
 
@@ -78,7 +76,7 @@ public class HotelPostDto
     public string Description { get; set; } = string.Empty;
 
     [Required(ErrorMessage = "Hotel percentage price is required")]
-    [Range(0, 2, ErrorMessage = "Hotel percentage price must be between 0 and 2")]
+    [Range(-100, 100, ErrorMessage = "Hotel percentage price must be between -100 and 100")]
     public double PercentagePrice { get; set; }
 
     [Required(ErrorMessage = "Opening time is required")]
@@ -100,6 +98,7 @@ public class HotelPostDto
     [Required(ErrorMessage = "Check out until time is required")]
     [DataType(DataType.Time)]
     public TimeOnly CheckOutUntil { get; set; }
+
 }
 
 // DTO for hotel med rum retrieval / GET
@@ -157,7 +156,7 @@ public class HotelPutDto
     public string Description { get; set; } = string.Empty;
 
     [Required(ErrorMessage = "Hotel percentage price is required")]
-    [Range(0, 2, ErrorMessage = "Hotel percentage price must be between 0 and 2")]
+    [Range(-100, 100, ErrorMessage = "Hotel percentage price must be between -100 and 100")]
     public double PercentagePrice { get; set; }
 
     [Required(ErrorMessage = "Opening time is required")]
@@ -180,7 +179,7 @@ public class HotelPutDto
     [DataType(DataType.Time)]
     public TimeOnly CheckOutUntil { get; set; }
 
-    public virtual Facility? Facility { get; set; }
+    public FacilityPostDto? Facility { get; set; }
 }
 
 public class HotelDetailsDto

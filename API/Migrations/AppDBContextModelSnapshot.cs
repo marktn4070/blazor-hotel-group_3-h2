@@ -204,7 +204,7 @@ namespace API.Migrations
                             Email = "mercantec@mercantec.dk",
                             Name = "Hotel 2",
                             OpenedAt = new TimeOnly(9, 0, 0),
-                            PercentagePrice = 1.0,
+                            PercentagePrice = 1.1000000000000001,
                             Phone = 12345678,
                             Road = "H. C. Andersens Vej 9",
                             UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
@@ -224,7 +224,7 @@ namespace API.Migrations
                             Email = "mercantec@mercantec.dk",
                             Name = "Hotel 3",
                             OpenedAt = new TimeOnly(9, 0, 0),
-                            PercentagePrice = 1.0,
+                            PercentagePrice = 1.2,
                             Phone = 12345678,
                             Road = "H. C. Andersens Vej 9",
                             UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
@@ -592,6 +592,7 @@ namespace API.Migrations
                             LastLogin = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastName = "test",
                             PasswordBackdoor = "!MyVerySecureSecretKeyThatIsAtLeast32CharactersLong123456789",
+                            Phone = 12345678,
                             RoleId = 4,
                             UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
                         });

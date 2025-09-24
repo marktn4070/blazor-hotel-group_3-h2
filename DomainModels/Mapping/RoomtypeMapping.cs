@@ -19,7 +19,7 @@ public class RoomtypeMapping
 
     public static List<RoomtypeGetDto> ToRoomtypeGetDtos(List<Roomtype> roomtypes)
     {
-        return roomtypes.Select(r => ToRoomtypeGetDto(r)).ToList();
+        return roomtypes.Select(rt => ToRoomtypeGetDto(rt)).ToList();
     }
 
     public static Roomtype PostRoomtypeFromDto(RoomtypePostDto roomtypePostDto)
