@@ -1,25 +1,31 @@
 body {
     background-color: #D2B48C;
 }
+
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     background-color: #f4eeeb;
 }
+
 .navbar {
     background-color: #e1d5ca !important;
 }
+
 .sidebar_left {
     background-color: #ece4de !important;
     background-image: none !important;
     overflow-x: hidden !important;
 }
+
 .nav-scrollable {
     overflow-x: hidden !important;
 }
+
 .sidebar_right {
     background-color: transparent !important;
     background-image: none !important;
 }
+
 @media (min-width: 641px) {
     .sidebar_left,
     .sidebar_right {
@@ -58,7 +64,7 @@ a, .btn-link {
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 .content {
@@ -162,6 +168,7 @@ code {
 .btn:focus {
     transform .58s ease-in-out;
 }
+
 .table-dark {
     background-color: #6c757d !important;
     --bs-table-bg: #6c757d !important;
