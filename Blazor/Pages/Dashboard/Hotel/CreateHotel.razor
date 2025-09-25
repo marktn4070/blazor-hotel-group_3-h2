@@ -107,7 +107,7 @@
         {
             await ApiService.CreateHotelAsync(newHotel);
             // Redirect tilbage til hotel tabellen efter oprettelse
-            Navigation.NavigateTo("/dashboard/hotels");
+            Navigation.NavigateTo("/dashboard/hotel");
         }
         catch (Exception ex)
         {
