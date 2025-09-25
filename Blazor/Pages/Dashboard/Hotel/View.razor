@@ -1,28 +1,31 @@
-﻿@page "/dashboard/hotels"
+﻿@page "/dashboard/hotel"
 @using System.Net.Http
 
 <PageTitle>Suite Dreams - View Hotels</PageTitle>
 
-<h1 class="mb-4">Dashboard</h1>
-
-@if (hotels == null)
-{
-    <p><em>Loading hotels...</em></p>
-}
-else if (hotels.Length == 0)
-{
-    <div class="alert alert-info">No hotels found.</div>
-}
-else
-{
-    <div class="mx-5">
-        <div class="row">
-            <div class="col-12">
-                    <HotelTable hotels="@hotels" />
+<div class="view_hotel_page">
+    <div class="text-center mb-4">
+        <h3 class="fw-bold">Dashboard</h3>
+    </div>
+    @if (hotels == null)
+    {
+        <p><em>Loading hotels...</em></p>
+    }
+    else if (hotels.Length == 0)
+    {
+        <div class="alert alert-info">No hotels found.</div>
+    }
+    else
+    {
+        <div class="mx-5">
+            <div class="row">
+                <div class="col-12">
+                        <HotelTable hotels="@hotels" />
+                </div>
             </div>
         </div>
-    </div>
-}
+    }
+</div>
 
 @code {
     private HotelGetDto[]? hotels;
@@ -32,6 +35,12 @@ else
         try
         {
             hotels = await ApiService.GetHotelsAsync(0);
+
+            // Sortér hoteller efter HotelId i stigende rækkefølge
+            if (hotels != null && hotels.Length > 1)
+            {
+                hotels = hotels.OrderBy(h => h.Id).ToArray();
+            }
         }
         catch (Exception ex)
         {

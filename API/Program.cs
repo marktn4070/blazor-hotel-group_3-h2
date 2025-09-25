@@ -32,9 +32,9 @@ public class Program
         builder.Services.AddScoped<DataSeederService>();
 
         // Konfigurer JWT Authentication
-        var jwtSecretKey = Configuration["Jwt:SecretKey"] ?? Environment.GetEnvironmentVariable("JwtSecretKey");
-        var jwtIssuer = Configuration["Jwt:Issuer"] ?? Environment.GetEnvironmentVariable("JwtIssuer");
-        var jwtAudience = Configuration["Jwt:Audience"] ?? Environment.GetEnvironmentVariable("JwtAudience");
+        var jwtSecretKey = Configuration["Jwt:SecretKey"] ?? Environment.GetEnvironmentVariable("JWT_SECRET_KEY");
+        var jwtIssuer = Configuration["Jwt:Issuer"] ?? Environment.GetEnvironmentVariable("JWT_ISSUER");
+        var jwtAudience = Configuration["Jwt:Audience"] ?? Environment.GetEnvironmentVariable("JWT_AUDIENCE");
 
         builder.Services.AddAuthentication(options =>
         {

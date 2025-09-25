@@ -1,73 +1,94 @@
-﻿@page "/dashboard/createhotel"
+﻿@page "/dashboard/hotel/create"
 @using DomainModels
 @inject Blazor.Services.APIService ApiService
 @inject NavigationManager Navigation
 
-<PageTitle>Create Hotel</PageTitle>
+<PageTitle>Suite Dreams - Create Hotel</PageTitle>
 
-<h3>Create New Hotel</h3>
-
-@if (isSubmitting)
-{
-    <div class="alert alert-info">Submitting hotel, please wait...</div>
-}
-else if (!string.IsNullOrEmpty(errorMessage))
-{
-    <div class="alert alert-danger">@errorMessage</div>
-}
-
-<EditForm Model="@newHotel" OnValidSubmit="HandleValidSubmit">
-    <DataAnnotationsValidator />
-    <ValidationSummary />
-
-    <div class="mb-3">
-        <label class="form-label">Hotel Name</label>
-        <InputText class="form-control" @bind-Value="newHotel.Name" />
+<div class="create_hotel_page">
+    <div class="text-center mb-4">
+        <h3 class="fw-bold">Dashboard</h3>
     </div>
-
-    <div class="mb-3">
-        <label class="form-label">Road</label>
-        <InputText class="form-control" @bind-Value="newHotel.Road" />
+        <div class="mx-5">
+            <div class="row">
+                <div class="col-12">
+<div class="card shadow-sm mt-4 border-0 shadow-none">
+    <div class="card-header bg-transparent border-0">
+        <span class="card-title mb-0">
+            <h4 class="mb-0">
+                <i class="bi bi-person-Room"></i>
+                Create Hotel
+            </h4>
+        </span>
     </div>
+    <div class="card-body">
+            @if (isSubmitting)
+            {
+                <div class="alert alert-info">Submitting hotel, please wait...</div>
+            }
+            else if (!string.IsNullOrEmpty(errorMessage))
+            {
+                <div class="alert alert-danger">@errorMessage</div>
+            }
 
-    <div class="mb-3">
-        <label class="form-label">Zip</label>
-        <InputText class="form-control" @bind-Value="newHotel.Zip" />
+            <EditForm Model="@newHotel" OnValidSubmit="HandleValidSubmit">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+
+                <div class="mb-3">
+                    <label class="form-label">Hotel Name</label>
+                    <InputText class="form-control" @bind-Value="newHotel.Name" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Road</label>
+                    <InputText class="form-control" @bind-Value="newHotel.Road" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Zip</label>
+                    <InputText class="form-control" @bind-Value="newHotel.Zip" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">City</label>
+                    <InputText class="form-control" @bind-Value="newHotel.City" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Country</label>
+                    <InputText class="form-control" @bind-Value="newHotel.Country" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">E-mail</label>
+                    <InputText class="form-control" @bind-Value="newHotel.Email" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">phonenumber</label>
+                    <InputNumber class="form-control" @bind-Value="newHotel.Phone" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Percentage Price</label>
+                    <InputNumber class="form-control" @bind-Value="newHotel.PercentagePrice" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Description</label>
+                    <InputTextArea class="form-control" rows="5" @bind-Value="newHotel.Description" />
+                </div>
+
+                <button type="submit" class="btn btn-primary">Save Hotel</button>
+
+                        </EditForm>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <div class="mb-3">
-        <label class="form-label">City</label>
-        <InputText class="form-control" @bind-Value="newHotel.City" />
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label">Country</label>
-        <InputText class="form-control" @bind-Value="newHotel.Country" />
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label">E-mail</label>
-        <InputText class="form-control" @bind-Value="newHotel.Email" />
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label">phonenumber</label>
-        <InputNumber class="form-control" @bind-Value="newHotel.Phone" />
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label">Percentage Price</label>
-        <InputNumber class="form-control" @bind-Value="newHotel.PercentagePrice" />
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label">Description</label>
-        <InputText class="form-control" @bind-Value="newHotel.Description" />
-    </div>
-
-    <button type="submit" class="btn btn-primary">Save Hotel</button>
-
-</EditForm>
+</div>
 
 @code {
     private HotelPostDto newHotel = new();
@@ -86,7 +107,7 @@ else if (!string.IsNullOrEmpty(errorMessage))
         {
             await ApiService.CreateHotelAsync(newHotel);
             // Redirect tilbage til hotel tabellen efter oprettelse
-            Navigation.NavigateTo("/dashboard/hotels");
+            Navigation.NavigateTo("/dashboard/hotel");
         }
         catch (Exception ex)
         {

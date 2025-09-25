@@ -8,7 +8,7 @@
 {
 	<p><em>Loading room...</em></p>
 }
-else if (room.Length == 0)
+else if (foundRoom == false)
 {
 	<div class="alert alert-info">No room found.</div>
 }
@@ -17,14 +17,12 @@ else
 <div class="room_page">
 	<div class="row justify-content-center">
 
-		@foreach (var r in room)
-			{
 				<!-- Responsive kolonne -->
 				<div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4 d-flex">
 					<!-- Card -->
 					<div class="card w-100 h-100">
 						<div class="card-body border-bottom row row-cols-1 row-cols-sm-2 gy-1 text-nowrap">
-							<div class="fw-bold mb-2">@r.RoomNumber</div>
+							<div class="fw-bold mb-2">@room.RoomNumber</div>
 							<div class="col text-end">
 							</div>
 						</div>
@@ -37,7 +35,6 @@ else
 					</div>
 				</div>
 			</div>
-			}
 	</div>
 </div>
 }
@@ -48,8 +45,10 @@ else
 
 	[Parameter]
 	public int roomId { get; set; }
-	
-	private RoomGetDto[]? room;
+
+	private RoomGetDto? room;
+
+	private bool foundRoom = true;
 
 	protected override async Task OnInitializedAsync()
 	{
@@ -59,8 +58,8 @@ else
 		}
 		catch (Exception ex)
 		{
-			Console.WriteLine($"Fejl ved hentning rum med id'et {roomId}: {ex.Message}", roomId);
-			room = Array.Empty<RoomGetDto>();
+			Console.WriteLine($"Fejl ved hentning af rum med id'et {roomId}: {ex.Message}", roomId);
+			foundRoom = false;
 		}
 	}
 }

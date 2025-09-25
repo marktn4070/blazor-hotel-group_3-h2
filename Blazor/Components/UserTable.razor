@@ -1,50 +1,60 @@
-﻿@using DomainModels
+@using DomainModels
+@inject NavigationManager NavManager
 
-<div class="card shadow-sm mt-4">
-    <div class="card-body">
-        <h5 class="card-title">
-            <i class="bi bi-house-door-fill"></i> Users
-        </h5>
-        <a type="button" href="/dashboard/createusers" class="btn btn-secondary">+</a>
-        <div class="table-responsive">
-            <table class="table table-striped align-middle">
-                <thead>
+<div class="card shadow-sm mt-4 border-0 shadow-none">
+    <div class="card-header bg-transparent border-0">
+        <span class="card-title mb-0">
+            <h4 class="mb-0">
+                <i class="bi bi-person-fill"></i>
+                Users
+            </h4>
+            <button class="btn btn-outline-dark float-end" @onclick='() => NavManager.NavigateTo("dashboard/user/create")'>
+                <i class="bi bi-plus-lg"></i>
+            </button>
+        </span>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped align-middle rounded-3 overflow-hidden">
+            <thead class="table-dark">
+                <tr>
+                    <th>Id</th>
+                    <th>First@(__)Name</th>
+                    <th>Last@(__)Name</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var u in users)
+                {
                     <tr>
-                        <th>Id</th>
-                        <th>Name</th>
-                        <th>Address</th>
-                        <th>Zip</th>
-                        <th>City</th>
-                        <th>Country</th>
-                        <th>Percentage Price</th>
-                        <th>Phone</th>
-                        <th>Email</th>
+                        <td>@u.Id</td>
+                        <td>@u.FirstName</td>
+                        <td>@u.LastName</td>
+                        <td>@u.Phone</td>
+                        <td>@u.Email</td>
+                        <td>@u.Role</td>
+                        <td class="text-end text-nowrap align-middle">
+                            <div class="d-inline-flex flex-nowrap gap-1">
+                                <button class="btn btn-outline-primary" @onclick='() => NavManager.NavigateTo("/dashboard/user/update/" + u.Id)'>
+                                    <i class="bi bi-pencil-square"></i>
+                                </button>
+
+                                <button class="btn btn-outline-danger" @onclick='() => NavManager.NavigateTo("/dashboard/user/delete/" + u.Id)'>
+                                    <i class="bi bi-trash3"></i>
+                                </button>
+                            </div>
+                        </td>
                     </tr>
-                </thead>
-                <tbody>
-                    @foreach (var h in users)
-                    {
-                        <tr>
-                            <td>@h.Email</td>
-                            <td>@h.FirstName</td>
-                            <td>@h.LastName</td>
-                            <td>@h.Phone</td>
-                            <td>@h.Role</td>
-                            <td>@h.UpdatedAt</td>
-                            <td>@h.CreatedAt</td>
-                            <td>
-                                <NavLink href="@($"/dashboard/updateusers/{h.Id}")" class="nav-link">
-                                    <img src="images/edit.png" style="width:20px; height:20px;" alt="Edit" />
-                                </NavLink>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
+                }
+            </tbody>
+        </table>
     </div>
 </div>
 
 @code {
     [Parameter] public UserGetDto[]? users { get; set; }
+    private string __ = "\u00A0";
 }
