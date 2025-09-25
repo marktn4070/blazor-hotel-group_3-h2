@@ -1,5 +1,41 @@
-﻿<h3>Component</h3>
+﻿@page "/dashboard/deleteroom/{id:int}"
+@inject Blazor.Services.APIService ApiService
+@inject NavigationManager Navigation
+
+<h3>Delete room</h3>
+
+@if (room == null)
+{
+    <p><em>Loading hotel details...</em></p>
+}
+else
+{
+    <div class="alert alert-warning">
+        <h5>Are you sure you want to delete this hotel?</h5>
+        <p><strong>@room.RoomNumber</strong></p>
+    </div>
+
+    <button class="btn btn-danger" @onclick="ConfirmDelete">Yes, Delete</button>
+    <button class="btn btn-secondary" @onclick="Cancel">Cancel</button>
+}
 
 @code {
+    [Parameter] public int roomId { get; set; }
+    private RoomGetDto? room;
 
+    protected override async Task OnInitializedAsync()
+    {
+        room = await ApiService.GetRoom(roomId);
+    }
+
+    private async Task ConfirmDelete()
+    {
+        await ApiService.DeleteRoomAsync(roomId);
+        Navigation.NavigateTo("/dashboard/rooms");
+    }
+
+    private void Cancel()
+    {
+        Navigation.NavigateTo("/dashboard/rooms");
+    }
 }
