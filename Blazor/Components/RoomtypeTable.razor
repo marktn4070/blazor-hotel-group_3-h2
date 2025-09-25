@@ -1,59 +1,58 @@
 ﻿@using DomainModels
+@inject NavigationManager NavManager
 
-<div class="card shadow-sm mt-4">
-    <div class="card-body">
-        <div class="d-flex justify-content-between align-items-center mb-2">
-            <h5 class="card-title mb-0">
-                <i class="bi bi-door-open-fill"></i> Roomtypes
-            </h5>
-            <a class="btn btn-secondary" href="/dashboard/createroomtype">+</a>
-        </div>
-        <div class="table-responsive">
-            <table class="table table-striped align-middle">
-                <thead>
+<div class="card shadow-sm mt-4 border-0 shadow-none">
+    <div class="card-header bg-transparent border-0">
+        <span class="card-title mb-0">
+            <h4 class="mb-0">
+                <i class="bi bi-door-open-fill"></i>
+                Roomtypes
+            </h4>
+            <button class="btn btn-outline-dark float-end" @onclick='() => NavManager.NavigateTo("dashboard/roomtype/create")'>
+                <i class="bi bi-plus-lg"></i>
+            </button>
+        </span>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped align-middle rounded-3 overflow-hidden">
+            <thead class="table-dark">
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Number@(__)Of@(__)Beds</th>
+                    <th>Price@(__)/@(__)Night</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var rt in roomtypes)
+                {
                     <tr>
-                        <th>Id</th>
-                        <th>Navn</th>
-                        <th>Beskrivelse</th>
-                        <th>Senge</th>
-                        <th>Pris / nat</th>
-                        <th>Oprettet</th>
-                        <th>Opdateret</th>
+                        <td>@rt.Id</td>
+                        <td>@rt.Name</td>
+                        <td>@rt.Description</td>
+                        <td class="text-center">@rt.NumberOfBeds</td>
+                        <td class="text-end">@rt.PricePerNight.ToString("F2")</td>
+                        <td class="text-end text-nowrap align-middle">
+                            <div class="d-inline-flex flex-nowrap gap-1">
+                                <button class="btn btn-outline-primary" @onclick='() => NavManager.NavigateTo("/dashboard/roomtype/update/" + rt.Id)'>
+                                    <i class="bi bi-pencil-square"></i>
+                                </button>
+
+                                <button class="btn btn-outline-danger" @onclick='() => NavManager.NavigateTo("/dashboard/roomtype/delete/" + rt.Id)'>
+                                    <i class="bi bi-trash3"></i>
+                                </button>
+                            </div>
+                        </td>
                     </tr>
-                </thead>
-                <tbody>
-                    @if (roomtypes == null || roomtypes.Length == 0)
-                    {
-                        <tr>
-                            <td colspan="7" class="text-center">Ingen rumtyper</td>
-                        </tr>
-                    }
-                    else
-                    {
-                        @foreach (var r in roomtypes)
-                        {
-                            <tr>
-                                <td>@r.Id</td>
-                                <td>@r.Name</td>
-                                <td>@r.Description</td>
-                                <td class="text-center">@r.NumberOfBeds</td>
-                                <td class="text-end">@r.PricePerNight.ToString("F2")</td>
-                                <td>@r.CreatedAt.ToString("yyyy-MM-dd HH:mm")</td>
-                                <td>@r.UpdatedAt.ToString("yyyy-MM-dd HH:mm")</td>
-                                <td>
-                                    <NavLink href="@($"/dashboard/updateroomtype/{r.Id}")" class="nav-link">
-                                        <img src="images/edit.png" style="width:20px; height:20px;" alt="Edit" />
-                                    </NavLink>
-                                </td>
-                            </tr>
-                        }
-                    }
-                </tbody>
-            </table>
-        </div>
+                }
+            </tbody>
+        </table>
     </div>
 </div>
 
 @code {
     [Parameter] public RoomtypeGetDto[]? roomtypes { get; set; }
+    private string __ = "\u00A0";
 }

@@ -1,47 +1,68 @@
-﻿@page "/dashboard/createroomtype"
+﻿@page "/dashboard/roomtype/create"
 @using DomainModels
 @inject Blazor.Services.APIService ApiService
 @inject NavigationManager Navigation
 
-<PageTitle>Create Roomtype</PageTitle>
+<PageTitle>Suite Dreams - Create Roomtype</PageTitle>
 
-<h3>Create New Roomtype</h3>
-
-@if (isSubmitting)
-{
-    <div class="alert alert-info">Submitting Roomtype, please wait...</div>
-}
-else if (!string.IsNullOrEmpty(errorMessage))
-{
-    <div class="alert alert-danger">@errorMessage</div>
-}
-
-<EditForm Model="@newRoomtype" OnValidSubmit="HandleValidSubmit">
-    <DataAnnotationsValidator />
-    <ValidationSummary />
-
-    <div class="mb-3">
-        <label class="form-label">Roomtype Name</label>
-        <InputText class="form-control" @bind-Value="newRoomtype.Name" />
+<div class="create_roomtype_page">
+    <div class="text-center mb-4">
+        <h3 class="fw-bold">Dashboard</h3>
     </div>
-
-    <div class="mb-3">
-        <label class="form-label">Description</label>
-        <InputText class="form-control" @bind-Value="newRoomtype.Description" />
+        <div class="mx-5">
+            <div class="row">
+                <div class="col-12">
+<div class="card shadow-sm mt-4 border-0 shadow-none">
+    <div class="card-header bg-transparent border-0">
+        <span class="card-title mb-0">
+            <h4 class="mb-0">
+                <i class="bi bi-person-fill"></i>
+                Create Roomtype
+            </h4>
+        </span>
     </div>
+    <div class="card-body">
+        @if (isSubmitting)
+        {
+            <div class="alert alert-info">Submitting Roomtype, please wait...</div>
+        }
+        else if (!string.IsNullOrEmpty(errorMessage))
+        {
+            <div class="alert alert-danger">@errorMessage</div>
+        }
 
-    <div class="mb-3">
-        <label class="form-label">NumberOfBeds</label>
-        <InputNumber class="form-control" @bind-Value="newRoomtype.NumberOfBeds" />
+        <EditForm Model="@newRoomtype" OnValidSubmit="HandleValidSubmit">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
+            <div class="mb-3">
+                <label class="form-label">Roomtype Name</label>
+                <InputText class="form-control" @bind-Value="newRoomtype.Name" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">NumberOfBeds</label>
+                <InputNumber class="form-control" @bind-Value="newRoomtype.NumberOfBeds" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">PricePerNight</label>
+                <InputNumber class="form-control" @bind-Value="newRoomtype.PricePerNight" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Description</label>
+                <InputTextArea class="form-control" rows="5" @bind-Value="newRoomtype.Description" />
+            </div>
+
+            <button type="submit" class="btn btn-primary">Save Roomtype</button>
+                        </EditForm>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <div class="mb-3">
-        <label class="form-label">PricePerNight</label>
-        <InputNumber class="form-control" @bind-Value="newRoomtype.PricePerNight" />
-    </div>
-
-    <button type="submit" class="btn btn-primary">Save Roomtype</button>
-</EditForm>
+</div>
 
 @code {
     private RoomtypePostDto newRoomtype = new();

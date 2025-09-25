@@ -1,63 +1,68 @@
 @using DomainModels
+@inject NavigationManager NavManager
 
-<div class="card shadow-sm mt-4">
-    <div class="card-body">
-        <div class="d-flex justify-content-between align-items-center mb-2">
-            <h5 class="card-title mb-0">
-                <i class="bi bi-house-door-fill"></i> Hotels
-            </h5>
-            <a class="btn btn-secondary" href="/dashboard/createhotel">+</a>
-        </div>
-        <div class="table-responsive">
-            <table class="table table-striped align-middle">
-                <thead>
+<div class="card shadow-sm mt-4 border-0 shadow-none">
+    <div class="card-header bg-transparent border-0">
+        <span class="card-title mb-0">
+            <h4 class="mb-0">
+                <i class="bi bi-hospital-fill"></i> 
+                Hotels
+            </h4>
+            <button class="btn btn-outline-dark float-end" @onclick='() => NavManager.NavigateTo("dashboard/hotel/create")'>
+                <i class="bi bi-plus-lg"></i>
+            </button>
+        </span>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped align-middle rounded-3 overflow-hidden">
+            <thead class="table-dark">
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Address</th>
+                    <th>Zip</th>
+                    <th>City</th>
+                    <th>Country</th>
+                    <th>Percentage@(__)Price</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var h in hotels)
+                {
                     <tr>
-                        <th>Id</th>
-                        <th>Name</th>
-                        <th>Address</th>
-                        <th>Zip</th>
-                        <th>City</th>
-                        <th>Country</th>
-                        <th>Percentage Price</th>
-                        <th>Phone</th>
-                        <th>Email</th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var h in hotels)
-                    {
-                        <tr>
-                            <td>@h.Id</td>
-                            <td>@h.Name</td>
-                            <td>@h.Road</td>
-                            <td>@h.Zip</td>
-                            <td>@h.City</td>
-                            <td>@h.Country</td>
-                            <td>@(Math.Round(-100 * h.PercentagePrice + 100))%</td>
-                            <td>@h.Phone</td>
-                            <td>@h.Email</td>
-                            <td>
-                                <NavLink href="@($"/dashboard/updatehotel/{h.Id}")" class="nav-link">
-                                    <img src="images/edit.png" style="width:20px; height:20px;" alt="Edit" />
-                                </NavLink>
-                            </td>
-                            <td>
-                                <NavLink data-toggle="modal" href="@($"/dashboard/deletehotel/{h.Id}")" class="nav-link">
+                        <td>@h.Id</td>
+                        <td>@h.Name</td>
+                        <td>@h.Road</td>
+                        <td>@h.Zip</td>
+                        <td>@h.City</td>
+                        <td>@h.Country</td>
+                        <td>@(Math.Round(-100 * h.PercentagePrice + 100))%</td>
+                        <td>@h.Phone</td>
+                        <td>@h.Email</td>
+                        <td class="text-end text-nowrap align-middle">
+                            <div class="d-inline-flex flex-nowrap gap-1">
+                                <button class="btn btn-outline-primary" @onclick='() => NavManager.NavigateTo("/dashboard/hotel/update/" + h.Id)'>
+                                    <i class="bi bi-pencil-square"></i>
+                                </button>
+
+                                <button class="btn btn-outline-danger" @onclick='() => NavManager.NavigateTo("/dashboard/hotel/delete/" + h.Id)'>
                                     <i class="bi bi-trash3"></i>
-                                </NavLink>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
 </div>
 
 @code {
     [Parameter] public HotelGetDto[]? hotels { get; set; }
+    private string __ = "\u00A0";
 }
 
 
@@ -72,12 +77,12 @@
             <h5 class="card-title mb-0">
                 <i class="bi bi-house-door-fill"></i> Hotels
             </h5>
-            <a class="btn btn-secondary" href="/dashboard/createhotel">+</a>
+            <a class="btn btn-secondary" href="/dashboard/createhotel">
         </div>
 
         <div class="table-responsive">
-            <table class="table table-striped align-middle">
-                <thead>
+            <table class="table table-striped align-middle rounded-3 overflow-hidden">
+                <thead class="table-dark">
                     <tr>
                         <th>Id</th>
                         <th>Navn</th>

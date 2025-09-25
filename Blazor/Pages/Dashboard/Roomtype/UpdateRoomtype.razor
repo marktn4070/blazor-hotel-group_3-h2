@@ -1,10 +1,28 @@
-﻿@page "/dashboard/updateroomtype/{roomtypeId:int}"
+﻿@page "/dashboard/roomtype/update/{roomtypeId:int}"
 @using DomainModels
 @inject Blazor.Services.APIService ApiService
 @using System.Net.Http
 @inject NavigationManager Navigation
 
 <PageTitle>Update Roomtype</PageTitle>
+
+<div class="update_roomtype_page">
+    <div class="text-center mb-4">
+        <h3 class="fw-bold">Dashboard</h3>
+    </div>
+        <div class="mx-5">
+            <div class="row">
+                <div class="col-12">
+<div class="card shadow-sm mt-4 border-0 shadow-none">
+    <div class="card-header bg-transparent border-0">
+        <span class="card-title mb-0">
+            <h4 class="mb-0">
+                <i class="bi bi-person-fill"></i>
+                Update Roomtype
+            </h4>
+        </span>
+    </div>
+    <div class="card-body">
 @if (roomtype == null)
 {
     <p><em>Loading roomtype...</em></p>
@@ -72,7 +90,7 @@ else
         </div>
         <div class="mb-3">
             <label class="form-label">Description</label>
-            <InputTextArea class="form-control" @bind-Value="hotel.Description" />
+            <InputTextArea class="form-control" rows="5" @bind-Value="hotel.Description" />
         </div>
 
         <!-- Facilities -->
@@ -92,7 +110,13 @@ else
         <button class="btn btn-primary mt-3" type="submit">Save</button>
     </EditForm> *@
 
-}
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @code {
     [Parameter] public int roomtypeId { get; set; }
     private RoomtypePutDto? roomtype = new()

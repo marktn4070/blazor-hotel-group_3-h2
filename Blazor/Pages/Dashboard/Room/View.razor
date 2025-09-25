@@ -1,28 +1,31 @@
-﻿@page "/dashboard/rooms"
+﻿@page "/dashboard/room"
 @using System.Net.Http
 
 <PageTitle>Suite Dreams - View Rooms</PageTitle>
 
-<h1 class="mb-4">Dashboard</h1>
-
-@if (rooms == null)
-{
-    <p><em>Loading rooms...</em></p>
-}
-else if (rooms.Length == 0)
-{
-    <div class="alert alert-info">No rooms found.</div>
-}
-else
-{
-    <div class="mx-5">
-        <div class="row">
-            <div class="col-12">
-                <RoomTable rooms="@rooms" />
+<div class="view_hotel_page">
+    <div class="text-center mb-4">
+        <h3 class="fw-bold">Dashboard</h3>
+    </div>
+    @if (rooms == null)
+    {
+        <p><em>Loading rooms...</em></p>
+    }
+    else if (rooms.Length == 0)
+    {
+        <div class="alert alert-info">No rooms found.</div>
+    }
+    else
+    {
+        <div class="mx-5">
+            <div class="row">
+                <div class="col-12">
+                    <RoomTable rooms="@rooms" />
+                </div>
             </div>
         </div>
-    </div>
-}
+    }
+</div>
 
 @code {
     private RoomGetDto[]? rooms;
