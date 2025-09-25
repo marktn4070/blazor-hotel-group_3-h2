@@ -168,9 +168,9 @@
     private async Task SaveHotel()
     {
         if (hotel == null) return;
-
+        Console.WriteLine($"{hotel.PercentagePrice}");
         // Convert percentage from whole number to decimal
-        hotel.PercentagePrice = ( 100 / hotel.PercentagePrice);
+        hotel.PercentagePrice = (hotel.PercentagePrice / 100);
 
         // Ensure Facility has correct HotelId
         if (hotel.Facility != null)
