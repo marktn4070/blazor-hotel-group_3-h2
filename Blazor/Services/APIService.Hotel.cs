@@ -49,15 +49,49 @@ public partial class APIService
         var response = await _httpClient.PutAsJsonAsync($"api/hotels/{hotel.Id}", hotel);
         response.EnsureSuccessStatusCode();
     }
-    public async Task<HotelDetailsDto?> GetHotelByIdAsync(int id)
+
+    public async Task<HotelDetailsDto?> GetHotelByIdAsync(
+        int hotelId,
+        CancellationToken cancellationToken = default
+    )
     {
-        return await _httpClient.GetFromJsonAsync<HotelDetailsDto>($"api/hotels/{id}");
+        HotelDetailsDto? hotel = null;
+
+        if (hotelId != 0)
+        {
+            try
+            {
+                hotel = await _httpClient.GetFromJsonAsync<HotelDetailsDto>($"api/hotels/{hotelId}", cancellationToken);
+            }
+            catch (HttpRequestException)
+            {
+                return null;
+            }
+        }
+        return hotel;
     }
 
-    public async Task DeleteHotelAsync(int id)
+
+    public async Task DeleteHotelAsync(
+        int hotelId,
+        CancellationToken cancellationToken = default
+    )
     {
-        var response = await _httpClient.DeleteAsync($"api/hotels/{id}");
+        var response = null as HttpResponseMessage;
+
+        if (hotelId != 0)
+        {
+            try
+            {
+                response = await _httpClient.DeleteAsync($"api/hotels/{hotelId}", cancellationToken);
+            }
+            catch (HttpRequestException)
+            {
+                return;
+            }
+        }
         response.EnsureSuccessStatusCode();
     }
+
 
 }

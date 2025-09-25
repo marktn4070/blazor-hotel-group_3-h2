@@ -1,63 +1,72 @@
-﻿@page "/dashboard/createroom"
+﻿@page "/dashboard/room/create"
 @using DomainModels
 @inject Blazor.Services.APIService ApiService
 @inject NavigationManager Navigation
 
-<PageTitle>Create Room</PageTitle>
+<PageTitle>Suite Dreams - Create Room</PageTitle>
 
-<h3>Create New Room</h3>
-
-@if (isSubmitting)
-{
-    <div class="alert alert-info">Submitting room, please wait...</div>
-}
-else if (!string.IsNullOrEmpty(errorMessage))
-{
-    <div class="alert alert-danger">@errorMessage</div>
-}
-
-<EditForm Model="@newRoom" OnValidSubmit="HandleValidSubmit">
-    <DataAnnotationsValidator />
-    <ValidationSummary />
-
-    <div class="mb-3">
-        <label class="form-label">Hotel for Værelset</label>
-        <InputNumber class="form-control" @bind-Value="newRoom.HotelId" />
+<div class="create_room_page">
+    <div class="text-center mb-4">
+        <h3 class="fw-bold">Dashboard</h3>
     </div>
-    <div class="mb-3">
-        <label class="form-label">Nummmeret på værelsen </label>
-        <InputNumber class="form-control" @bind-Value="newRoom.RoomNumber" />
+        <div class="mx-5">
+            <div class="row">
+                <div class="col-12">
+<div class="card shadow-sm mt-4 border-0 shadow-none">
+    <div class="card-header bg-transparent border-0">
+        <span class="card-title mb-0">
+            <h4 class="mb-0">
+                <i class="bi bi-person-Room"></i>
+                Create Room
+            </h4>
+        </span>
     </div>
+    <div class="card-body">
+        @if (isSubmitting)
+        {
+            <div class="alert alert-info">Submitting room, please wait...</div>
+        }
+        else if (!string.IsNullOrEmpty(errorMessage))
+        {
+            <div class="alert alert-danger">@errorMessage</div>
+        }
 
-    <div class="mb-3">
-        <label class="form-label">Værelse type</label>
-        <InputSelect class="form-control" @bind-Value="newRoom.RoomtypeId">
-            @foreach (var type in Roomtypes)
-            {
-                <option value="@type.Id">@type.Name</option>
-			}
-            </InputSelect>
+        <EditForm Model="@newRoom" OnValidSubmit="HandleValidSubmit">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
+            <div class="mb-3">
+                <label class="form-label">Hotel for Værelset</label>
+                <InputNumber class="form-control" @bind-Value="newRoom.HotelId" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Nummmeret på værelsen </label>
+                <InputNumber class="form-control" @bind-Value="newRoom.RoomNumber" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Værelse type</label>
+                <InputSelect class="form-control" @bind-Value="newRoom.RoomtypeId">
+                    @foreach (var type in Roomtypes)
+                    {
+                        <option value="@type.Id">@type.Name</option>
+			        }
+                    </InputSelect>
+            </div>
+            <button type="submit" class="btn btn-primary">Save Room</button>
+                        </EditForm>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <button type="submit" class="btn btn-primary">Save Room</button>
-</EditForm>
+</div>
 
 @code {
     private RoomPostDto newRoom = new();
     private bool isSubmitting = false;
     private string? errorMessage;
 	private List<RoomtypeGetDto> Roomtypes = new();
-
- //    protected override async Task OnInitializedAsync()
- //    {
- //        try
- //        {
- //            Roomtypes = await ApiService.GetRoomtypesAsync();
- //        }
- //        catch (Exception ex)
- //        {
- //            errorMessage = $"Failed to load room types: {ex.Message}";
- //        }
-	// }
 
     private async Task HandleValidSubmit()
     {
@@ -67,6 +76,7 @@ else if (!string.IsNullOrEmpty(errorMessage))
         try
         {
             await ApiService.CreateRoomAsync(newRoom);
+
             // Redirect back to hotel list page
             Navigation.NavigateTo("/dashboard/rooms");
         }
