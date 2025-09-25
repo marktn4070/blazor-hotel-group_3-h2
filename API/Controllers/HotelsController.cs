@@ -71,10 +71,10 @@ namespace API.Controllers
             try
             {
                 _logger.LogInformation("Henter hotel med id {Id}", id);
-                var facility = await _context.Facilities.FirstOrDefaultAsync(facility => facility.HotelId == id);
-                var hotel = await _context.Hotels.FindAsync(id);
-                //.Include(h => h.Facility)
-                //.FirstOrDefaultAsync(h => h.Id == id);
+                //var facility = await _context.Facilities.FirstOrDefaultAsync(facility => facility.HotelId == id);
+                var hotel = await _context.Hotels
+                    .Include(h => h.Facility)
+                    .FirstOrDefaultAsync(h => h.Id == id);
                 if (hotel == null)
                 {
                     _logger.LogWarning("Hotel med id {Id} blev ikke fundet", id);

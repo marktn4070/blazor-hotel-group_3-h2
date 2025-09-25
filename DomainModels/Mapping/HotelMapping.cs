@@ -22,10 +22,19 @@ public class HotelMapping
             CheckInFrom = hotel.CheckInFrom,
             CheckInUntil = hotel.CheckInUntil,
             CheckOutUntil = hotel.CheckOutUntil,
-         
-
+            Facility = hotel.Facility != null
+            ? new FacilityDto
+            {
+                Pool = hotel.Facility.Pool,
+                Fitness = hotel.Facility.Fitness,
+                Restaurant = hotel.Facility.Restaurant
+            }
+            : new FacilityDto()
         };
+
+
     }
+    
 
     public static List<HotelGetDto> ToHotelGetDtos(List<Hotel> hotels)
     {

@@ -45,7 +45,7 @@ public class HotelGetDto
     public double PercentagePrice { get; set; }
     public DateTime CreatedAt { get; set; }
     public DateTime UpdatedAt { get; set; }
-    public FacilityDto Facility { get; set; }
+    public FacilityDto? Facility { get; set; }
 }
 
 // DTO for hotel creation / POST
