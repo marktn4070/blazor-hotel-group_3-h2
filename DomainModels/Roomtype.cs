@@ -60,3 +60,12 @@ public class RoomtypePutDto
     [Required(ErrorMessage = "The price per night is required")]
     public double PricePerNight { get; set; }
 }
+public class RoomtypeDetailsDto
+{
+    public int Id { get; set; }
+    public string Name { get; set; } = string.Empty;
+    public string Description { get; set; } = string.Empty;
+    public int NumberOfBeds { get; set; }
+    public double PricePerNight { get; set; }
+
+}
