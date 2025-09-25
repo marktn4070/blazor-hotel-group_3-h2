@@ -35,8 +35,7 @@ public partial class APIService
         return rooms?.ToArray() ?? [];
     }
 
-
-    public async Task<RoomGetDto[]> GetRoomAsync(
+    public async Task<RoomGetDto?> GetRoomAsync(
         int roomId,
         CancellationToken cancellationToken = default
     )
@@ -51,14 +50,15 @@ public partial class APIService
             }
             catch (HttpRequestException)
             {
-                return Array.Empty<RoomGetDto>();
+                return null;
             }
         }
-
-        return room is null ? Array.Empty<RoomGetDto>() : new[] { room };
+        return room;
     }
+
+
     //wip
-	public async Task CreateRoomAsync(RoomPostDto room)
+    public async Task CreateRoomAsync(RoomPostDto room)
 	{
 		var response = await _httpClient.PostAsJsonAsync("api/rooms", room);
 

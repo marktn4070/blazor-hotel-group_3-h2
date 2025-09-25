@@ -34,7 +34,7 @@ namespace API.Controllers
         /// <response code="200">Brugerne blev fundet og retuneret.</response>
 
         // GET: api/Users
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {

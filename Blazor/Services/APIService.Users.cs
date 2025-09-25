@@ -172,7 +172,7 @@ namespace Blazor.Services
             return users?.ToArray() ?? [];
         }
 
-		public async Task<UserGetDto?> GetCurrentUserAsync()
+        public async Task<UserGetDto?> GetCurrentUserAsync()
         {
             try
             {
