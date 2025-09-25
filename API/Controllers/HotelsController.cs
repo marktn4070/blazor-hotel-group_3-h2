@@ -67,11 +67,14 @@ namespace API.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<HotelGetDto>> GetHotel(int id)
         {
+
             try
             {
                 _logger.LogInformation("Henter hotel med id {Id}", id);
+                var facility = await _context.Facilities.FirstOrDefaultAsync(facility => facility.HotelId == id);
                 var hotel = await _context.Hotels.FindAsync(id);
-
+                //.Include(h => h.Facility)
+                //.FirstOrDefaultAsync(h => h.Id == id);
                 if (hotel == null)
                 {
                     _logger.LogWarning("Hotel med id {Id} blev ikke fundet", id);
@@ -109,6 +112,7 @@ namespace API.Controllers
             }
 
             // Hent hotel inkl. Facility så vi kan opdatere eller oprette
+            var facility = await _context.Facilities.FirstOrDefaultAsync(facility => facility.HotelId == id);
             var hotel = await _context.Hotels
                 .Include(h => h.Facility)
                 .FirstOrDefaultAsync(h => h.Id == id);

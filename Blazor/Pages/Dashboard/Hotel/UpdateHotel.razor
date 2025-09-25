@@ -76,18 +76,21 @@ else
         </div>
 
         <!-- Facilities -->
-        <div class="form-check">
-            <InputCheckbox class="form-check-input" @bind-Value="hotel.Facility.Pool" />
-            <label class="form-check-label">Pool</label>
-        </div>
-        <div class="form-check">
-            <InputCheckbox class="form-check-input" @bind-Value="hotel.Facility.Fitness" />
-            <label class="form-check-label">Fitness</label>
-        </div>
-        <div class="form-check">
-            <InputCheckbox class="form-check-input" @bind-Value="hotel.Facility.Restaurant" />
-            <label class="form-check-label">Restaurant</label>
-        </div>
+        @if (hotel.Facility != null)
+        {
+            <div class="form-check">
+                <InputCheckbox class="form-check-input" @bind-Value="hotel.Facility.Pool" />
+                <label class="form-check-label">Pool</label>
+            </div>
+            <div class="form-check">
+                <InputCheckbox class="form-check-input" @bind-Value="hotel.Facility.Fitness" />
+                <label class="form-check-label">Fitness</label>
+            </div>
+            <div class="form-check">
+                <InputCheckbox class="form-check-input" @bind-Value="hotel.Facility.Restaurant" />
+                <label class="form-check-label">Restaurant</label>
+            </div>
+        }
 
         <button class="btn btn-primary mt-3" type="submit">Save</button>
     </EditForm>
@@ -101,11 +104,7 @@ else
     };
 
     protected override async Task OnInitializedAsync()
-    {var facilities = await ApiService.GetFacilityByIdAsync(hotelId);
-        if (facilities != null)
-        {
-           
-        }
+    {
         var details = await ApiService.GetHotelByIdAsync(hotelId);
         
         if (details != null)
@@ -127,15 +126,15 @@ else
                 CheckInFrom = details.CheckInFrom,
                 CheckInUntil = details.CheckInUntil,
                 CheckOutUntil = details.CheckOutUntil,
-                // Facility = details.Facility != null
-                // ? new FacilityDto
-                // {
-                //     Pool = details.Facility.Pool,
-                //     Fitness = details.Facility.Fitness,
-                //     Restaurant = details.Facility.Restaurant,
-                //     HotelId = hotelId
-                // }
-                // : new FacilityDto { HotelId = hotelId } // tom facility så bindings ikke fejler
+                Facility = details.Facility != null
+                ? new FacilityDto
+                {
+                    Pool = details.Facility.Pool,
+                    Fitness = details.Facility.Fitness,
+                    Restaurant = details.Facility.Restaurant,
+                    HotelId = hotelId
+                }
+                : new FacilityDto { HotelId = hotelId } // tom facility så bindings ikke fejler
 
             };
         }
