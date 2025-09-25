@@ -144,7 +144,7 @@
                     Phone = details.Phone,
                     Email = details.Email,
                     Description = details.Description,
-                    PercentagePrice = Math.Round(100 * details.PercentagePrice),
+                    PercentagePrice = Math.Round((details.PercentagePrice * 100) - 100),
                     OpenedAt = details.OpenedAt,
                     ClosedAt = details.ClosedAt,
                     CheckInFrom = details.CheckInFrom,
@@ -170,7 +170,8 @@
         if (hotel == null) return;
         Console.WriteLine($"{hotel.PercentagePrice}");
         // Convert percentage from whole number to decimal
-        hotel.PercentagePrice = (hotel.PercentagePrice / 100);
+        hotel.PercentagePrice = (hotel.PercentagePrice + 100) / 100;
+
 
         // Ensure Facility has correct HotelId
         if (hotel.Facility != null)

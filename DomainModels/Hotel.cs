@@ -157,7 +157,7 @@ public class HotelPutDto
     public string Description { get; set; } = string.Empty;
 
     [Required(ErrorMessage = "Hotel percentage price is required")]
-    [Range(0, 200, ErrorMessage = "Hotel percentage price must be between 0 and 200")]
+    [Range(-100, 100, ErrorMessage = "Hotel percentage price must be between -100 and 100")]
     public double PercentagePrice { get; set; }
 
     [Required(ErrorMessage = "Opening time is required")]
