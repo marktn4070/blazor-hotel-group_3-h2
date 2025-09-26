@@ -23,13 +23,13 @@ public class HotelMapping
             CheckInUntil = hotel.CheckInUntil,
             CheckOutUntil = hotel.CheckOutUntil,
             Facility = hotel.Facility != null
-            ? new FacilityDto
+            ? new FacilityGetDto
             {
                 Pool = hotel.Facility.Pool,
                 Fitness = hotel.Facility.Fitness,
                 Restaurant = hotel.Facility.Restaurant
             }
-            : new FacilityDto()
+            : new FacilityGetDto()
         };
 
 

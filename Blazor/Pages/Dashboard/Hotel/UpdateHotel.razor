@@ -122,7 +122,7 @@
 
     private HotelPutDto? hotel = new()
     {
-        Facility = new FacilityDto() // ensure Facility is never null
+        Facility = new FacilityGetDto() // ensure Facility is never null
     };
 
     protected override async Task OnInitializedAsync()
@@ -144,13 +144,13 @@
                     Phone = details.Phone,
                     Email = details.Email,
                     Description = details.Description,
-                    PercentagePrice = Math.Round(-100 * details.PercentagePrice + 100),
+                    PercentagePrice = Math.Round((details.PercentagePrice * 100) - 100),
                     OpenedAt = details.OpenedAt,
                     ClosedAt = details.ClosedAt,
                     CheckInFrom = details.CheckInFrom,
                     CheckInUntil = details.CheckInUntil,
                     CheckOutUntil = details.CheckOutUntil,
-                    Facility = details.Facility ?? new FacilityDto { HotelId = hotelId }
+                    Facility = details.Facility ?? new FacilityGetDto { HotelId = hotelId }
                 };
             }
             else
@@ -168,9 +168,10 @@
     private async Task SaveHotel()
     {
         if (hotel == null) return;
-
+        Console.WriteLine($"{hotel.PercentagePrice}");
         // Convert percentage from whole number to decimal
-        hotel.PercentagePrice = (hotel.PercentagePrice);
+        hotel.PercentagePrice = (hotel.PercentagePrice + 100) / 100;
+
 
         // Ensure Facility has correct HotelId
         if (hotel.Facility != null)

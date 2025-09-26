@@ -71,7 +71,7 @@ namespace API.Controllers
             try
             {
                 _logger.LogInformation("Henter hotel med id {Id}", id);
-                //var facility = await _context.Facilities.FirstOrDefaultAsync(facility => facility.HotelId == id);
+                
                 var hotel = await _context.Hotels
                     .Include(h => h.Facility)
                     .FirstOrDefaultAsync(h => h.Id == id);
@@ -262,11 +262,11 @@ namespace API.Controllers
             }
         }
         [HttpGet("facility/{hotelId}")]
-        public async Task<ActionResult<FacilityDto>> GetFacilityByHotelId(int hotelId)
+        public async Task<ActionResult<FacilityGetDto>> GetFacilityByHotelId(int hotelId)
         {
             var facility = await _context.Facilities
                 .Where(f => f.HotelId == hotelId)
-                .Select(f => new FacilityDto
+                .Select(f => new FacilityGetDto
                 {
                     Pool = f.Pool,
                     Fitness = f.Fitness,

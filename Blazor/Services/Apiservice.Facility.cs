@@ -6,9 +6,9 @@ namespace Blazor.Services
 {
     public partial class APIService
     {
-        public async Task<FacilityDto?> GetFacilityByIdAsync(int hotelId)
+        public async Task<FacilityGetDto?> GetFacilityByIdAsync(int hotelId)
         {
-            return await _httpClient.GetFromJsonAsync<FacilityDto>($"api/hotels/facility/{hotelId}");
+            return await _httpClient.GetFromJsonAsync<FacilityGetDto>($"api/hotels/facility/{hotelId}");
         }
     }
 }

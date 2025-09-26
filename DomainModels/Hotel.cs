@@ -45,7 +45,7 @@ public class HotelGetDto
     public double PercentagePrice { get; set; }
     public DateTime CreatedAt { get; set; }
     public DateTime UpdatedAt { get; set; }
-    public FacilityDto? Facility { get; set; }
+    public FacilityGetDto? Facility { get; set; }
 }
 
 // DTO for hotel creation / POST
@@ -180,7 +180,7 @@ public class HotelPutDto
     [DataType(DataType.Time)]
     public TimeOnly CheckOutUntil { get; set; }
 
-    public FacilityDto? Facility { get; set; }
+    public FacilityGetDto? Facility { get; set; }
 }
 
 public class HotelDetailsDto
@@ -211,16 +211,7 @@ public class HotelDetailsDto
     public double PercentagePrice { get; set; }
 
     // Facility data included
-    public FacilityDto Facility { get; set; }
+    public FacilityGetDto Facility { get; set; }
 }
 
-public class FacilityDto
-{
-    public int Id { get; set; }
-   
-    public bool Pool { get; set; }
-    public bool Fitness { get; set; }
-    public bool Restaurant { get; set; }
-    public int HotelId { get; set; }
-}
 
