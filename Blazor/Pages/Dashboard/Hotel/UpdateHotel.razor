@@ -1,7 +1,6 @@
 ﻿@page "/dashboard/hotel/update/{hotelId:int}"
 @using DomainModels
 @inject Blazor.Services.APIService ApiService
-@using System.Net.Http
 @inject NavigationManager Navigation
 
 <PageTitle>Suite Dreams - Update Hotel</PageTitle>
@@ -10,108 +9,104 @@
     <div class="text-center mb-4">
         <h3 class="fw-bold">Dashboard</h3>
     </div>
-        <div class="mx-5">
-            <div class="row">
-                <div class="col-12">
-<div class="card shadow-sm mt-4 border-0 shadow-none">
-    <div class="card-header bg-transparent border-0">
-        <span class="card-title mb-0">
-            <h4 class="mb-0">
-                <i class="bi bi-person-fill"></i>
-                Update Hotel
-            </h4>
-        </span>
-    </div>
-    <div class="card-body">
-        @if (hotel == null)
-        {
-            <p><em>Loading hotel details...</em></p>
-        }
-        else if (foundHotel == false)
-        {
-            <div class="alert alert-info">No hotel details found.</div>
-        }
-        else
-        {
-            <EditForm Model="@hotel" OnValidSubmit="SaveHotel">
-                <DataAnnotationsValidator />
-                <ValidationSummary />
+    <div class="mx-5">
+        <div class="row">
+            <div class="col-12">
+                <div class="card shadow-sm mt-4 border-0 shadow-none">
+                    <div class="card-header bg-transparent border-0">
+                        <h4 class="mb-0"><i class="bi bi-person-fill"></i> Update Hotel</h4>
+                    </div>
+                    <div class="card-body">
+                        @if (!foundHotel)
+                        {
+                            <div class="alert alert-info">No hotel details found.</div>
+                        }
+                        else if (hotel == null)
+                        {
+                            <p><em>Loading hotel details...</em></p>
+                        }
+                        else
+                        {
+                            <EditForm @key="hotel.Id" Model="@hotel" OnValidSubmit="SaveHotel">
+                                <DataAnnotationsValidator />
+                                <ValidationSummary />
 
-                <div class="mb-3">
-                    <label class="form-label">Name</label>
-                    <InputText class="form-control" @bind-Value="hotel.Name" />
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Road</label>
-                    <InputText class="form-control" @bind-Value="hotel.Road" />
-                </div>
+                                <!-- Hotel fields -->
+                                <div class="mb-3">
+                                    <label class="form-label">Name</label>
+                                    <InputText class="form-control" @bind-Value="hotel.Name" />
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Road</label>
+                                    <InputText class="form-control" @bind-Value="hotel.Road" />
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Zip</label>
+                                    <InputText class="form-control" @bind-Value="hotel.Zip" />
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">City</label>
+                                    <InputText class="form-control" @bind-Value="hotel.City" />
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Country</label>
+                                    <InputText class="form-control" @bind-Value="hotel.Country" />
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">E-mail</label>
+                                    <InputText class="form-control" @bind-Value="hotel.Email" />
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Phone number</label>
+                                    <InputNumber class="form-control" @bind-Value="hotel.Phone" />
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Percentage Price</label>
+                                    <InputNumber class="form-control" @bind-Value="hotel.PercentagePrice" />
+                                </div>
 
-                <div class="mb-3">
-                    <label class="form-label">Zip</label>
-                    <InputText class="form-control" @bind-Value="hotel.Zip" />
-                </div>
+                                <!-- Times -->
+                                <div class="mb-3">
+                                    <label class="form-label">Open At</label>
+                                    <InputDate Type="InputDateType.Time" class="form-control" @bind-Value="hotel.OpenedAt" />
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Closed At</label>
+                                    <InputDate Type="InputDateType.Time" class="form-control" @bind-Value="hotel.ClosedAt" />
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">CheckIn From</label>
+                                    <InputDate Type="InputDateType.Time" class="form-control" @bind-Value="hotel.CheckInFrom" />
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">CheckIn Until</label>
+                                    <InputDate Type="InputDateType.Time" class="form-control" @bind-Value="hotel.CheckInUntil" />
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">CheckOut Until</label>
+                                    <InputDate Type="InputDateType.Time" class="form-control" @bind-Value="hotel.CheckOutUntil" />
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Description</label>
+                                    <InputTextArea class="form-control" rows="5" @bind-Value="hotel.Description" />
+                                </div>
 
-                <div class="mb-3">
-                    <label class="form-label">City</label>
-                    <InputText class="form-control" @bind-Value="hotel.City" />
-                </div>
+                                <!-- Facilities -->
+                                <div class="form-check">
+                                    <InputCheckbox class="form-check-input" @bind-Value="hotel.Facility.Pool" />
+                                    <label class="form-check-label">Pool</label>
+                                </div>
+                                <div class="form-check">
+                                    <InputCheckbox class="form-check-input" @bind-Value="hotel.Facility.Fitness" />
+                                    <label class="form-check-label">Fitness</label>
+                                </div>
+                                <div class="form-check">
+                                    <InputCheckbox class="form-check-input" @bind-Value="hotel.Facility.Restaurant" />
+                                    <label class="form-check-label">Restaurant</label>
+                                </div>
 
-                <div class="mb-3">
-                    <label class="form-label">Country</label>
-                    <InputText class="form-control" @bind-Value="hotel.Country" />
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">E-mail</label>
-                    <InputText class="form-control" @bind-Value="hotel.Email" />
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">phonenumber</label>
-                    <InputNumber class="form-control" @bind-Value="hotel.Phone" />
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Percentage Price</label>
-                    <InputNumber class="form-control" @bind-Value="hotel.PercentagePrice" />
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">open at</label>
-                    <InputDate Type="InputDateType.Time" class="form-control" @bind-Value="hotel.OpenedAt" />
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">closed at</label>
-                    <InputDate Type="InputDateType.Time" class="form-control" @bind-Value="hotel.ClosedAt" />
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">CheckInFrom</label>
-                    <InputDate Type="InputDateType.Time" class="form-control" @bind-Value="hotel.CheckInFrom" />
-                </div>        <div class="mb-3">
-                    <label class="form-label">CheckInUntil</label>
-                    <InputDate Type="InputDateType.Time" class="form-control" @bind-Value="hotel.CheckInUntil" />
-                </div>        <div class="mb-3">
-                    <label class="form-label">CheckOutUntil </label>
-                    <InputDate Type="InputDateType.Time" class="form-control" @bind-Value="hotel.CheckOutUntil" />
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Description</label>
-                    <InputTextArea class="form-control" rows="5" @bind-Value="hotel.Description" />
-                </div>
-
-                <!-- Facilities -->
-                <div class="form-check">
-                    <InputCheckbox class="form-check-input" @bind-Value="hotel.Facility.Pool" />
-                    <label class="form-check-label">Pool</label>
-                </div>
-                <div class="form-check">
-                    <InputCheckbox class="form-check-input" @bind-Value="hotel.Facility.Fitness" />
-                    <label class="form-check-label">Fitness</label>
-                </div>
-                <div class="form-check">
-                    <InputCheckbox class="form-check-input" @bind-Value="hotel.Facility.Restaurant" />
-                    <label class="form-check-label">Restaurant</label>
-                </div>
-
-                <button class="btn btn-primary mt-3" type="submit">Save</button>
-            </EditForm>
+                                <button class="btn btn-primary mt-3" type="submit">Save</button>
+                            </EditForm>
                         }
                     </div>
                 </div>
@@ -127,72 +122,62 @@
 
     private HotelPutDto? hotel = new()
     {
-        Facility = new FacilityPostDto()
+        Facility = new FacilityGetDto() // ensure Facility is never null
     };
 
     protected override async Task OnInitializedAsync()
     {
         try
         {
-        var details = await ApiService.GetHotelByIdAsync(hotelId);
-        if (details != null)
-        {
-            hotel = new HotelPutDto
+            var details = await ApiService.GetHotelByIdAsync(hotelId);
+
+            if (details != null)
             {
-                Id = hotelId,
-                Name = details.Name,
-                Road = details.Road,
-                Zip = details.Zip,
-                City = details.City,
-                Country = details.Country,
-                Phone = details.Phone,
-                Email = details.Email,
-                Description = details.Description,
-                PercentagePrice = Math.Round(-100 * details.PercentagePrice + 100),
-                OpenedAt = details.OpenedAt,
-                ClosedAt = details.ClosedAt,
-                CheckInFrom = details.CheckInFrom,
-                CheckInUntil = details.CheckInUntil,
-                CheckOutUntil = details.CheckOutUntil,
-                Facility = details.Facility != null
-                ? new FacilityPostDto
+                hotel = new HotelPutDto
                 {
-                    Pool = details.Facility.Pool,
-                    Fitness = details.Facility.Fitness,
-                    Restaurant = details.Facility.Restaurant,
-                    HotelId = hotelId
-                }
-                : new FacilityPostDto { HotelId = hotelId } // tom facility så bindings ikke fejler
-            };
+                    Id = hotelId,
+                    Name = details.Name,
+                    Road = details.Road,
+                    Zip = details.Zip,
+                    City = details.City,
+                    Country = details.Country,
+                    Phone = details.Phone,
+                    Email = details.Email,
+                    Description = details.Description,
+                    PercentagePrice = Math.Round((details.PercentagePrice * 100) - 100),
+                    OpenedAt = details.OpenedAt,
+                    ClosedAt = details.ClosedAt,
+                    CheckInFrom = details.CheckInFrom,
+                    CheckInUntil = details.CheckInUntil,
+                    CheckOutUntil = details.CheckOutUntil,
+                    Facility = details.Facility ?? new FacilityGetDto { HotelId = hotelId }
+                };
+            }
+            else
+            {
+                foundHotel = false;
             }
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Fejl ved hentning af hotel med id'et {hotelId}: {ex.Message}", hotelId);
+            Console.WriteLine($"Error fetching hotel {hotelId}: {ex.Message}");
             foundHotel = false;
         }
     }
 
     private async Task SaveHotel()
     {
+        if (hotel == null) return;
+        Console.WriteLine($"{hotel.PercentagePrice}");
+        // Convert percentage from whole number to decimal
+        hotel.PercentagePrice = (hotel.PercentagePrice + 100) / 100;
 
-        // Konverter percentage fra helt tal til decimal
-        hotel.PercentagePrice = (100 - hotel.PercentagePrice) / 100;
 
-
-        if (hotel is null) return;
-
+        // Ensure Facility has correct HotelId
         if (hotel.Facility != null)
-        {
-            // sørg for at HotelId er korrekt (API'en ignorerer det evt. alligevel)
             hotel.Facility.HotelId = hotel.Id;
-        }
 
         await ApiService.UpdateHotelAsync(hotel);
-        Navigation.NavigateTo("/dashboard/hotels");
+        Navigation.NavigateTo("/dashboard/hotel");
     }
-
 }
-
-
-
