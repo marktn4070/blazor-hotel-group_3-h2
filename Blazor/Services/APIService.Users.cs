@@ -213,8 +213,6 @@ namespace Blazor.Services
             return users?.ToArray() ?? [];
         }
 
-        //[Authorize(Roles = "Admin")]
-
         public async Task<UserGetDto?> GetCurrentUserAsync()
         {
             try

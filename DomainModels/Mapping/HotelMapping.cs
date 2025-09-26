@@ -21,9 +21,20 @@ public class HotelMapping
             ClosedAt = hotel.ClosedAt,
             CheckInFrom = hotel.CheckInFrom,
             CheckInUntil = hotel.CheckInUntil,
-            CheckOutUntil = hotel.CheckOutUntil
+            CheckOutUntil = hotel.CheckOutUntil,
+            Facility = hotel.Facility != null
+            ? new FacilityGetDto
+            {
+                Pool = hotel.Facility.Pool,
+                Fitness = hotel.Facility.Fitness,
+                Restaurant = hotel.Facility.Restaurant
+            }
+            : new FacilityGetDto()
         };
+
+
     }
+    
 
     public static List<HotelGetDto> ToHotelGetDtos(List<Hotel> hotels)
     {
