@@ -74,4 +74,24 @@ public partial class APIService
         var response = await _httpClient.DeleteAsync($"api/Roomtypes/{id}");
         response.EnsureSuccessStatusCode();
     }
+     public async Task<RoomtypeDetailsDto?> GetRoomtypeByIdAsync(
+        int roomtypeId,
+        CancellationToken cancellationToken = default
+    )
+    {
+		RoomtypeDetailsDto? roomtype = null;
+
+        if (roomtypeId != 0)
+        {
+            try
+            {
+				roomtype = await _httpClient.GetFromJsonAsync<RoomtypeDetailsDto>($"api/roomtypes/{roomtypeId}", cancellationToken);
+            }
+            catch (HttpRequestException)
+            {
+                return null;
+            }
+        }
+        return roomtype;
+    }
 }
