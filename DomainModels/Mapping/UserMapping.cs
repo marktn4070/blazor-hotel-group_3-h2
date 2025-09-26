@@ -17,4 +17,9 @@ public class UserMapping
             UpdatedAt = user.UpdatedAt
         };
     }
+
+    public static List<UserGetDto> ToUsersGetDto(List<User> users)
+    {
+        return users.Select(u => ToUserGetDto(u)).ToList();
+    }
 }

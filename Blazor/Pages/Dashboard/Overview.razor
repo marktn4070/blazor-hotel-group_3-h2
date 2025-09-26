@@ -1,5 +1,10 @@
 ﻿@page "/dashboard/overview"
 @using System.Net.Http
+@using Blazor.Services
+@inject AuthenticationService AuthService
+@inject APIService ApiService
+@inject NavigationManager Navigation
+
 
 <PageTitle>Suite Dreams - Dashboard Overview</PageTitle>
 
@@ -20,32 +25,133 @@
         <div class="mx-5">
             <div class="row">
                 <div class="col-12">
-                    <UserTable users="@users" />
+
+                    <div class="container">
+
+                        <div class="row">
+                            <div class="col-xs-6 col-md-3">
+                                <div class="panel status rounded-3 overflow-hidden border border-danger">
+                                    <div class="panel-heading bg-danger-subtle">
+                                        <h1 class="panel-title text-center text-danger">25</h1>
+                                    </div>
+                                    <div class="panel-body text-center">
+                                        <strong>Have checked out today</strong>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-xs-6 col-md-3">
+
+                                <div class="panel status rounded-3 overflow-hidden border border-warning">
+                                    <div class="panel-heading bg-warning-subtle">
+                                        <h1 class="panel-title text-center text-warning">17</h1>
+                                    </div>
+                                    <div class="panel-body text-center">
+                                        <strong>Remaining check out today</strong>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-xs-6 col-md-3">
+
+                                <div class="panel status rounded-3 overflow-hidden border border-success">
+                                    <div class="panel-heading bg-success-subtle">
+                                        <h1 class="panel-title text-center text-success">2</h1>
+                                    </div>
+                                    <div class="panel-body text-center">
+                                        <strong>Check out tomorrow</strong>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="col-xs-6 col-md-3">
+
+                                <div class="panel status rounded-3 overflow-hidden border border-info">
+                                    <div class="panel-heading bg-info-subtle">
+                                        <h1 class="panel-title text-center text-info">18</h1>
+                                    </div>
+                                    <div class="panel-body text-center">
+                                        <strong>Check out this week</strong>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </div>
     }
 </div>
 
+
+
 @code {
     private UserGetDto[]? users;
+    private bool isLoading = true;
+    private string fullToken = string.Empty;
 
     protected override async Task OnInitializedAsync()
     {
+        await LoadUserInfo();
+
+        // Subscribe to authentication state changes
+        AuthService.AuthenticationStateChanged += OnAuthenticationStateChanged;
+    }
+
+    private async Task LoadUserInfo()
+    {
+        isLoading = true;
+        StateHasChanged();
         try
         {
-            users = await ApiService.GetAllUsersAsync(0);
-
-            // Sortér brugere efter UserId i stigende rækkefølge
-            if (users != null && users.Length > 1)
+            if (await AuthService.IsAuthenticatedAsync())
             {
-                users = users.OrderBy(u => u.Id).ToArray();
+                // Hent token fra AuthService (localStorage)
+                fullToken = await AuthService.GetTokenAsync() ?? string.Empty;
+
+                // Kald API'et med token som parameter
+                users = await ApiService.GetAllUsersAsync(0, fullToken);
+
+                // Sortér efter UserId i stigende rækkefølge
+                if (users != null && users.Length > 1)
+                    users = users.OrderBy(u => u.Id).ToArray();
+            }
+            else
+            {
+                users = null;
+                Navigation.NavigateTo("/login");
             }
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Fejl ved hentning af hoteller: {ex.Message}");
+            Console.WriteLine($"Fejl ved hentning af brugere: {ex.Message}");
             users = Array.Empty<UserGetDto>();
         }
+        finally
+        {
+            isLoading = false;
+            StateHasChanged();
+        }
+    }
+
+
+
+    private async void OnAuthenticationStateChanged(object? sender, bool isAuthenticated)
+    {
+        if (!isAuthenticated)
+        {
+            users = null;
+            Navigation.NavigateTo("/login");
+        }
+        else
+        {
+            await LoadUserInfo();
+        }
+
+        await InvokeAsync(StateHasChanged);
     }
 }

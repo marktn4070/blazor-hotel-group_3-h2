@@ -47,7 +47,7 @@ namespace API.Controllers
                     .ToListAsync();
 
                 _logger.LogInformation("Hentet {UserCount} brugere succesfuldt", users.Count);
-                return Ok(users);
+                return Ok(UserMapping.ToUsersGetDto(users));
             }
             catch (Exception ex)
             {
@@ -55,6 +55,7 @@ namespace API.Controllers
                 return StatusCode(500, "Der opstod en intern serverfejl ved hentning af brugere");
             }
         }
+
 
         /// <summary>
         /// Henter en bruger.

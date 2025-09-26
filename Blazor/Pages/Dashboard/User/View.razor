@@ -1,5 +1,10 @@
 ﻿@page "/dashboard/user"
 @using System.Net.Http
+@using Blazor.Services
+@inject AuthenticationService AuthService
+@inject APIService ApiService
+@inject NavigationManager Navigation
+
 
 <PageTitle>Suite Dreams - View Users</PageTitle>
 
@@ -27,25 +32,71 @@
     }
 </div>
 
+
+
 @code {
     private UserGetDto[]? users;
+    private bool isLoading = true;
+    private string fullToken = string.Empty;
 
     protected override async Task OnInitializedAsync()
     {
+        await LoadUserInfo();
+
+        // Subscribe to authentication state changes
+        AuthService.AuthenticationStateChanged += OnAuthenticationStateChanged;
+    }
+
+    private async Task LoadUserInfo()
+    {
+        isLoading = true;
+        StateHasChanged();
         try
         {
-            users = await ApiService.GetAllUsersAsync(0);
-
-            // Sortér brugere efter UserId i stigende rækkefølge
-            if (users != null && users.Length > 1)
+            if (await AuthService.IsAuthenticatedAsync())
             {
-                users = users.OrderBy(u => u.Id).ToArray();
+                // Hent token fra AuthService (localStorage)
+                fullToken = await AuthService.GetTokenAsync() ?? string.Empty;
+
+                // Kald API'et med token som parameter
+                users = await ApiService.GetAllUsersAsync(0, fullToken);
+    
+                // Sortér efter UserId i stigende rækkefølge
+                if (users != null && users.Length > 1)
+                        users = users.OrderBy(u => u.Id).ToArray();
+                }
+            else
+            {
+                users = null;
+                Navigation.NavigateTo("/login");
             }
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Fejl ved hentning af hoteller: {ex.Message}");
+            Console.WriteLine($"Fejl ved hentning af brugere: {ex.Message}");
             users = Array.Empty<UserGetDto>();
         }
+        finally
+        {
+            isLoading = false;
+            StateHasChanged();
+        }
+    }
+
+
+
+    private async void OnAuthenticationStateChanged(object? sender, bool isAuthenticated)
+    {
+        if (!isAuthenticated)
+        {
+            users = null;
+            Navigation.NavigateTo("/login");
+        }
+        else
+        {
+            await LoadUserInfo();
+        }
+
+        await InvokeAsync(StateHasChanged);
     }
 }

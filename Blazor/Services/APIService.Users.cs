@@ -1,5 +1,7 @@
 using DomainModels;
+using Microsoft.AspNetCore.Authorization;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text.Json;
 
@@ -118,19 +120,58 @@ namespace Blazor.Services
                 };
             }
         }
+
+
         // /api/users endpoint get all users
-        public async Task<UserGetDto[]?> GetUsersAsync()
+        public async Task<UserGetDto[]?> GetAllUsersAsync(
+            int maxItems,
+            string? fullToken = null,
+            CancellationToken cancellationToken = default
+        )
         {
+            AuthenticationHeaderValue? original = _httpClient.DefaultRequestHeaders.Authorization;
             try
             {
-                return await _httpClient.GetFromJsonAsync<UserGetDto[]>("api/users");
+                if (!string.IsNullOrWhiteSpace(fullToken))
+                {
+                    _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", fullToken);
+                }
+
+                List<UserGetDto>? users = null;
+
+                await foreach (
+                    var user in _httpClient.GetFromJsonAsAsyncEnumerable<UserGetDto>(
+                        "/api/Users",
+                        cancellationToken
+                    )
+                )
+                {
+                    if (users?.Count >= maxItems && maxItems != 0)
+                    {
+                        break;
+                    }
+                    if (user is not null)
+                    {
+                        users ??= [];
+                        users.Add(user);
+                    }
+                }
+
+                return users?.ToArray() ?? [];
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Fejl ved hentning af brugere: " + ex.Message);
                 return null;
             }
+                finally
+            {
+                // Gendan tidligere header (eller fjern hvis der ikke var nogen)
+                _httpClient.DefaultRequestHeaders.Authorization = original;
+            }
         }
+
+
         // /me endpoint get current user
         public async Task<UserGetDto?> GetUserAsync(int id)
         {
