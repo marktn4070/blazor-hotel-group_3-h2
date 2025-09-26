@@ -60,7 +60,7 @@ public partial class APIService
         {
             try
             {
-				roomtype = await _httpClient.GetFromJsonAsync<RoomtypeDetailsDto>($"api/hotels/{roomtypeId}", cancellationToken);
+				roomtype = await _httpClient.GetFromJsonAsync<RoomtypeDetailsDto>($"api/roomtypes/{roomtypeId}", cancellationToken);
             }
             catch (HttpRequestException)
             {
