@@ -262,11 +262,11 @@ namespace API.Controllers
             }
         }
         [HttpGet("facility/{hotelId}")]
-        public async Task<ActionResult<FacilityDto>> GetFacilityByHotelId(int hotelId)
+        public async Task<ActionResult<FacilityGetDto>> GetFacilityByHotelId(int hotelId)
         {
             var facility = await _context.Facilities
                 .Where(f => f.HotelId == hotelId)
-                .Select(f => new FacilityDto
+                .Select(f => new FacilityGetDto
                 {
                     Pool = f.Pool,
                     Fitness = f.Fitness,
