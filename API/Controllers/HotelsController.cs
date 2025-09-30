@@ -67,11 +67,14 @@ namespace API.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<HotelGetDto>> GetHotel(int id)
         {
+
             try
             {
                 _logger.LogInformation("Henter hotel med id {Id}", id);
-                var hotel = await _context.Hotels.FindAsync(id);
-
+                
+                var hotel = await _context.Hotels
+                    .Include(h => h.Facility)
+                    .FirstOrDefaultAsync(h => h.Id == id);
                 if (hotel == null)
                 {
                     _logger.LogWarning("Hotel med id {Id} blev ikke fundet", id);
@@ -109,6 +112,7 @@ namespace API.Controllers
             }
 
             // Hent hotel inkl. Facility så vi kan opdatere eller oprette
+            var facility = await _context.Facilities.FirstOrDefaultAsync(facility => facility.HotelId == id);
             var hotel = await _context.Hotels
                 .Include(h => h.Facility)
                 .FirstOrDefaultAsync(h => h.Id == id);
@@ -257,7 +261,24 @@ namespace API.Controllers
                 return StatusCode(500, "Der opstod en intern serverfejl ved sletning af hotel");
             }
         }
+        [HttpGet("facility/{hotelId}")]
+        public async Task<ActionResult<FacilityGetDto>> GetFacilityByHotelId(int hotelId)
+        {
+            var facility = await _context.Facilities
+                .Where(f => f.HotelId == hotelId)
+                .Select(f => new FacilityGetDto
+                {
+                    Pool = f.Pool,
+                    Fitness = f.Fitness,
+                    Restaurant = f.Restaurant
+                })
+                .FirstOrDefaultAsync();
 
+            if (facility == null)
+                return NotFound();
+
+            return Ok(facility);
+        }
         private bool HotelExists(int id)
         {
             return _context.Hotels.Any(e => e.Id == id);
