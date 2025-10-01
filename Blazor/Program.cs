@@ -36,6 +36,7 @@ public class Program
             client.BaseAddress = new Uri(apiEndpoint);
         });
 
+        builder.Services.AddSingleton<ChatService>();
         // Registrer AuthenticationService som Scoped service
         builder.Services.AddScoped<AuthenticationService>();
 

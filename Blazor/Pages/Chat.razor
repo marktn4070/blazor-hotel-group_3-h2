@@ -1,0 +1,51 @@
+﻿@page "/chat"
+@inject ChatService ChatService
+
+<input placeholder="Chat ID" @bind="chatId" />
+<input placeholder="Username" @bind="userName" />
+<button @onclick="Join">Join Chat</button>
+
+<div>
+    @foreach (var msg in messages)
+    {
+        <div>@msg</div>
+    }
+</div>
+
+<input placeholder="Message" @bind="userMessage" />
+<button @onclick="Send">Send</button>
+
+@code {
+    private string chatId = "room1";
+    private string userName = "User1";
+    private string userMessage = "";
+    private List<string> messages = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        ChatService.OnMessageReceived += (cId, user, message) =>
+        {
+            if (cId == chatId)
+            {
+                messages.Add($"{user}: {message}");
+                StateHasChanged();
+            }
+        };
+
+        await ChatService.ConnectAsync();
+    }
+
+    private async Task Join()
+    {
+        await ChatService.JoinChat(chatId, userName);
+    }
+
+    private async Task Send()
+    {
+        if (!string.IsNullOrWhiteSpace(userMessage))
+        {
+            await ChatService.SendMessage(chatId, userName, userMessage);
+            userMessage = "";
+        }
+    }
+}

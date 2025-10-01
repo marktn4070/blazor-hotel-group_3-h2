@@ -1,0 +1,55 @@
+﻿@inject ChatService ChatService
+
+<div class="chat-window" style="@(isOpen ? "display:block;" : "display:none;")">
+    <div class="chat-header" @onclick="Toggle">💬 Chat</div>
+    <div class="chat-body">
+        <ul>
+            @foreach (var msg in messages)
+            {
+                <li>@msg</li>
+            }
+        </ul>
+    </div>
+    <div class="chat-input">
+        <input @bind="user" placeholder="Your name" />
+        <input @bind="message" placeholder="Message"
+               @onkeydown="@(e => { if (e.Key == "Enter") Send(); })" />
+        <button @onclick="Send">Send</button>
+    </div>
+</div>
+
+@code {
+    private List<string> messages = new();
+    private string user = "Guest"; // default for anonymous
+    private string message = "";
+    private bool isOpen = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Subscribe to messages
+        ChatService.OnMessageReceived += (id, u, m) =>
+        {
+            messages.Add($"{u}: {m}");
+            InvokeAsync(StateHasChanged);
+        };
+
+        // Connect to the hub (works even for anonymous)
+        if (!ChatService.IsConnected)
+        {
+            await ChatService.ConnectAsync();
+        }
+    }
+
+    private void Toggle() => isOpen = !isOpen;
+    private string chatId = "general"; // default room, or set dynamically
+
+    private async Task Send()
+    {
+        if (!string.IsNullOrWhiteSpace(message))
+        {
+            await ChatService.SendMessage(chatId, user, message);
+            message = string.Empty;
+        }
+    }
+
+}
