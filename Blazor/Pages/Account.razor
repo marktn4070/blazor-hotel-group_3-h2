@@ -1,4 +1,4 @@
-﻿@page "/account/{userid:int}"
+﻿@page "/account"
 
 @using System.Net.Http
 @using Blazor.Services
@@ -25,18 +25,18 @@
                         }
                         else
                         {
-                            <EditForm @key="user.Id" Model="@user" OnValidSubmit="SaveUser">
+                            <EditForm Model="@user" OnValidSubmit="SaveUser">
                                 <DataAnnotationsValidator />
                                 <ValidationSummary />
 
                                 <!-- User fields -->
                                 <div class="mb-3">
                                     <label class="form-label">Email</label>
-                                    <InputText class="form-control" @bind-Value="user.email" />
+                                    <InputText class="form-control" @bind-Value="user.Email" />
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Phone</label>
-                                    <InputNumber class="form-control" @bind-Value="user.phone" />
+                                    <InputNumber class="form-control" @bind-Value="user.Phone" />
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Firstname</label>
@@ -62,14 +62,50 @@
     private UserGetDto[]? users;
     private bool isLoading = true;
     private string fullToken = string.Empty;
+    private bool foundAccount = true;
+
+    private UserPutDto? user = new()
+    {
+        // Facility = new FacilityGetDto() // ensure Facility is never null
+    };
 
     protected override async Task OnInitializedAsync()
     {
+        try
+        {
+            var details = await ApiService.GetHotelByIdAsync(userId);
+
+            if (details != null)
+            {
+                user = new HotelPutDto
+                {
+                    Id = user.Id,
+                    Name = details.Name,
+                    Road = details.Road,
+                    Zip = details.Zip,
+                    City = details.City,
+                    Country = details.Country,
+                    Phone = details.Phone,
+                    Email = details.Email,
+                    Description = details.Description
+                };
+            }
+            else
+            {
+                foundUser = false;
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error fetching hotel {userId}: {ex.Message}");
+            foundUser = false;
+        }
         await LoadUserInfo();
 
         // Subscribe to authentication state changes
         AuthService.AuthenticationStateChanged += OnAuthenticationStateChanged;
     }
+
     private async Task LoadUserInfo()
     {
         isLoading = true;
@@ -121,5 +157,14 @@
         }
 
         await InvokeAsync(StateHasChanged);
+    }
+
+    private async Task SaveUser()
+    {
+
+        if (user is null) return;
+
+        await ApiService.UpdateUserAsync(user);
+        Navigation.NavigateTo("/account/users");
     }
 }

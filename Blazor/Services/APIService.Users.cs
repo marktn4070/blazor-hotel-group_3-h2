@@ -246,6 +246,14 @@ namespace Blazor.Services
             // This would typically clear the JWT token from storage
             // Implementation depends on how you store the token
         }
+
+
+         public async Task UpdateUserAsync(UserPutDto user)
+    {
+        // Example implementation using HttpClient (adjust endpoint and logic as needed)
+        var response = await _httpClient.PutAsJsonAsync($"api/users/{user.Id}", user);
+        response.EnsureSuccessStatusCode();
+    }
     }
 
     // Response models for API calls
