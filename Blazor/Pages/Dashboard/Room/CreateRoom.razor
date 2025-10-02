@@ -47,7 +47,7 @@
             <div class="mb-3">
                 <label class="form-label">Værelse type</label>
                 <InputSelect class="form-control" @bind-Value="newRoom.RoomtypeId">
-                    @foreach (var type in Roomtypes)
+                    @foreach (var type in roomtypes)
                     {
                         <option value="@type.Id">@type.Name</option>
 			        }
@@ -66,7 +66,31 @@
     private RoomPostDto newRoom = new();
     private bool isSubmitting = false;
     private string? errorMessage;
-	private List<RoomtypeGetDto> Roomtypes = new();
+    private RoomtypeGetDto[]? roomtypes;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            roomtypes = await ApiService.GetRoomtypesAsync(0);
+            if (roomtypes != null && roomtypes.Length > 1)
+            {
+                roomtypes = roomtypes.OrderBy(rt => rt.Id).ToArray();
+            }
+            else
+            {
+                roomtypes = null;
+            }
+
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Fejl ved hentning af rumtyper: {ex.Message}");
+            roomtypes = Array.Empty<RoomtypeGetDto>();
+        }
+    }
+
 
     private async Task HandleValidSubmit()
     {

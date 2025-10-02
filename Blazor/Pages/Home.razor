@@ -41,9 +41,9 @@
                                 <div class="card-body">
                                     <div class="d-flex justify-content-between align-items-start mb-2">
                                         <div class="fw-bold h5 mb-0">@h.Name</div>
-                                        @if (h.PercentagePrice > 1)
+                                        @if (h.PercentagePrice < 1 && h.PercentagePrice > 0)
                                         {
-                                            <span class="badge bg-warning text-dark ms-2">@(Math.Round(-100 * h.PercentagePrice + 100)) %</span>
+                                            <span class="badge bg-warning text-dark ms-2">-@(Math.Round(100 * h.PercentagePrice)) %</span>
                                         }
                                         
                                     </div>
@@ -88,7 +88,7 @@
 @code {
     private HotelGetDto[]? hotels;
     private RoomGetDto[]? rooms;
-
+    
     protected override async Task OnInitializedAsync()
     {
         try

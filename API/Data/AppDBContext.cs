@@ -1,4 +1,5 @@
-﻿using DomainModels;
+﻿using Bogus;
+using DomainModels;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
@@ -41,28 +42,23 @@ namespace API.Data
                     .OnDelete(DeleteBehavior.Restrict);
             });
 
-
             modelBuilder.Entity<Facility>()
                 .HasKey(f => f.HotelId); // Shared PK
-
 
             modelBuilder.Entity<Hotel>()
                 .HasOne(h => h.Facility)
                 .WithOne(f => f.Hotel)
                 .HasForeignKey<Facility>(f => f.HotelId);
 
-
             modelBuilder.Entity<Hotel>()
                 .HasMany(h => h.Rooms)
                 .WithOne(r => r.Hotel)
                 .HasForeignKey(r => r.HotelId);
 
-
             modelBuilder.Entity<Roomtype>()
                 .HasMany(t => t.Rooms)
                 .WithOne(r => r.Roomtype)
                 .HasForeignKey(r => r.RoomtypeId);
-
 
             modelBuilder.Entity<Booking>()
                 .HasOne(b => b.User)
@@ -82,124 +78,43 @@ namespace API.Data
             SeedHotel(modelBuilder);
         }
 
-
         private void SeedRoom(ModelBuilder modelBuilder)
         {
-            var roomtypes = new[]
+            var rooms = new List<Room>();
+            int roomId = 1;
+
+            int[] totalRoomsPerHotel = { 60, 110, 75 };
+
+            for (int h = 0; h < totalRoomsPerHotel.Length; h++)
             {
-                new Room
+                // Antal værelser i det aktuelle hotel
+                int roomsInCurrentHotel = totalRoomsPerHotel[h];
+                if (roomsInCurrentHotel == 0) continue;
+
+                // Antal værelser fordelt ligeligt på 3 "etager", hvor 3. etage dog kan have færre værelser
+                int roomsPerFloor = (int)Math.Ceiling(roomsInCurrentHotel / 3.0);
+
+                for (int r = 0; r < roomsInCurrentHotel; r++)
                 {
-                    Id = 1,
-                    RoomNumber = 101,
-                    HotelId = 1,
-                    RoomtypeId = 1,
-                    CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
-                    UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
-                },
-                new Room
-                {
-                    Id = 2,
-                    RoomNumber = 102,
-                    HotelId = 1,
-                    RoomtypeId = 2,
-                    CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
-                    UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
-                },
-                new Room
-                {
-                    Id = 3,
-                    RoomNumber = 103,
-                    HotelId = 1,
-                    RoomtypeId = 3,
-                    CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
-                    UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
-                },
-                new Room
-                {
-                    Id = 4,
-                    RoomNumber = 104,
-                    HotelId = 2,
-                    RoomtypeId = 4,
-                    CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
-                    UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
-                },
-                new Room
-                {
-                    Id = 5,
-                    RoomNumber = 105,
-                    HotelId = 2,
-                    RoomtypeId = 5,
-                    CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
-                    UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
-                },
-                new Room
-                {
-                    Id = 6,
-                    RoomNumber = 106,
-                    HotelId = 2,
-                    RoomtypeId = 6,
-                    CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
-                    UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
-                },
-                new Room
-                {
-                    Id = 7,
-                    RoomNumber = 107,
-                    HotelId = 2,
-                    RoomtypeId = 1,
-                    CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
-                    UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
-                },
-                new Room
-                {
-                    Id = 8,
-                    RoomNumber = 108,
-                    HotelId = 3,
-                    RoomtypeId = 2,
-                    CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
-                    UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
-                },
-                new Room
-                {
-                    Id = 9,
-                    RoomNumber = 109,
-                    HotelId = 3,
-                    RoomtypeId = 3,
-                    CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
-                    UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
-                },
-                new Room
-                {
-                    Id = 10,
-                    RoomNumber = 110,
-                    HotelId = 3,
-                    RoomtypeId = 4,
-                    CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
-                    UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
-                },
-                new Room
-                {
-                    Id = 11,
-                    RoomNumber = 111,
-                    HotelId = 3,
-                    RoomtypeId = 5,
-                    CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
-                    UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
-                },
-                new Room
-                {
-                    Id = 12,
-                    RoomNumber = 112,
-                    HotelId = 3,
-                    RoomtypeId = 6,
-                    CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
-                    UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
+                    // Beregner etage nummer (int afrundes ned til nærmeste hele tal)
+                    int floor = (r / roomsPerFloor) + 1;
+
+                    // Beregner værelse på etagen
+                    int roomOnFloor = (r % roomsPerFloor) + 1;
+
+                    rooms.Add(new Room
+                    {
+                        Id = roomId++,
+                        RoomNumber = floor * 100 + roomOnFloor,
+                        HotelId = h + 1,
+                        RoomtypeId = (r % 6) + 1,
+                        CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
+                        UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
+                    });
                 }
-            };
-            modelBuilder.Entity<Room>().HasData(roomtypes);
+            }
+            modelBuilder.Entity<Room>().HasData(rooms);
         }
-
-
 
         private void SeedRoles(ModelBuilder modelBuilder)
         {
@@ -234,7 +149,6 @@ namespace API.Data
                     UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
                 }
             };
-
             modelBuilder.Entity<Role>().HasData(roles);
         }
 
@@ -342,7 +256,7 @@ namespace API.Data
                     Phone = 12345678,
                     Email = "mercantec@mercantec.dk",
                     Description = "First Central Hotel Suites er udstyret med 524 moderne suiter, der kan prale af moderne finish og en lokkende hyggelig stemning, der giver hver gæst den ultimative komfort og pusterum. Hotellet tilbyder en bred vifte af fritids- og forretningsfaciliteter, herunder et mini-businesscenter, rejseskrivebord, en fredfyldt pool på taget, veludstyret fitnesscenter og rekreative faciliteter.\r\nFra spisning til roomservice, oplev en balance mellem kontinentale retter og tilfredsstil dine trang med den friske gane i Beastro Restaurant og den søde duft af kaffe på Beastro, der ligger i lobbyen.",
-                    PercentagePrice = 1,
+                    PercentagePrice = 0,
                     OpenedAt = new TimeOnly(9, 0, 0),
                     ClosedAt = new TimeOnly(21, 30, 0),
                     CheckInFrom = new TimeOnly(16, 0, 0),
@@ -362,7 +276,7 @@ namespace API.Data
                     Phone = 12345678,
                     Email = "mercantec@mercantec.dk",
                     Description = "First Central Hotel Suites er udstyret med 524 moderne suiter, der kan prale af moderne finish og en lokkende hyggelig stemning, der giver hver gæst den ultimative komfort og pusterum. Hotellet tilbyder en bred vifte af fritids- og forretningsfaciliteter, herunder et mini-businesscenter, rejseskrivebord, en fredfyldt pool på taget, veludstyret fitnesscenter og rekreative faciliteter.\r\nFra spisning til roomservice, oplev en balance mellem kontinentale retter og tilfredsstil dine trang med den friske gane i Beastro Restaurant og den søde duft af kaffe på Beastro, der ligger i lobbyen.",
-                    PercentagePrice = 1.1,
+                    PercentagePrice = 0.1,
                     OpenedAt = new TimeOnly(9, 0, 0),
                     ClosedAt = new TimeOnly(21, 30, 0),
                     CheckInFrom = new TimeOnly(16, 0, 0),
@@ -382,7 +296,7 @@ namespace API.Data
                     Phone = 12345678,
                     Email = "mercantec@mercantec.dk",
                     Description = "First Central Hotel Suites er udstyret med 524 moderne suiter, der kan prale af moderne finish og en lokkende hyggelig stemning, der giver hver gæst den ultimative komfort og pusterum. Hotellet tilbyder en bred vifte af fritids- og forretningsfaciliteter, herunder et mini-businesscenter, rejseskrivebord, en fredfyldt pool på taget, veludstyret fitnesscenter og rekreative faciliteter.\r\nFra spisning til roomservice, oplev en balance mellem kontinentale retter og tilfredsstil dine trang med den friske gane i Beastro Restaurant og den søde duft af kaffe på Beastro, der ligger i lobbyen.",
-                    PercentagePrice = 1.2,
+                    PercentagePrice = 0.2,
                     OpenedAt = new TimeOnly(9, 0, 0),
                     ClosedAt = new TimeOnly(21, 30, 0),
                     CheckInFrom = new TimeOnly(16, 0, 0),
