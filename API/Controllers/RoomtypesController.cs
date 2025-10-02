@@ -24,15 +24,15 @@ namespace API.Controllers
             _logger = logger;
         }
 
-		/// <summary>
-		/// Henter alle rumtyper.
-		/// </summary>
-		/// <returns>Rumtypens info.</returns>
-		/// <response code="500">Intern serverfejl.</response>
-		/// <response code="404">Rumtypen blev ikke fundet.</response>
-		/// <response code="403">Ingen adgang.</response>
-		/// <response code="200">Rumtypen blev fundet og retuneret.</response>
-		// GET: api/Roomtypes
+        /// <summary>
+        /// Henter alle rumtyper.
+        /// </summary>
+        /// <returns>Rumtypens info.</returns>
+        /// <response code="500">Intern serverfejl.</response>
+        /// <response code="404">Rumtypen blev ikke fundet.</response>
+        /// <response code="403">Ingen adgang.</response>
+        /// <response code="200">Rumtypen blev fundet og retuneret.</response>
+        // GET: api/Roomtypes
         [HttpGet]
         public async Task<ActionResult<IEnumerable<RoomtypeGetDto>>> GetRoomtypes()
         {
@@ -96,7 +96,7 @@ namespace API.Controllers
         /// <response code="404">Rumtypen blev ikke opdateret.</response>
         /// <response code="403">Ingen adgang.</response>
         /// <response code="200">Rumtypen blev opdateret.</response>
-        
+
         // PUT: api/Roomtypes/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
@@ -153,7 +153,7 @@ namespace API.Controllers
         [HttpPost]
         public async Task<ActionResult<Roomtype>> PostRoomtype(RoomtypePostDto roomtypePostDto)
         {
-           try
+            try
             {
                 Roomtype roomtype = RoomtypeMapping.PostRoomtypeFromDto(roomtypePostDto);
                 _context.Roomtypes.Add(roomtype);
@@ -181,16 +181,16 @@ namespace API.Controllers
             }
         }
 
-		/// <summary>
-		/// Sletter et roomtype.
-		/// </summary>
-		/// <param name="Id"> Rumtypens id.</param>
-		/// <returns>Sletter et roomtype.</returns>
-		/// <response code="500">Intern serverfejl.</response>
-		/// <response code="404">Rumtypen blev ikke slettet.</response>
-		/// <response code="403">Ingen adgang.</response>
-		/// <response code="200">Rumtypen blev slettet.</response>
-        
+        /// <summary>
+        /// Sletter et roomtype.
+        /// </summary>
+        /// <param name="id"> Rumtypens id.</param>
+        /// <returns>Sletter et roomtype.</returns>
+        /// <response code="500">Intern serverfejl.</response>
+        /// <response code="404">Rumtypen blev ikke slettet.</response>
+        /// <response code="403">Ingen adgang.</response>
+        /// <response code="200">Rumtypen blev slettet.</response>
+
         // DELETE: api/Roomtypes/5
         [HttpDelete("{Id}")]
         public async Task<IActionResult> DeleteRoomtype(int Id)
