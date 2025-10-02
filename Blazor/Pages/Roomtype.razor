@@ -1,0 +1,65 @@
+﻿@page "/hotel/{hotelId:int}/roomtype/{roomtypeId:int}"
+@using DomainModels
+@inject Blazor.Services.APIService ApiService
+@using System.Net.Http
+
+<PageTitle>Suite Dreams - Roomtype</PageTitle>
+@if (roomtype == null)
+{
+	<p><em>Loading roomtype...</em></p>
+}
+else if (foundRoomtype == false)
+{
+	<div class="alert alert-info">No roomtype found.</div>
+}
+else
+{
+	<div class="room_page">
+		<div class="row justify-content-center">
+
+			<!-- Responsive kolonne -->
+			<div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4 d-flex">
+				<!-- Card -->
+				<div class="card w-100 h-100">
+					<div class="card-body border-bottom row row-cols-1 row-cols-sm-2 gy-1 text-nowrap">
+						<div class="fw-bold mb-2">@roomtype.Name</div>
+						<div class="col text-end">
+						</div>
+					</div>
+
+					<div class="card-body">
+						<span class="mx-1"></span>
+						<div class="col text-center">
+							<div class="active text-alert fw-semibold me-1"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+}
+
+@code {
+	[Parameter]
+	public int hotelId { get; set; }
+
+	[Parameter]
+	public int roomtypeId { get; set; }
+
+	private RoomtypeGetDto? roomtype;
+
+	private bool foundRoomtype = true;
+
+	protected override async Task OnInitializedAsync()
+	{
+		try
+		{
+			roomtype = await ApiService.GetRoomType(roomtypeId);
+		}
+		catch (Exception ex)
+		{
+			Console.WriteLine($"Fejl ved hentning af rumtype med id'et {roomtypeId}: {ex.Message}", roomtypeId);
+			foundRoomtype = false;
+		}
+	}
+}

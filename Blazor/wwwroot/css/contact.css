@@ -79,7 +79,6 @@
 /*#929292a8*/
 
 
-}
 
 /******** BANNER *********/
 /*font-size: 16px;
@@ -88,61 +87,3 @@ color: #ffffff;
 border: 1px solid #a7a7a7;
 text-fill-color: rgba(0,0,0,0);
 position: relative;*/
-
-
-.badge {
-/*    display: none !important;*/
-}
-
-
-.home_page .card-body .fw-bold {
-    /*    background: linear-gradient(90deg, #a977c8, #6f8cc7, #639a47);
-    background-clip: text;
-    color: rgba(0, 0, 0, 0);*/
-
-
-/*    background: radial-gradient(ellipse farthest-corner at center top, #ffaaaa 20%, #c75d5c 70%);
-    background-clip: text;
-    -webkit-text-fill-color: rgba(0,0,0,0);
-    text-fill-color: rgba(0,0,0,0);
-    position: relative;*/
-}
-
-
-/* Desktop højde */
-.about_page .about-card-img {
-    height: 320px; 
-    object-fit: cover;
-    filter: brightness(50%) contrast(0.95);
-}
-
-/* overlay-indhold */
-.about_page .overlay-content {
-    padding: 3rem;
-}
-
-/* Tablet højde */
-@media (min-width: 576px) and (max-width: 991.98px) {
-    .about_page .about-card-img {
-        height: 380px;
-    }
-
-    .about_page .overlay-content {
-        padding: 1.5rem;
-    }
-}
-
-/* Mobil højde */
-@media (max-width: 575.98px) {
-    .about_page .about-card-img {
-        height: 400px;
-    }
-
-    .about_page .overlay-content {
-        padding: 1rem;
-    }
-
-    .about_page .card-title {
-        font-size: 1.05rem;
-    }
-}
