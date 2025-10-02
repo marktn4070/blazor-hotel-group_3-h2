@@ -184,7 +184,7 @@ namespace API.Migrations
                             Email = "mercantec@mercantec.dk",
                             Name = "Hotel 1",
                             OpenedAt = new TimeOnly(9, 0, 0),
-                            PercentagePrice = 1.0,
+                            PercentagePrice = 0.0,
                             Phone = 12345678,
                             Road = "H. C. Andersens Vej 9",
                             UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
@@ -204,7 +204,7 @@ namespace API.Migrations
                             Email = "mercantec@mercantec.dk",
                             Name = "Hotel 2",
                             OpenedAt = new TimeOnly(9, 0, 0),
-                            PercentagePrice = 1.1000000000000001,
+                            PercentagePrice = 0.10000000000000001,
                             Phone = 12345678,
                             Road = "H. C. Andersens Vej 9",
                             UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
@@ -224,7 +224,7 @@ namespace API.Migrations
                             Email = "mercantec@mercantec.dk",
                             Name = "Hotel 3",
                             OpenedAt = new TimeOnly(9, 0, 0),
-                            PercentagePrice = 1.2,
+                            PercentagePrice = 0.20000000000000001,
                             Phone = 12345678,
                             Road = "H. C. Andersens Vej 9",
                             UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
@@ -352,7 +352,7 @@ namespace API.Migrations
                         {
                             Id = 4,
                             CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
-                            HotelId = 2,
+                            HotelId = 1,
                             RoomNumber = 104,
                             RoomtypeId = 4,
                             UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
@@ -361,7 +361,7 @@ namespace API.Migrations
                         {
                             Id = 5,
                             CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
-                            HotelId = 2,
+                            HotelId = 1,
                             RoomNumber = 105,
                             RoomtypeId = 5,
                             UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
@@ -370,7 +370,7 @@ namespace API.Migrations
                         {
                             Id = 6,
                             CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
-                            HotelId = 2,
+                            HotelId = 1,
                             RoomNumber = 106,
                             RoomtypeId = 6,
                             UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
@@ -379,7 +379,7 @@ namespace API.Migrations
                         {
                             Id = 7,
                             CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
-                            HotelId = 2,
+                            HotelId = 1,
                             RoomNumber = 107,
                             RoomtypeId = 1,
                             UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
@@ -388,7 +388,7 @@ namespace API.Migrations
                         {
                             Id = 8,
                             CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
-                            HotelId = 3,
+                            HotelId = 1,
                             RoomNumber = 108,
                             RoomtypeId = 2,
                             UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
@@ -397,7 +397,7 @@ namespace API.Migrations
                         {
                             Id = 9,
                             CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
-                            HotelId = 3,
+                            HotelId = 1,
                             RoomNumber = 109,
                             RoomtypeId = 3,
                             UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
@@ -406,7 +406,7 @@ namespace API.Migrations
                         {
                             Id = 10,
                             CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
-                            HotelId = 3,
+                            HotelId = 1,
                             RoomNumber = 110,
                             RoomtypeId = 4,
                             UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
@@ -415,7 +415,7 @@ namespace API.Migrations
                         {
                             Id = 11,
                             CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
-                            HotelId = 3,
+                            HotelId = 1,
                             RoomNumber = 111,
                             RoomtypeId = 5,
                             UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
@@ -424,9 +424,2106 @@ namespace API.Migrations
                         {
                             Id = 12,
                             CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 1,
+                            RoomNumber = 112,
+                            RoomtypeId = 6,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 13,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 1,
+                            RoomNumber = 113,
+                            RoomtypeId = 1,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 14,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 1,
+                            RoomNumber = 114,
+                            RoomtypeId = 2,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 15,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 1,
+                            RoomNumber = 115,
+                            RoomtypeId = 3,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 16,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 1,
+                            RoomNumber = 116,
+                            RoomtypeId = 4,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 17,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 1,
+                            RoomNumber = 117,
+                            RoomtypeId = 5,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 18,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 1,
+                            RoomNumber = 118,
+                            RoomtypeId = 6,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 19,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 1,
+                            RoomNumber = 119,
+                            RoomtypeId = 1,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 20,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 1,
+                            RoomNumber = 120,
+                            RoomtypeId = 2,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 21,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 1,
+                            RoomNumber = 201,
+                            RoomtypeId = 3,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 22,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 1,
+                            RoomNumber = 202,
+                            RoomtypeId = 4,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 23,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 1,
+                            RoomNumber = 203,
+                            RoomtypeId = 5,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 24,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 1,
+                            RoomNumber = 204,
+                            RoomtypeId = 6,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 25,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 1,
+                            RoomNumber = 205,
+                            RoomtypeId = 1,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 26,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 1,
+                            RoomNumber = 206,
+                            RoomtypeId = 2,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 27,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 1,
+                            RoomNumber = 207,
+                            RoomtypeId = 3,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 28,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 1,
+                            RoomNumber = 208,
+                            RoomtypeId = 4,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 29,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 1,
+                            RoomNumber = 209,
+                            RoomtypeId = 5,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 30,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 1,
+                            RoomNumber = 210,
+                            RoomtypeId = 6,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 31,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 1,
+                            RoomNumber = 211,
+                            RoomtypeId = 1,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 32,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 1,
+                            RoomNumber = 212,
+                            RoomtypeId = 2,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 33,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 1,
+                            RoomNumber = 213,
+                            RoomtypeId = 3,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 34,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 1,
+                            RoomNumber = 214,
+                            RoomtypeId = 4,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 35,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 1,
+                            RoomNumber = 215,
+                            RoomtypeId = 5,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 36,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 1,
+                            RoomNumber = 216,
+                            RoomtypeId = 6,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 37,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 1,
+                            RoomNumber = 217,
+                            RoomtypeId = 1,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 38,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 1,
+                            RoomNumber = 218,
+                            RoomtypeId = 2,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 39,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 1,
+                            RoomNumber = 219,
+                            RoomtypeId = 3,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 40,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 1,
+                            RoomNumber = 220,
+                            RoomtypeId = 4,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 41,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 1,
+                            RoomNumber = 301,
+                            RoomtypeId = 5,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 42,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 1,
+                            RoomNumber = 302,
+                            RoomtypeId = 6,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 43,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 1,
+                            RoomNumber = 303,
+                            RoomtypeId = 1,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 44,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 1,
+                            RoomNumber = 304,
+                            RoomtypeId = 2,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 45,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 1,
+                            RoomNumber = 305,
+                            RoomtypeId = 3,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 46,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 1,
+                            RoomNumber = 306,
+                            RoomtypeId = 4,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 47,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 1,
+                            RoomNumber = 307,
+                            RoomtypeId = 5,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 48,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 1,
+                            RoomNumber = 308,
+                            RoomtypeId = 6,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 49,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 1,
+                            RoomNumber = 309,
+                            RoomtypeId = 1,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 50,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 1,
+                            RoomNumber = 310,
+                            RoomtypeId = 2,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 51,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 1,
+                            RoomNumber = 311,
+                            RoomtypeId = 3,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 52,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 1,
+                            RoomNumber = 312,
+                            RoomtypeId = 4,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 53,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 1,
+                            RoomNumber = 313,
+                            RoomtypeId = 5,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 54,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 1,
+                            RoomNumber = 314,
+                            RoomtypeId = 6,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 55,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 1,
+                            RoomNumber = 315,
+                            RoomtypeId = 1,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 56,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 1,
+                            RoomNumber = 316,
+                            RoomtypeId = 2,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 57,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 1,
+                            RoomNumber = 317,
+                            RoomtypeId = 3,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 58,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 1,
+                            RoomNumber = 318,
+                            RoomtypeId = 4,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 59,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 1,
+                            RoomNumber = 319,
+                            RoomtypeId = 5,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 60,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 1,
+                            RoomNumber = 320,
+                            RoomtypeId = 6,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 61,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 101,
+                            RoomtypeId = 1,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 62,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 102,
+                            RoomtypeId = 2,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 63,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 103,
+                            RoomtypeId = 3,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 64,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 104,
+                            RoomtypeId = 4,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 65,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 105,
+                            RoomtypeId = 5,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 66,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 106,
+                            RoomtypeId = 6,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 67,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 107,
+                            RoomtypeId = 1,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 68,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 108,
+                            RoomtypeId = 2,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 69,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 109,
+                            RoomtypeId = 3,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 70,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 110,
+                            RoomtypeId = 4,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 71,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 111,
+                            RoomtypeId = 5,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 72,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 112,
+                            RoomtypeId = 6,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 73,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 113,
+                            RoomtypeId = 1,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 74,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 114,
+                            RoomtypeId = 2,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 75,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 115,
+                            RoomtypeId = 3,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 76,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 116,
+                            RoomtypeId = 4,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 77,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 117,
+                            RoomtypeId = 5,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 78,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 118,
+                            RoomtypeId = 6,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 79,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 119,
+                            RoomtypeId = 1,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 80,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 120,
+                            RoomtypeId = 2,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 81,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 121,
+                            RoomtypeId = 3,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 82,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 122,
+                            RoomtypeId = 4,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 83,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 123,
+                            RoomtypeId = 5,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 84,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 124,
+                            RoomtypeId = 6,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 85,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 125,
+                            RoomtypeId = 1,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 86,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 126,
+                            RoomtypeId = 2,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 87,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 127,
+                            RoomtypeId = 3,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 88,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 128,
+                            RoomtypeId = 4,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 89,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 129,
+                            RoomtypeId = 5,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 90,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 130,
+                            RoomtypeId = 6,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 91,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 131,
+                            RoomtypeId = 1,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 92,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 132,
+                            RoomtypeId = 2,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 93,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 133,
+                            RoomtypeId = 3,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 94,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 134,
+                            RoomtypeId = 4,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 95,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 135,
+                            RoomtypeId = 5,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 96,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 136,
+                            RoomtypeId = 6,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 97,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 137,
+                            RoomtypeId = 1,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 98,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 201,
+                            RoomtypeId = 2,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 99,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 202,
+                            RoomtypeId = 3,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 100,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 203,
+                            RoomtypeId = 4,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 101,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 204,
+                            RoomtypeId = 5,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 102,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 205,
+                            RoomtypeId = 6,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 103,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 206,
+                            RoomtypeId = 1,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 104,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 207,
+                            RoomtypeId = 2,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 105,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 208,
+                            RoomtypeId = 3,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 106,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 209,
+                            RoomtypeId = 4,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 107,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 210,
+                            RoomtypeId = 5,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 108,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 211,
+                            RoomtypeId = 6,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 109,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 212,
+                            RoomtypeId = 1,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 110,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 213,
+                            RoomtypeId = 2,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 111,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 214,
+                            RoomtypeId = 3,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 112,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 215,
+                            RoomtypeId = 4,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 113,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 216,
+                            RoomtypeId = 5,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 114,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 217,
+                            RoomtypeId = 6,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 115,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 218,
+                            RoomtypeId = 1,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 116,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 219,
+                            RoomtypeId = 2,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 117,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 220,
+                            RoomtypeId = 3,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 118,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 221,
+                            RoomtypeId = 4,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 119,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 222,
+                            RoomtypeId = 5,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 120,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 223,
+                            RoomtypeId = 6,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 121,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 224,
+                            RoomtypeId = 1,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 122,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 225,
+                            RoomtypeId = 2,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 123,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 226,
+                            RoomtypeId = 3,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 124,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 227,
+                            RoomtypeId = 4,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 125,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 228,
+                            RoomtypeId = 5,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 126,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 229,
+                            RoomtypeId = 6,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 127,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 230,
+                            RoomtypeId = 1,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 128,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 231,
+                            RoomtypeId = 2,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 129,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 232,
+                            RoomtypeId = 3,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 130,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 233,
+                            RoomtypeId = 4,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 131,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 234,
+                            RoomtypeId = 5,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 132,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 235,
+                            RoomtypeId = 6,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 133,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 236,
+                            RoomtypeId = 1,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 134,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 237,
+                            RoomtypeId = 2,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 135,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 301,
+                            RoomtypeId = 3,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 136,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 302,
+                            RoomtypeId = 4,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 137,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 303,
+                            RoomtypeId = 5,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 138,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 304,
+                            RoomtypeId = 6,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 139,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 305,
+                            RoomtypeId = 1,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 140,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 306,
+                            RoomtypeId = 2,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 141,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 307,
+                            RoomtypeId = 3,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 142,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 308,
+                            RoomtypeId = 4,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 143,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 309,
+                            RoomtypeId = 5,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 144,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 310,
+                            RoomtypeId = 6,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 145,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 311,
+                            RoomtypeId = 1,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 146,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 312,
+                            RoomtypeId = 2,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 147,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 313,
+                            RoomtypeId = 3,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 148,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 314,
+                            RoomtypeId = 4,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 149,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 315,
+                            RoomtypeId = 5,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 150,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 316,
+                            RoomtypeId = 6,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 151,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 317,
+                            RoomtypeId = 1,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 152,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 318,
+                            RoomtypeId = 2,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 153,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 319,
+                            RoomtypeId = 3,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 154,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 320,
+                            RoomtypeId = 4,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 155,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 321,
+                            RoomtypeId = 5,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 156,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 322,
+                            RoomtypeId = 6,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 157,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 323,
+                            RoomtypeId = 1,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 158,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 324,
+                            RoomtypeId = 2,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 159,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 325,
+                            RoomtypeId = 3,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 160,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 326,
+                            RoomtypeId = 4,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 161,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 327,
+                            RoomtypeId = 5,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 162,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 328,
+                            RoomtypeId = 6,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 163,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 329,
+                            RoomtypeId = 1,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 164,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 330,
+                            RoomtypeId = 2,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 165,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 331,
+                            RoomtypeId = 3,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 166,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 332,
+                            RoomtypeId = 4,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 167,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 333,
+                            RoomtypeId = 5,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 168,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 334,
+                            RoomtypeId = 6,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 169,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 335,
+                            RoomtypeId = 1,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 170,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 336,
+                            RoomtypeId = 2,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 171,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 101,
+                            RoomtypeId = 1,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 172,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 102,
+                            RoomtypeId = 2,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 173,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 103,
+                            RoomtypeId = 3,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 174,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 104,
+                            RoomtypeId = 4,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 175,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 105,
+                            RoomtypeId = 5,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 176,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 106,
+                            RoomtypeId = 6,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 177,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 107,
+                            RoomtypeId = 1,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 178,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 108,
+                            RoomtypeId = 2,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 179,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 109,
+                            RoomtypeId = 3,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 180,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 110,
+                            RoomtypeId = 4,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 181,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 111,
+                            RoomtypeId = 5,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 182,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
                             HotelId = 3,
                             RoomNumber = 112,
                             RoomtypeId = 6,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 183,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 113,
+                            RoomtypeId = 1,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 184,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 114,
+                            RoomtypeId = 2,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 185,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 115,
+                            RoomtypeId = 3,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 186,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 116,
+                            RoomtypeId = 4,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 187,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 117,
+                            RoomtypeId = 5,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 188,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 118,
+                            RoomtypeId = 6,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 189,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 119,
+                            RoomtypeId = 1,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 190,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 120,
+                            RoomtypeId = 2,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 191,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 121,
+                            RoomtypeId = 3,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 192,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 122,
+                            RoomtypeId = 4,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 193,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 123,
+                            RoomtypeId = 5,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 194,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 124,
+                            RoomtypeId = 6,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 195,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 125,
+                            RoomtypeId = 1,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 196,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 201,
+                            RoomtypeId = 2,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 197,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 202,
+                            RoomtypeId = 3,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 198,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 203,
+                            RoomtypeId = 4,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 199,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 204,
+                            RoomtypeId = 5,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 200,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 205,
+                            RoomtypeId = 6,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 201,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 206,
+                            RoomtypeId = 1,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 202,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 207,
+                            RoomtypeId = 2,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 203,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 208,
+                            RoomtypeId = 3,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 204,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 209,
+                            RoomtypeId = 4,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 205,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 210,
+                            RoomtypeId = 5,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 206,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 211,
+                            RoomtypeId = 6,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 207,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 212,
+                            RoomtypeId = 1,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 208,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 213,
+                            RoomtypeId = 2,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 209,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 214,
+                            RoomtypeId = 3,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 210,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 215,
+                            RoomtypeId = 4,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 211,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 216,
+                            RoomtypeId = 5,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 212,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 217,
+                            RoomtypeId = 6,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 213,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 218,
+                            RoomtypeId = 1,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 214,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 219,
+                            RoomtypeId = 2,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 215,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 220,
+                            RoomtypeId = 3,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 216,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 221,
+                            RoomtypeId = 4,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 217,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 222,
+                            RoomtypeId = 5,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 218,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 223,
+                            RoomtypeId = 6,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 219,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 224,
+                            RoomtypeId = 1,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 220,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 225,
+                            RoomtypeId = 2,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 221,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 301,
+                            RoomtypeId = 3,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 222,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 302,
+                            RoomtypeId = 4,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 223,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 303,
+                            RoomtypeId = 5,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 224,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 304,
+                            RoomtypeId = 6,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 225,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 305,
+                            RoomtypeId = 1,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 226,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 306,
+                            RoomtypeId = 2,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 227,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 307,
+                            RoomtypeId = 3,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 228,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 308,
+                            RoomtypeId = 4,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 229,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 309,
+                            RoomtypeId = 5,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 230,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 310,
+                            RoomtypeId = 6,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 231,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 311,
+                            RoomtypeId = 1,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 232,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 312,
+                            RoomtypeId = 2,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 233,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 313,
+                            RoomtypeId = 3,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 234,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 314,
+                            RoomtypeId = 4,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 235,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 315,
+                            RoomtypeId = 5,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 236,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 316,
+                            RoomtypeId = 6,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 237,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 317,
+                            RoomtypeId = 1,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 238,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 318,
+                            RoomtypeId = 2,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 239,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 319,
+                            RoomtypeId = 3,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 240,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 320,
+                            RoomtypeId = 4,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 241,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 321,
+                            RoomtypeId = 5,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 242,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 322,
+                            RoomtypeId = 6,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 243,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 323,
+                            RoomtypeId = 1,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 244,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 324,
+                            RoomtypeId = 2,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 245,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 325,
+                            RoomtypeId = 3,
                             UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
                         });
                 });

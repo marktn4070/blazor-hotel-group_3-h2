@@ -1,0 +1,38 @@
+
+/* Desktop højde */
+.about_page .about-card-img {
+    height: 320px; 
+    object-fit: cover;
+    filter: brightness(50%) contrast(0.95);
+}
+
+/* overlay-indhold */
+.about_page .overlay-content {
+    padding: 3rem;
+}
+
+/* Tablet højde */
+@media (min-width: 576px) and (max-width: 991.98px) {
+    .about_page .about-card-img {
+        height: 380px;
+    }
+
+    .about_page .overlay-content {
+        padding: 1.5rem;
+    }
+}
+
+/* Mobil højde */
+@media (max-width: 575.98px) {
+    .about_page .about-card-img {
+        height: 400px;
+    }
+
+    .about_page .overlay-content {
+        padding: 1rem;
+    }
+
+    .about_page .card-title {
+        font-size: 1.05rem;
+    }
+}
