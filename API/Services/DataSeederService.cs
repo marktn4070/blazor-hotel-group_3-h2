@@ -52,13 +52,6 @@ namespace API.Services
                 summary.AppendLine($"- Bookinger: {existingBookings}");
                 summary.AppendLine();
 
-                //// Hent eksisterende bookinger 
-                var existingBookingsList = await _context.Bookings.ToListAsync();
-                summary.AppendLine($"✅ Hentet {existingBookingsList.Count} bookinger");
-
-                //// Hent eksisterende hoteller 
-                var existingHotelssList = await _context.Hotels.ToListAsync();
-                summary.AppendLine($"✅ Hentet {existingHotelssList.Count} hoteller");
 
                 //// Sikr at der findes roller i databasen
                 await EnsureRolesExistAsync();
@@ -79,6 +72,14 @@ namespace API.Services
                 // Seed rum
                 var rooms = await SeedRoomsAsync(hotels, roomtypes, roomsPerHotel);
                 summary.AppendLine($"✅ Oprettet {rooms.Count} rum");
+
+                //// Hent eksisterende bookinger 
+                var existingBookingsList = await _context.Bookings.ToListAsync();
+                summary.AppendLine($"✅ Hentet {existingBookingsList.Count} bookinger");
+
+                //// Hent eksisterende hoteller 
+                var existingHotelssList = await _context.Hotels.ToListAsync();
+                summary.AppendLine($"✅ Hentet {existingHotelssList.Count} hoteller");
 
                 //// Seed bookinger
                 var bookings = await SeedBookingsAsync(existingBookingsList, existingHotelssList, users, rooms, roomtypes, bookingCount);
@@ -401,11 +402,11 @@ namespace API.Services
         private async Task<List<Booking>> SeedBookingsAsync(List<Booking> db_bookings, List<Hotel> db_hotels, List<User> db_users, List<Room> db_rooms, List<Roomtype> db_roomtypes, int count)
         {
             var bookings = new List<Booking>();
-            var bookingStatuses = new[] { 
-                BookingStatus.Confirmed, 
-                BookingStatus.Cancelled, 
-                BookingStatus.CheckedIn, 
-                BookingStatus.CheckedOut 
+            var bookingStatuses = new[] {
+                BookingStatus.Confirmed,
+                BookingStatus.Cancelled,
+                BookingStatus.CheckedIn,
+                BookingStatus.CheckedOut
             };
             var faker = new Faker("en");
 
@@ -419,12 +420,12 @@ namespace API.Services
 
                 // Generer realistiske datoer
                 var startDate = faker.Date.Between(
-                    DateTime.UtcNow.AddDays(-180), 
+                    DateTime.UtcNow.AddDays(-180),
                     DateTime.UtcNow.AddDays(180)
                 );
 
                 var nights = faker.Random.WeightedRandom(
-                    new[] { 1, 2, 3, 4, 5, 7, 14 }, 
+                    new[] { 1, 2, 3, 4, 5, 7, 14 },
                     new[] { 0.1f, 0.3f, 0.25f, 0.15f, 0.1f, 0.08f, 0.02f }
                 );
                 var endDate = startDate.AddDays(nights);
@@ -477,6 +478,7 @@ namespace API.Services
 
             return bookings;
         }
+
 
 
         /// <summary>
