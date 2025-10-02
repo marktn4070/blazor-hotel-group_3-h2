@@ -43,6 +43,7 @@ namespace API.Data
             });
 
             modelBuilder.Entity<Facility>()
+
                 .HasKey(f => f.HotelId); // Shared PK
 
             modelBuilder.Entity<Hotel>()
