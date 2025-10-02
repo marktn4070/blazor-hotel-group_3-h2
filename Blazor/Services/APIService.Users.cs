@@ -172,7 +172,7 @@ namespace Blazor.Services
         }
 
 
-        // /me endpoint get current user
+        // /get user by id
         public async Task<UserGetDto?> GetUserAsync(int id)
         {
             try
@@ -212,19 +212,51 @@ namespace Blazor.Services
 
             return users?.ToArray() ?? [];
         }
-
-        public async Task<UserGetDto?> GetCurrentUserAsync()
+        // /me endpoint 
+        public async Task<UserGetDto?> GetCurrentUserAsync(int maxItems,
+			string? fullToken = null,
+			CancellationToken cancellationToken = default)
         {
-            try
+			AuthenticationHeaderValue? original = _httpClient.DefaultRequestHeaders.Authorization;
+			try
             {
-                return await _httpClient.GetFromJsonAsync<UserGetDto>("api/users/me");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Fejl ved hentning af nuværende bruger: " + ex.Message);
-                return null;
-            }
-        }
+				if (!string.IsNullOrWhiteSpace(fullToken))
+				{
+					_httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", fullToken);
+				}
+				UserGetDto? users = null;
+
+                await foreach (
+                    var user in _httpClient.GetFromJsonAsAsyncEnumerable<UserGetDto>(
+                        "/api/Users/me",
+                        cancellationToken
+                    )
+                    )
+				{
+					//if (users?.Count >= maxItems && maxItems != 0)
+					//{
+					//	break;
+					//}
+					//if (user is not null)
+					//{
+					//	users ??= [];
+					//	users.Add(user);
+					//}
+				}
+				return users;
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine("Fejl ved hentning af brugere: " + ex.Message);
+				return null;
+			}
+			finally
+			{
+				// Gendan tidligere header (eller fjern hvis der ikke var nogen)
+				_httpClient.DefaultRequestHeaders.Authorization = original;
+			}
+
+		}
 
         public async Task<bool> DeleteUserAsync(int id)
         {

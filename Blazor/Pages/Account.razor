@@ -59,7 +59,7 @@
 </div>
 
 @code{
-    private UserGetDto[]? users;
+    private UserGetDto? users;
     private bool isLoading = true;
     private string fullToken = string.Empty;
     private bool foundAccount = true;
@@ -71,36 +71,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        try
-        {
-            var details = await ApiService.GetHotelByIdAsync(userId);
-
-            if (details != null)
-            {
-                user = new HotelPutDto
-                {
-                    Id = user.Id,
-                    Name = details.Name,
-                    Road = details.Road,
-                    Zip = details.Zip,
-                    City = details.City,
-                    Country = details.Country,
-                    Phone = details.Phone,
-                    Email = details.Email,
-                    Description = details.Description
-                };
-            }
-            else
-            {
-                foundUser = false;
-            }
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error fetching hotel {userId}: {ex.Message}");
-            foundUser = false;
-        }
-        await LoadUserInfo();
+		await LoadUserInfo();
 
         // Subscribe to authentication state changes
         AuthService.AuthenticationStateChanged += OnAuthenticationStateChanged;
@@ -110,6 +81,7 @@
     {
         isLoading = true;
         StateHasChanged();
+
         try
         {
             if (await AuthService.IsAuthenticatedAsync())
@@ -118,11 +90,20 @@
                 fullToken = await AuthService.GetTokenAsync() ?? string.Empty;
 
                 // Kald API'et med token som parameter
-                users = await ApiService.GetAllUsersAsync(0, fullToken);
+                users = await ApiService.GetCurrentUserAsync(0, fullToken);
+                if (users != null)
+                        {
+                            user = new UserPutDto
+                            {
 
-                // Sortér efter UserId i stigende rækkefølge
-                if (users != null && users.Length > 1)
-                    users = users.OrderBy(u => u.Id).ToArray();
+                                Email = users.Email,
+                                Phone = users.Phone,
+                                FirstName = users.FirstName,
+                                LastName = users.LastName,
+
+                            };
+                        }
+                
             }
             else
             {
@@ -133,13 +114,14 @@
         catch (Exception ex)
         {
             Console.WriteLine($"Fejl ved hentning af brugere: {ex.Message}");
-            users = Array.Empty<UserGetDto>();
+            users = null;
         }
         finally
         {
             isLoading = false;
             StateHasChanged();
         }
+
     }
 
 
