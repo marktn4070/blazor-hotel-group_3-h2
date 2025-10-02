@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.SignalR.Client;
+﻿using Microsoft.AspNetCore.SignalR.Client;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -12,7 +11,6 @@ namespace Blazor.Services
         private readonly AuthenticationService _authService;
         private HubConnection? _hubConnection;
 
-    public event Action<string, string, string>? OnMessageReceived;
         public bool IsConnected => _hubConnection?.State == HubConnectionState.Connected;
 
         // Events for components to subscribe to
@@ -67,7 +65,6 @@ namespace Blazor.Services
             if (_hubConnection != null)
                 await _hubConnection.SendAsync("SendMessage", chatId, user, message);
         }
-    }
 
         public async Task JoinChat(string chatId, string user)
         {
@@ -77,7 +74,6 @@ namespace Blazor.Services
             if (_hubConnection != null)
                 await _hubConnection.SendAsync("JoinChat", chatId, user);
         }
-    }
 
         public async Task LeaveChat(string chatId, string user)
         {

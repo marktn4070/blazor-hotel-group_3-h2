@@ -192,27 +192,27 @@ namespace API.Controllers
         /// <response code="200">Rumtypen blev slettet.</response>
 
         // DELETE: api/Roomtypes/5
-        [HttpDelete("{Id}")]
-        public async Task<IActionResult> DeleteRoomtype(int Id)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteRoomtype(int id)
         {
             try
             {
-                var roomtype = await _context.Roomtypes.FindAsync(Id);
+                var roomtype = await _context.Roomtypes.FindAsync(id);
                 if (roomtype == null)
                 {
-                    _logger.LogWarning("Forsøg på at slette roomtype {Id}, men det blev ikke fundet", Id);
+                    _logger.LogWarning("Forsøg på at slette roomtype {Id}, men det blev ikke fundet", id);
                     return NotFound();
                 }
 
                 _context.Roomtypes.Remove(roomtype);
                 await _context.SaveChangesAsync();
 
-                _logger.LogInformation("Rumtype med id'et {Id} slettet succesfuldt", Id);
+                _logger.LogInformation("Rumtype med id'et {Id} slettet succesfuldt", id);
                 return NoContent();
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Fejl ved sletning af roomtype {Id}", Id);
+                _logger.LogError(ex, "Fejl ved sletning af roomtype {Id}", id);
                 return StatusCode(500, "Der opstod en intern serverfejl ved sletning af roomtype");
             }
         }
