@@ -60,7 +60,7 @@
 
 @code{
     private UserGetDto? users;
-    private bool isLoading = true;
+    private bool isLoading = true;  
     private string fullToken = string.Empty;
     private bool foundAccount = true;
 
@@ -95,7 +95,7 @@
                         {
                             user = new UserPutDto
                             {
-
+						        Id = users.Id,
                                 Email = users.Email,
                                 Phone = users.Phone,
                                 FirstName = users.FirstName,
