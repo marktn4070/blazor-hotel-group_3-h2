@@ -5,191 +5,138 @@ using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text.Json;
 
-namespace Blazor.Services
+namespace Blazor.Services;
+
+public partial class APIService
 {
-    public partial class APIService
+    // User authentication methods
+    public async Task<LoginApiResult> LoginAsync(LoginDto loginDto)
     {
-        // User authentication methods
-        public async Task<LoginApiResult> LoginAsync(LoginDto loginDto)
+        try
         {
-            try
+            var response = await _httpClient.PostAsJsonAsync("api/users/login", loginDto);
+
+            if (response.IsSuccessStatusCode)
             {
-                var response = await _httpClient.PostAsJsonAsync("api/users/login", loginDto);
-
-                if (response.IsSuccessStatusCode)
+                var responseContent = await response.Content.ReadAsStringAsync();
+                var loginResponse = JsonSerializer.Deserialize<LoginResponse>(responseContent, new JsonSerializerOptions
                 {
-                    var responseContent = await response.Content.ReadAsStringAsync();
-                    var loginResponse = JsonSerializer.Deserialize<LoginResponse>(responseContent, new JsonSerializerOptions
-                    {
-                        PropertyNameCaseInsensitive = true
-                    });
+                    PropertyNameCaseInsensitive = true
+                });
 
-                    return new LoginApiResult
-                    {
-                        Success = true,
-                        Response = loginResponse,
-                        StatusCode = response.StatusCode
-                    };
-                }
-                else
+                return new LoginApiResult
                 {
-                    var errorContent = await response.Content.ReadAsStringAsync();
-                    var errorResponse = JsonSerializer.Deserialize<ErrorResponse>(errorContent, new JsonSerializerOptions
-                    {
-                        PropertyNameCaseInsensitive = true
-                    });
-
-                    return new LoginApiResult
-                    {
-                        Success = false,
-                        ErrorResponse = errorResponse,
-                        StatusCode = response.StatusCode
-                    };
-                }
+                    Success = true,
+                    Response = loginResponse,
+                    StatusCode = response.StatusCode
+                };
             }
-            catch (Exception ex)
+            else
             {
-                Console.WriteLine("Fejl ved login: " + ex.Message);
+                var errorContent = await response.Content.ReadAsStringAsync();
+                var errorResponse = JsonSerializer.Deserialize<ErrorResponse>(errorContent, new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                });
+
                 return new LoginApiResult
                 {
                     Success = false,
-                    ErrorMessage = ex.Message,
-                    StatusCode = System.Net.HttpStatusCode.InternalServerError
+                    ErrorResponse = errorResponse,
+                    StatusCode = response.StatusCode
                 };
             }
         }
-
-        //public async Task<bool> RegisterAsync(RegisterDto registerDto)
-        //{
-        //    try
-        //    {
-        //        var response = await _httpClient.PostAsJsonAsync("api/users/register", registerDto);
-        //        return response.IsSuccessStatusCode;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine("Fejl ved registrering: " + ex.Message);
-        //        return false;
-        //    }
-        //}
-
-
-        public async Task<RegisterApiResult> RegisterAsync(RegisterDto registerDto)
+        catch (Exception ex)
         {
-            try
+            Console.WriteLine("Fejl ved login: " + ex.Message);
+            return new LoginApiResult
             {
-                var response = await _httpClient.PostAsJsonAsync("api/users/register", registerDto);
-                var content = await response.Content.ReadAsStringAsync();
+                Success = false,
+                ErrorMessage = ex.Message,
+                StatusCode = System.Net.HttpStatusCode.InternalServerError
+            };
+        }
+    }
 
-                if (response.IsSuccessStatusCode)
-                {
-                    // Hvis API'en returnerer en besked kan du deserialisere den her (valgfrit)
-                    return new RegisterApiResult
-                    {
-                        Success = true,
-                        Message = "Konto oprettet succesfuldt.",
-                        StatusCode = response.StatusCode
-                    };
-                }
-                else
-                {
-                    ErrorResponse? err = null;
-                    try
-                    {
-                        err = JsonSerializer.Deserialize<ErrorResponse>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-                    }
-                    catch { /* ignore parse errors */ }
+    //public async Task<bool> RegisterAsync(RegisterDto registerDto)
+    //{
+    //    try
+    //    {
+    //        var response = await _httpClient.PostAsJsonAsync("api/users/register", registerDto);
+    //        return response.IsSuccessStatusCode;
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        Console.WriteLine("Fejl ved registrering: " + ex.Message);
+    //        return false;
+    //    }
+    //}
 
-                    return new RegisterApiResult
-                    {
-                        Success = false,
-                        Message = err?.Message ?? content,
-                        ErrorResponse = err,
-                        StatusCode = response.StatusCode
-                    };
-                }
+
+    public async Task<RegisterApiResult> RegisterAsync(RegisterDto registerDto)
+    {
+        try
+        {
+            var response = await _httpClient.PostAsJsonAsync("api/users/register", registerDto);
+            var content = await response.Content.ReadAsStringAsync();
+
+            if (response.IsSuccessStatusCode)
+            {
+                // Hvis API'en returnerer en besked kan du deserialisere den her (valgfrit)
+                return new RegisterApiResult
+                {
+                    Success = true,
+                    Message = "Konto oprettet succesfuldt.",
+                    StatusCode = response.StatusCode
+                };
             }
-            catch (Exception ex)
+            else
             {
-                Console.WriteLine($"Fejl ved registrering: {ex.Message}");
+                ErrorResponse? err = null;
+                try
+                {
+                    err = JsonSerializer.Deserialize<ErrorResponse>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                }
+                catch { /* ignore parse errors */ }
+
                 return new RegisterApiResult
                 {
                     Success = false,
-                    Message = ex.Message,
-                    StatusCode = System.Net.HttpStatusCode.InternalServerError
+                    Message = err?.Message ?? content,
+                    ErrorResponse = err,
+                    StatusCode = response.StatusCode
                 };
             }
         }
-
-
-        // /api/users endpoint get all users
-        public async Task<UserGetDto[]?> GetAllUsersAsync(
-            int maxItems,
-            string? fullToken = null,
-            CancellationToken cancellationToken = default
-        )
+        catch (Exception ex)
         {
-            AuthenticationHeaderValue? original = _httpClient.DefaultRequestHeaders.Authorization;
-            try
+            Console.WriteLine($"Fejl ved registrering: {ex.Message}");
+            return new RegisterApiResult
             {
-                if (!string.IsNullOrWhiteSpace(fullToken))
-                {
-                    _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", fullToken);
-                }
-
-                List<UserGetDto>? users = null;
-
-                await foreach (
-                    var user in _httpClient.GetFromJsonAsAsyncEnumerable<UserGetDto>(
-                        "/api/Users",
-                        cancellationToken
-                    )
-                )
-                {
-                    if (users?.Count >= maxItems && maxItems != 0)
-                    {
-                        break;
-                    }
-                    if (user is not null)
-                    {
-                        users ??= [];
-                        users.Add(user);
-                    }
-                }
-
-                return users?.ToArray() ?? [];
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Fejl ved hentning af brugere: " + ex.Message);
-                return null;
-            }
-                finally
-            {
-                // Gendan tidligere header (eller fjern hvis der ikke var nogen)
-                _httpClient.DefaultRequestHeaders.Authorization = original;
-            }
+                Success = false,
+                Message = ex.Message,
+                StatusCode = System.Net.HttpStatusCode.InternalServerError
+            };
         }
+    }
 
 
-        // /me endpoint get current user
-        public async Task<UserGetDto?> GetUserAsync(int id)
-        {
-            try
-            {
-                return await _httpClient.GetFromJsonAsync<UserGetDto>($"api/users/{id}");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Fejl ved hentning af bruger {id}: " + ex.Message);
-                return null;
-            }
-        }
-        public async Task<UserGetDto[]> GetAllUsersAsync(
+    // /api/users endpoint get all users
+    public async Task<UserGetDto[]?> GetAllUsersAsync(
         int maxItems,
+        string? fullToken = null,
         CancellationToken cancellationToken = default
     )
+    {
+        AuthenticationHeaderValue? original = _httpClient.DefaultRequestHeaders.Authorization;
+        try
         {
+            if (!string.IsNullOrWhiteSpace(fullToken))
+            {
+                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", fullToken);
+            }
+
             List<UserGetDto>? users = null;
 
             await foreach (
@@ -212,90 +159,142 @@ namespace Blazor.Services
 
             return users?.ToArray() ?? [];
         }
-
-        public async Task<UserGetDto?> GetCurrentUserAsync()
+        catch (Exception ex)
         {
-            try
-            {
-                return await _httpClient.GetFromJsonAsync<UserGetDto>("api/users/me");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Fejl ved hentning af nuværende bruger: " + ex.Message);
-                return null;
-            }
+            Console.WriteLine("Fejl ved hentning af brugere: " + ex.Message);
+            return null;
         }
-
-        public async Task<bool> DeleteUserAsync(int id)
+            finally
         {
-            try
-            {
-                var response = await _httpClient.DeleteAsync($"api/users/{id}");
-                return response.IsSuccessStatusCode;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Fejl ved sletning af bruger {id}: " + ex.Message);
-                return false;
-            }
-        }
-
-        // Logout method (client-side token removal)
-        public void Logout()
-        {
-            // This would typically clear the JWT token from storage
-            // Implementation depends on how you store the token
+            // Gendan tidligere header (eller fjern hvis der ikke var nogen)
+            _httpClient.DefaultRequestHeaders.Authorization = original;
         }
     }
 
-    // Response models for API calls
-    public class LoginApiResult
+
+    // /me endpoint get current user
+    public async Task<UserGetDto?> GetUserAsync(int id)
     {
-        public bool Success { get; set; }
-        public LoginResponse? Response { get; set; }
-        public ErrorResponse? ErrorResponse { get; set; }
-        public string? ErrorMessage { get; set; }
-        public System.Net.HttpStatusCode StatusCode { get; set; }
+        try
+        {
+            return await _httpClient.GetFromJsonAsync<UserGetDto>($"api/users/{id}");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Fejl ved hentning af bruger {id}: " + ex.Message);
+            return null;
+        }
+    }
+    public async Task<UserGetDto[]> GetAllUsersAsync(
+    int maxItems,
+    CancellationToken cancellationToken = default
+)
+    {
+        List<UserGetDto>? users = null;
+
+        await foreach (
+            var user in _httpClient.GetFromJsonAsAsyncEnumerable<UserGetDto>(
+                "/api/Users",
+                cancellationToken
+            )
+        )
+        {
+            if (users?.Count >= maxItems && maxItems != 0)
+            {
+                break;
+            }
+            if (user is not null)
+            {
+                users ??= [];
+                users.Add(user);
+            }
+        }
+
+        return users?.ToArray() ?? [];
     }
 
-    public class RegisterApiResult
+    public async Task<UserGetDto?> GetCurrentUserAsync()
     {
-        public bool Success { get; set; }
-        public string? Message { get; set; }
-        public ErrorResponse? ErrorResponse { get; set; }
-        public System.Net.HttpStatusCode StatusCode { get; set; }
+        try
+        {
+            return await _httpClient.GetFromJsonAsync<UserGetDto>("api/users/me");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Fejl ved hentning af nuværende bruger: " + ex.Message);
+            return null;
+        }
     }
 
-
-
-    public class LoginResponse
+    public async Task<bool> DeleteUserAsync(int id)
     {
-        public string Message { get; set; } = string.Empty;
-        public string Token { get; set; } = string.Empty;
-        public AuthUserInfo User { get; set; } = new();
+        try
+        {
+            var response = await _httpClient.DeleteAsync($"api/users/{id}");
+            return response.IsSuccessStatusCode;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Fejl ved sletning af bruger {id}: " + ex.Message);
+            return false;
+        }
     }
 
-    public class ErrorResponse
+    // Logout method (client-side token removal)
+    public void Logout()
     {
-        public string Message { get; set; } = string.Empty;
-        public int RemainingLockoutSeconds { get; set; }
-        public int DelayApplied { get; set; }
+        // This would typically clear the JWT token from storage
+        // Implementation depends on how you store the token
     }
+}
 
-    public class AuthUserInfo
-    {
-        public int Id { get; set; }
-        public string Email { get; set; } = string.Empty;
-        public string Role { get; set; } = string.Empty;
-    }
+// Response models for API calls
+public class LoginApiResult
+{
+    public bool Success { get; set; }
+    public LoginResponse? Response { get; set; }
+    public ErrorResponse? ErrorResponse { get; set; }
+    public string? ErrorMessage { get; set; }
+    public System.Net.HttpStatusCode StatusCode { get; set; }
+}
 
-    public class LoginResult
-    {
-        public bool Success { get; set; }
-        public string Message { get; set; } = string.Empty;
-        public AuthUserInfo? User { get; set; }
-        public string? Token { get; set; }
-        public int RemainingLockoutSeconds { get; set; }
-        public int DelayApplied { get; set; }
-    }
+public class RegisterApiResult
+{
+    public bool Success { get; set; }
+    public string? Message { get; set; }
+    public ErrorResponse? ErrorResponse { get; set; }
+    public System.Net.HttpStatusCode StatusCode { get; set; }
+}
+
+
+
+public class LoginResponse
+{
+    public string Message { get; set; } = string.Empty;
+    public string Token { get; set; } = string.Empty;
+    public AuthUserInfo User { get; set; } = new();
+}
+
+public class ErrorResponse
+{
+    public string Message { get; set; } = string.Empty;
+    public int RemainingLockoutSeconds { get; set; }
+    public int DelayApplied { get; set; }
+}
+
+public class AuthUserInfo
+{
+    public int Id { get; set; }
+    public string Email { get; set; } = string.Empty;
+    public string Role { get; set; } = string.Empty;
+}
+
+public class LoginResult
+{
+    public bool Success { get; set; }
+    public string Message { get; set; } = string.Empty;
+    public AuthUserInfo? User { get; set; }
+    public string? Token { get; set; }
+    public int RemainingLockoutSeconds { get; set; }
+    public int DelayApplied { get; set; }
 }
