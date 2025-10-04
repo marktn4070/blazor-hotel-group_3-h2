@@ -9,11 +9,7 @@
   <ItemGroup>
     <Content Include="Components\README.md" />
     <Content Include="Helpers\Helpers.md" />
-    <Content Include="Layout\MainLayout.razor.css" />
-    <Content Include="Layout\NavMenu.razor.css" />
-    <Content Include="Layout\SideBar.razor.css" />
     <Content Include="Models\JwtToken.cs" />
-    <Content Include="Pages\Login.razor.css" />
     <Content Include="Program.cs" />
     <Content Include="Properties\launchSettings.json" />
     <Content Include="Services\APIService.cs" />
