@@ -7,22 +7,7 @@
 	</PropertyGroup>
 
   <ItemGroup>
-    <Content Include="Components\README.md" />
-    <Content Include="Helpers\Helpers.md" />
-    <Content Include="Models\JwtToken.cs" />
-    <Content Include="Program.cs" />
     <Content Include="Properties\launchSettings.json" />
-    <Content Include="Services\APIService.cs" />
-    <Content Include="Services\Apiservice.Facility.cs" />
-    <Content Include="Services\APIService.Hotel.cs" />
-    <Content Include="Services\APIService.Room.cs" />
-    <Content Include="Services\APIService.Roomtype.cs" />
-    <Content Include="Services\APIService.Status.cs" />
-    <Content Include="Services\APIService.Users.cs" />
-    <Content Include="Services\APIService.Weather.cs" />
-    <Content Include="Services\AuthenticationService.cs" />
-    <Content Include="Services\ChatService.cs" />
-    <Content Include="Services\Services.md" />
   </ItemGroup>
 
 	<ItemGroup>
