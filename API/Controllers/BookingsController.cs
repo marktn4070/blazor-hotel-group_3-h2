@@ -309,108 +309,22 @@ public class BookingsController : ControllerBase
         }
     }
 
-        /// <summary>
-        /// Opretter en ny booking i systemet.
-        /// </summary>
-        /// <param name="bookingPostDto">Data for den nye booking.</param>
-        /// <returns>Den oprettede booking.</returns>
-        /// <response code="500">Intern serverfejl.</response>
-        /// <response code="401">Ikke autoriseret - manglende eller ugyldig token.</response>
-        /// <response code="400">Ugyldig forespørgsel eller booking overlap.</response>
-        /// <response code="201">Bookningen blev oprettet succesfuldt.</response>
-        //[Authorize]
-        //[HttpPost]
-        //public async Task<ActionResult<BookingGetDto>> PostBooking(BookingPostDto bookingPostDto)
-        //{
-        //    try
-        //    {
-        //        // Hent UserId fra JWT claims i stedet for fra request
-        //        var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-        //        if (string.IsNullOrEmpty(currentUserId))
-        //        {
-        //            return Unauthorized("Du skal være logget ind for at oprette en booking");
-        //        }
-
-        //        var parsedUserId = int.Parse(currentUserId);
-
-        //        _logger.LogInformation("Opretter ny booking for bruger {UserId} i rum {RoomId}", parsedUserId, bookingPostDto.RoomId);
-
-        //        // Valider datoer
-        //        if (bookingPostDto.EndDate <= bookingPostDto.StartDate)
-        //        {
-        //            return BadRequest("Slut dato skal være efter start dato");
-        //        }
-
-        //        if (bookingPostDto.StartDate < DateTime.UtcNow.Date)
-        //        {
-        //            return BadRequest("Start dato kan ikke være i fortiden");
-        //        }
-
-        //        // Tjek om brugeren eksisterer
-        //        var userExists = await _context.Users.AnyAsync(u => u.Id == parsedUserId);
-        //        if (!userExists)
-        //        {
-        //            _logger.LogWarning("Forsøg på at oprette booking for ikke-eksisterende bruger: {UserId}", parsedUserId);
-        //            return BadRequest("Den angivne bruger eksisterer ikke");
-        //        }
-
-        //        // Hent rum for at få pris
-        //        var room = await _context.Rooms
-        //            .Include(r => r.Roomtype)
-        //            .FirstOrDefaultAsync(r => r.Id == bookingPostDto.RoomId);
-
-        //        if (room == null)
-        //        {
-        //            return BadRequest("Det angivne rum eksisterer ikke");
-        //        }
-
-        //        if (room.Roomtype == null)
-        //        {
-        //            return BadRequest("Roomtype for rummet findes ikke");
-        //        }
-
-        //        // Tjek for overlappende bookninger
-        //        var hasOverlap = await _context.Bookings
-        //            .AnyAsync(b => b.RoomId == bookingPostDto.RoomId
-        //                        && b.BookingStatus != BookingStatus.Cancelled
-        //                        && b.StartDate < bookingPostDto.EndDate
-        //                        && b.EndDate > bookingPostDto.StartDate);
-
-        //        if (hasOverlap)
-        //        {
-        //            return BadRequest("Det valgte rum er allerede booket i den angivne periode");
-        //        }
-
-        //        // Mapper DTO → entity (ændr mapping så UserId kommer fra claims)
-        //        var booking = BookingMapping.ToBookingFromPostDto(
-        //            bookingPostDto,
-        //            room.Roomtype.PricePerNight,
-        //            parsedUserId
-        //        );
-
-        //        _context.Bookings.Add(booking);
-        //        await _context.SaveChangesAsync();
-
-        //        var createdBooking = await _context.Bookings
-        //            .Include(b => b.User)
-        //            .Include(b => b.Room)
-        //                .ThenInclude(r => r.Hotel)
-        //            .FirstOrDefaultAsync(b => b.Id == booking.Id);
-
-        //        return CreatedAtAction("GetBooking", new { id = booking.Id }, BookingMapping.ToBookingGetDto(createdBooking!));
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        _logger.LogError(ex, "Fejl ved oprettelse af booking");
-        //        return StatusCode(500, "Der opstod en intern serverfejl ved oprettelse af booking");
-        //    }
-        //}
-        [HttpPost]
-        public async Task<ActionResult<BookingGetDto>> PostBooking(BookingPostDto bookingPostDto)
+    /// <summary>
+    /// Opretter en ny booking i systemet.
+    /// </summary>
+    /// <param name="bookingPostDto">Data for den nye booking.</param>
+    /// <returns>Den oprettede booking.</returns>
+    /// <response code="500">Intern serverfejl.</response>
+    /// <response code="401">Ikke autoriseret - manglende eller ugyldig token.</response>
+    /// <response code="400">Ugyldig forespørgsel eller booking overlap.</response>
+    /// <response code="201">Bookningen blev oprettet succesfuldt.</response>
+    //[Authorize]
+    [HttpPost]
+    public async Task<ActionResult<BookingGetDto>> PostBooking(BookingPostDto bookingPostDto)
+    {
+        try
         {
-            try
-            {
-                _logger.LogInformation("Opretter ny booking for bruger {UserId} i rum {RoomId}", bookingPostDto.UserId, bookingPostDto.RoomId);
+            _logger.LogInformation("Opretter ny booking for bruger {UserId} i rum {RoomId}", bookingPostDto.UserId, bookingPostDto.RoomId);
 
             // Tjek om brugeren har adgang til at oprette booking for denne bruger
             var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -469,12 +383,12 @@ public class BookingsController : ControllerBase
             //    return BadRequest($"Rummet har kun kapacitet til {room.Capacity} gæster");
             //}
 
-                // Tjek for overlappende bookninger
-                var hasOverlap = await _context.Bookings
-                    .AnyAsync(b => b.RoomId == bookingPostDto.RoomId
-&& b.BookingStatus != BookingStatus.Cancelled
-&& b.StartDate < bookingPostDto.EndDate
-&& b.EndDate > bookingPostDto.StartDate);
+            // Tjek for overlappende bookninger
+            var hasOverlap = await _context.Bookings
+                .AnyAsync(b => b.RoomId == bookingPostDto.RoomId
+                            && b.BookingStatus != BookingStatus.Cancelled
+                            && b.StartDate < bookingPostDto.EndDate
+                            && b.EndDate > bookingPostDto.StartDate);
 
             if (hasOverlap)
             {
@@ -496,32 +410,33 @@ public class BookingsController : ControllerBase
                     .ThenInclude(r => r.Hotel)
                 .FirstOrDefaultAsync(b => b.Id == booking.Id);
 
-                return CreatedAtAction("GetBooking", new { id = booking.Id }, BookingMapping.ToBookingGetDto(createdBooking!));
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Fejl ved oprettelse af booking for bruger {UserId} i rum {RoomId}",
-                    bookingPostDto?.UserId, bookingPostDto?.RoomId);
-                return StatusCode(500, "Der opstod en intern serverfejl ved oprettelse af booking");
-            }
+            return CreatedAtAction("GetBooking", new { id = booking.Id }, BookingMapping.ToBookingGetDto(createdBooking!));
         }
-        /// <summary>
-        /// Sletter en booking fra systemet.
-        /// </summary>
-        /// <param name="id">ID på bookingen der skal slettes.</param>
-        /// <returns>Bekræftelse på sletningen.</returns>
-        /// <response code="500">Intern serverfejl.</response>
-        /// <response code="404">Bookning blev ikke fundet.</response>
-        /// <response code="403">Forbudt - kan kun slette egne bookninger.</response>
-        /// <response code="401">Ikke autoriseret - manglende eller ugyldig token.</response>
-        /// <response code="204">Bookningen blev slettet succesfuldt.</response>
-        [Authorize]
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteBooking(int id)
+        catch (Exception ex)
         {
-            try
-            {
-                _logger.LogInformation("Sletter booking med ID: {BookingId}", id);
+            _logger.LogError(ex, "Fejl ved oprettelse af booking for bruger {UserId} i rum {RoomId}",
+                bookingPostDto?.UserId, bookingPostDto?.RoomId);
+            return StatusCode(500, "Der opstod en intern serverfejl ved oprettelse af booking");
+        }
+    }
+
+    /// <summary>
+    /// Sletter en booking fra systemet.
+    /// </summary>
+    /// <param name="id">ID på bookingen der skal slettes.</param>
+    /// <returns>Bekræftelse på sletningen.</returns>
+    /// <response code="500">Intern serverfejl.</response>
+    /// <response code="404">Bookning blev ikke fundet.</response>
+    /// <response code="403">Forbudt - kan kun slette egne bookninger.</response>
+    /// <response code="401">Ikke autoriseret - manglende eller ugyldig token.</response>
+    /// <response code="204">Bookningen blev slettet succesfuldt.</response>
+    [Authorize]
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteBooking(int id)
+    {
+        try
+        {
+            _logger.LogInformation("Sletter booking med ID: {BookingId}", id);
 
             var booking = await _context.Bookings.FindAsync(id);
             if (booking == null)

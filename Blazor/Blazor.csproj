@@ -7,18 +7,7 @@
 	</PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="wwwroot\css\Login.css" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Include="Properties\launchSettings.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="wwwroot\css\login.css" />
-    <None Include="wwwroot\css\about.css" />
-    <None Include="wwwroot\css\contact.css" />
-    <None Include="wwwroot\css\hotel.css" />
   </ItemGroup>
 
 	<ItemGroup>
