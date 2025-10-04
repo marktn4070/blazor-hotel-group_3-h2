@@ -84,7 +84,6 @@ public class AuthenticationService
             Console.WriteLine($"Login fejl: {ex.Message}");
             return new LoginResult { Success = false, Message = "Der opstod en fejl under login. Prøv igen." };
         }
-
     }
 
     /// <summary>

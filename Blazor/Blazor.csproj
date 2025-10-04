@@ -7,18 +7,26 @@
 	</PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="wwwroot\css\Login.css" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <Content Include="Components\README.md" />
+    <Content Include="Helpers\Helpers.md" />
+    <Content Include="Layout\MainLayout.razor.css" />
+    <Content Include="Layout\NavMenu.razor.css" />
+    <Content Include="Layout\SideBar.razor.css" />
+    <Content Include="Models\JwtToken.cs" />
+    <Content Include="Pages\Login.razor.css" />
+    <Content Include="Program.cs" />
     <Content Include="Properties\launchSettings.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="wwwroot\css\login.css" />
-    <None Include="wwwroot\css\about.css" />
-    <None Include="wwwroot\css\contact.css" />
-    <None Include="wwwroot\css\hotel.css" />
+    <Content Include="Services\APIService.cs" />
+    <Content Include="Services\Apiservice.Facility.cs" />
+    <Content Include="Services\APIService.Hotel.cs" />
+    <Content Include="Services\APIService.Room.cs" />
+    <Content Include="Services\APIService.Roomtype.cs" />
+    <Content Include="Services\APIService.Status.cs" />
+    <Content Include="Services\APIService.Users.cs" />
+    <Content Include="Services\APIService.Weather.cs" />
+    <Content Include="Services\AuthenticationService.cs" />
+    <Content Include="Services\ChatService.cs" />
+    <Content Include="Services\Services.md" />
   </ItemGroup>
 
 	<ItemGroup>

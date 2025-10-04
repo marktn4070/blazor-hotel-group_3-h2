@@ -41,23 +41,6 @@ public class BookingMapping
     /// <summary>
     /// Konverterer BookingPostDto til Booking entity
     /// </summary>
-    //public static Booking ToBookingFromPostDto(BookingPostDto bookingPostDto, double roomPricePerNight, int userId)
-    //{
-    //    var nights = (bookingPostDto.EndDate - bookingPostDto.StartDate).Days;
-    //    return new Booking
-    //    {
-    //        UserId = userId,
-    //        RoomId = bookingPostDto.RoomId,
-    //        StartDate = bookingPostDto.StartDate,
-    //        EndDate = bookingPostDto.EndDate,
-    //        FinalPrice = roomPricePerNight * nights,
-    //        BookingStatus = 0,
-    //        Crib = bookingPostDto.Crib,
-    //        ExtraBeds = bookingPostDto.ExtraBeds,
-    //        CreatedAt = DateTime.UtcNow.AddHours(2),
-    //        UpdatedAt = DateTime.UtcNow.AddHours(2)
-    //    };
-    //}
     public static Booking ToBookingFromPostDto(BookingPostDto bookingPostDto, double roomPricePerNight)
     {
         var nights = (bookingPostDto.EndDate - bookingPostDto.StartDate).Days;
