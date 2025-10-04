@@ -1,0 +1,261 @@
+
+
+.vacation-login-container .vacation-login-container  {
+    width: 100%;
+    max-width: 480px;
+    margin: 0 auto;
+}
+
+.vacation-login-container .vacation-card {
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    border-radius: 24px;
+    /* box-shadow: 0 20px 40px rgba(59, 130, 246, 0.1); */
+    backdrop-filter: blur(20px);
+    overflow: hidden;
+}
+
+.vacation-login-container .vacation-header {
+    border: none;
+    padding: 2rem;
+    text-align: center;
+    border-bottom: 1px solid rgba(59, 130, 246, 0.1);
+}
+
+    .vacation-login-container .vacation-header h3 {
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: #1c1917;
+        margin: 0 0 0.5rem 0;
+        background-clip: text;
+    }
+
+.vacation-login-container .card-body {
+    padding: 2rem;
+    background: transparent;
+    color: #1c1917;
+}
+
+/* Vacation Form Styling */
+.vacation-login-container .form-group {
+    position: relative;
+    margin-bottom: 2rem;
+}
+
+.vacation-login-container .form-label {
+    font-weight: 600;
+    color: #1c1917;
+    font-size: 0.9rem;
+    margin-bottom: 0.75rem;
+    display: block;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.vacation-login-container .form-control {
+    background: rgba(255, 255, 255, 0.9);
+    border: 2px solid rgba(59, 130, 246, 0.2);
+    border-radius: 16px;
+    color: #1c1917;
+    font-size: 1rem;
+    padding: 1rem 1.5rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(10px);
+    height: auto;
+}
+
+    .vacation-login-container .form-control:focus {
+        background: rgba(255, 255, 255, 1);
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+        color: #1c1917;
+        outline: none;
+    }
+
+    .vacation-login-container .form-control::placeholder {
+        color: #6b7280;
+        font-weight: 400;
+    }
+
+/* Modern Button Styling */
+.vacation-login-container .btn {
+    border-radius: 16px;
+    font-weight: 600;
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: none;
+    position: relative;
+    overflow: hidden;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+    .vacation-login-container .btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        transition: left 0.5s;
+    }
+
+    .vacation-login-container .btn:hover::before {
+        left: 100%;
+    }
+
+.vacation-login-container .btn-primary {
+    box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
+    color: white;
+}
+
+    .vacation-login-container .btn-primary:hover:not(:disabled) {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 30px rgba(59, 130, 246, 0.6);
+    }
+
+    .vacation-login-container .btn-primary:disabled {
+        box-shadow: none;
+        cursor: not-allowed;
+        transform: none;
+    }
+
+.vacation-login-container .btn-success {
+    box-shadow: 0 4px 20px rgba(16, 185, 129, 0.4);
+    color: white;
+}
+
+    .vacation-login-container .btn-success:hover:not(:disabled) {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 30px rgba(16, 185, 129, 0.6);
+    }
+
+.vacation-login-container .btn-link {
+    color: #3b82f6;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    padding: 0.5rem;
+    border-radius: 8px;
+}
+
+    .vacation-login-container .btn-link:hover {
+        color: #2563eb;
+        background: rgba(59, 130, 246, 0.1);
+        text-decoration: none;
+        transform: translateY(-1px);
+    }
+
+/* Vacation Alert Styling */
+.vacation-login-container .alert {
+    border-radius: 16px;
+    border: none;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 2rem;
+    font-weight: 500;
+    backdrop-filter: blur(10px);
+}
+
+.vacation-login-container .alert-danger {
+    background: rgba(239, 68, 68, 0.1);
+    color: #dc2626;
+    border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+.vacation-login-container .alert-success {
+    background: rgba(16, 185, 129, 0.1);
+    color: #047857;
+    border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+/* Spinner Animation */
+.vacation-login-container .spinner-border-sm {
+    width: 1rem;
+    height: 1rem;
+    animation: spin 1s linear infinite;
+}
+
+.vacation-login-container @@keyframes spin {
+    .vacation-login-container 0%
+
+{
+    transform: rotate(0deg);
+}
+
+.vacation-login-container 100% {
+    transform: rotate(360deg);
+}
+
+}
+
+/* Validation Messages */
+.validation-message,
+.vacation-login-container .text-danger {
+    color: #fca5a5;
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+    font-weight: 500;
+}
+
+/* Form Transitions */
+.vacation-login-container .form-group {
+    animation: slideInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    animation-fill-mode: both;
+}
+
+    .vacation-login-container .form-group:nth-child(1) {
+        animation-delay: 0.1s;
+    }
+
+    .vacation-login-container .form-group:nth-child(2) {
+        animation-delay: 0.2s;
+    }
+
+    .vacation-login-container .form-group:nth-child(3) {
+        animation-delay: 0.3s;
+    }
+
+    .vacation-login-container .form-group:nth-child(4) {
+        animation-delay: 0.4s;
+    }
+
+.vacation-login-container @@keyframes slideInUp {
+    .vacation-login-container from
+
+{
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.vacation-login-container to {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+}
+
+/* Register Form Styling */
+.vacation-login-container .text-center small {
+    color: #94a3b8;
+    font-size: 0.9rem;
+}
+
+/* Mobile Responsive */
+@@media (max-width: 640px) {
+    .vacation-login-container .form-control
+
+{
+    padding: 0.875rem 1.25rem;
+    font-size: 0.95rem;
+}
+
+.vacation-login-container .btn {
+    padding: 0.875rem 1.5rem;
+    font-size: 0.95rem;
+}
+
+.vacation-login-container .card-header h3 {
+    font-size: 1.5rem;
+}
+}
