@@ -1,21 +1,4 @@
-﻿@* @inherits LayoutComponentBase
-<div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
-
-    <main>
-        <div class="top-row px-4">
-            <a href="https://mercantec.notion.site/h2" target="_blank">Notion</a>
-        </div>
-
-        <article class="content px-4">
-            @Body
-        </article>
-    </main>
-</div> *@
-
-@inject ChatService ChatService
+﻿@inject ChatService ChatService
 @inherits LayoutComponentBase
 <div class="">
     <NavMenu />
@@ -32,23 +15,7 @@
                     @Body
                 </div>
             </div>
-        </div>    <div class="chat-fixed">
-            <ChatWindow />
+            <NavLink href="/chat"><i class="bi bi-chat chat-fixed"></i></NavLink>
         </div>
     </main>
-    @*     <div class="sidebar_right">
-    </div> *@
 </div>
-
-
-<style>
-    .chat-fixed {
-        position: fixed;
-        bottom: 0;
-        right: 20px;
-        width: 300px;
-        background: white;
-        border: 1px solid #ccc;
-        padding: 10px;
-    }
-</style>
