@@ -244,7 +244,7 @@ public class AuthenticationService
             {
                 var exp = expElement.GetInt64();
                 var expDateTime = DateTimeOffset.FromUnixTimeSeconds(exp);
-                return DateTime.UtcNow.AddHours(2) >= expDateTime.DateTime;
+                return DateTime.UtcNow >= expDateTime.DateTime;
             }
 
             return true; // Hvis vi ikke kan læse exp, antag token er udløbet
