@@ -1,72 +1,203 @@
 ﻿@page "/hotel/{hotelId:int}"
 @using DomainModels
 @inject Blazor.Services.APIService ApiService
-@using System.Net.Http
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JS
 
-<PageTitle>Suite Dreams - Rooms</PageTitle>
+<PageTitle>Suite Dreams - Hotel</PageTitle>
 
 <div class="hotel_page">
-	<div class="text-center mb-4">
-		<h3 class="fw-bold">Rooms</h3>
-	</div>
 
-	@if (rooms == null)
-	{
-		<p><em>Loading rooms...</em></p>
-	}
-	else if (rooms.Length == 0)
-	{
-		<div class="alert alert-info">No rooms found.</div>
-	}
-	else
-	{
-		<div class="row justify-content-center">
+		@if (hotel == null)
+		{
+		<p><em>Loading hotel...</em></p>
+		}
+		else if (foundHotel == false)
+		{
+			<div class="alert alert-info">No hotel found.</div>
+		}
+		else
+		{
+		<div class="row g-4 mb-5">
+			<div class="col-12">
+				<div class="card text-bg-dark rounded-3 overflow-hidden">
+					<!-- Billede: styling flyttet til CSS -->
+					<img src="images/hotel_@(hotel.Id)_outside.jpg"
+							class="card-img about-card-img"
+							alt="Billede af @hotel.Name">
 
-			@foreach (var r in rooms)
-			{
-				if (r.HotelId == hotelId)
-				{
-					<!-- Responsive kolonne -->
-					<div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4 d-flex">
-						<!-- Card -->
-						<div class="card w-100 h-100">
-							<a href="/hotel/@hotelId/room/@r.Id" class="text-black text-decoration-none">
-								<div class="h-100 d-flex flex-column">
-									<div class="card-body border-bottom row row-cols-1 row-cols-sm-2 gy-1 text-nowrap">
-										<div class="fw-bold mb-2">@r.RoomNumber</div>
-										<div class="col text-end">
-										</div>
-									</div>
+					<!-- Overlay: tekst direkte ovenpå billedet -->
+					<div class="card-img-overlay d-flex align-items-end p-0">
+						<div class="w-100 overlay-content text-white" style="text-shadow: 0 2px 6px rgba(0,0,0,0.7);">
 
-									<div class="card-body">
-										<span class="mx-1"></span>
-										<div class="col text-center">
-											<div class="active text-alert fw-semibold me-1"></div>
-										</div>
-									</div>
-								</div>
-							</a>
+ 							<div class="d-flex justify-content-between align-items-start mb-2">
+								<h2 class="text-white fw-bold" style="font-family: math;">
+									@hotel.Name
+								</h2>
+							</div>
+							<div style="height: 75.25px">
+
+									@if (showFullDescription || hotel.Description.Length <= descLimit)
+									{
+							<p class="card-text small mb-1 description-scroll" tabindex="0" aria-label="Hotelbeskrivelse">
+										@hotel.Description
+							</p>
+										@if (hotel.Description.Length > descLimit)
+										{
+											<button class="btn btn-link text-white fw-bold p-0 ms-2"
+												style="line-height: 21px; font-size: 14px; text-shadow: 0 2px 6px rgba(0,0,0,0.7);"
+												@onclick="ToggleDescription" 
+												aria-expanded="@showFullDescription">
+													Show less
+											</button>
+										}
+									}
+									else
+							{
+								<p class="card-text small mb-1 description-scroll" tabindex="0" aria-label="Hotelbeskrivelse">
+										@($"{TruncateToWord(hotel.Description, descLimit)}...")
+										<button class="btn btn-link text-white fw-bold p-0 ms-2"
+											style="line-height: 21px; font-size: 14px; text-shadow: 0 2px 6px rgba(0,0,0,0.7);"
+											@onclick="ToggleDescription" 
+											aria-expanded="@showFullDescription">
+												Show more
+										</button>
+								</p>
+									}
+							</div>
+
 						</div>
 					</div>
-				}
+				</div>
+			</div>
+		</div>
+
+		<div class="text-center mb-4">
+			<h3 class="fw-bold">Rooms</h3>
+		</div>
+		}
+
+		@if (roomtypesInHotel == null)
+		{
+			<p><em>Loading rooms...</em></p>
+		}
+		else if (roomtypesInHotel.Length == 0)
+		{
+			<div class="alert alert-info">No rooms found for this hotel.</div>
+		}
+		else
+		{
+
+		<div class="container">
+
+			@foreach (var rt in roomtypesInHotel)
+			{
+				string carouselId = $"carousel-{hotelId}-{rt.Id}";
+
+				<div class="row align-items-center mb-5">
+					<div class="col-md-6">
+						<div id="@carouselId" class="carousel slide">
+								<div class="carousel-indicators">
+								@for (int i = 0; i < 6; i++)
+									{
+										<button type="button" data-bs-target="#@carouselId" data-bs-slide-to="@i"
+												class="@(i == 0 ? "active" : "")"
+												aria-current="@(i == 0 ? "true" : "false")"
+												aria-label="Slide @(i + 1)"></button>
+									}
+								</div>
+
+								<div class="carousel-inner">
+									@for (int i = 0; i < 6; i++)
+									{
+										<div class="carousel-item @(i == 0 ? "active" : "")">
+											<img src="@($"/images/rooms/{hotelId}/{rt.Id}/{i + 1}.jpg")" class="d-block w-100 rounded" alt="@rt.Name" style="object-fit:cover; max-height:310px; width:100%;" />
+										</div>
+									}
+								</div>
+
+								<button class="carousel-control-prev" type="button" data-bs-target="#@carouselId" data-bs-slide="prev">
+									<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+									<span class="visually-hidden">Previous</span>
+								</button>
+								<button class="carousel-control-next" type="button" data-bs-target="#@carouselId" data-bs-slide="next">
+									<span class="carousel-control-next-icon" aria-hidden="true"></span>
+									<span class="visually-hidden">Next</span>
+								</button>
+							</div>
+					</div>
+
+					<div class="col-md-6">
+						<h4 class="fw-bold">@rt.Name</h4>
+						<p class="text-muted">@rt.Description</p>
+
+						<div class="mt-3">
+							<a class="btn btn-outline-primary me-2" href="/hotel/@hotelId/roomtype/@rt.Id">LEARN MORE</a>
+							<a class="btn btn-primary" href="/hotel/@hotelId/roomtype/@rt.Id">BOOK NOW</a>
+						</div>
+					</div>
+				</div>
 			}
 		</div>
-	}
+		}
 </div>
 
 @code {
-	[Parameter]
-	public int hotelId { get; set; } // Denne parameter binder værdien fra URL'en
+	[Parameter] public int hotelId { get; set; }
 
 	private RoomGetDto[]? rooms;
+	private RoomtypeGetDto[]? roomtypes;
+	private RoomtypeGetDto[]? roomtypesInHotel;
+	private HotelDetailsDto? hotel;
 
-	protected override async Task OnInitializedAsync()
+	private bool foundHotel = true;
+
+
+	private bool showFullDescription = false;
+
+	// antal tegn før "vis mere" vises
+    private int descLimit = 160;
+
+    private void ToggleDescription()
+    {
+        showFullDescription = !showFullDescription;
+    }
+
+    private string TruncateToWord(string text, int maxLength)
+    {
+        if (string.IsNullOrEmpty(text) || text.Length <= maxLength)
+            return text;
+
+        // maxLength
+        var substr = text.Substring(0, maxLength);
+        var lastSpace = substr.LastIndexOf(' ');
+
+		// Substring
+        if (lastSpace > (int)(maxLength * 0.4))
+        {
+            substr = substr.Substring(0, lastSpace);
+        }
+        return substr.TrimEnd();
+    }
+
+
+	protected override async Task OnParametersSetAsync()
 	{
 		try
 		{
-			rooms = await ApiService.GetRoomsAsync(0);
+			hotel = await ApiService.GetHotelByIdAsync(hotelId);
+		}
+		catch (Exception ex)
+		{
+			Console.WriteLine($"Fejl ved hentning af rumtype med id'et {hotelId}: {ex.Message}", hotelId);
+			hotel = null;
+			foundHotel = false;
+		}
 
-			// Sortér rum efter RoomId i stigende rækkefølge
+		try
+		{
+			rooms = await ApiService.GetRoomsAsync(0);
 			if (rooms != null && rooms.Length > 1)
 			{
 				rooms = rooms.OrderBy(r => r.Id).ToArray();
@@ -77,5 +208,47 @@
 			Console.WriteLine($"Fejl ved hentning af rum: {ex.Message}");
 			rooms = Array.Empty<RoomGetDto>();
 		}
+
+		try
+		{
+			roomtypes = await ApiService.GetRoomtypesAsync(0);
+			if (roomtypes != null && roomtypes.Length > 1)
+			{
+				roomtypes = roomtypes.OrderBy(rt => rt.Id).ToArray();
+			}
+		}
+		catch (Exception ex)
+		{
+			Console.WriteLine($"Fejl ved hentning af rumtyper: {ex.Message}");
+			roomtypes = Array.Empty<RoomtypeGetDto>();
+		}
+
+		// Henter unikke roomtypeid, hvis tilhørende rum eksistere ud fra nuværrende hotelId
+		if (rooms != null && roomtypes != null)
+		{
+			// HashSet er en liste der kun indeholder unikke værdier
+			var roomtypeIdsForHotel = new HashSet<int>(rooms.Where(r => r.HotelId == hotelId).Select(r => r.RoomtypeId));
+
+			roomtypesInHotel = roomtypes
+				.Where(rt => roomtypeIdsForHotel.Contains(rt.Id))
+				.OrderBy(rt => rt.Id)
+				.ToArray();
+		}
+		else
+		{
+			roomtypesInHotel = Array.Empty<RoomtypeGetDto>();
+		}
+
+		// Js for billede slider
+		try
+		{
+			await JS.InvokeVoidAsync("initCarousels");
+		}
+		catch (Exception ex)
+		{
+			Console.WriteLine($"JS init fejl: {ex.Message}");
+		}
 	}
+
+
 }

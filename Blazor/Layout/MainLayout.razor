@@ -1,21 +1,4 @@
-﻿@* @inherits LayoutComponentBase
-<div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
-
-    <main>
-        <div class="top-row px-4">
-            <a href="https://mercantec.notion.site/h2" target="_blank">Notion</a>
-        </div>
-
-        <article class="content px-4">
-            @Body
-        </article>
-    </main>
-</div> *@
-
-
+﻿@inject ChatService ChatService
 @inherits LayoutComponentBase
 <div class="">
     <NavMenu />
@@ -32,8 +15,7 @@
                     @Body
                 </div>
             </div>
+            <NavLink href="/chat"><i class="bi bi-chat chat-fixed"></i></NavLink>
         </div>
     </main>
-@*     <div class="sidebar_right">
-    </div> *@
-</div> 
+</div>

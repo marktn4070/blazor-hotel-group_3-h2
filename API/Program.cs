@@ -8,6 +8,7 @@ using API.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using API.Hubs;
 
 namespace API;
 
@@ -28,8 +29,14 @@ public class Program
         // Registrer JWT Service
         builder.Services.AddScoped<JwtService>();
 
+        // Registrer Active Directory Login Attempt Service
+        builder.Services.AddScoped<ADLoginAttemptService>();
+
         // Registrer Data Seeder Service
         builder.Services.AddScoped<DataSeederService>();
+
+        // Registrer Active Directory Service
+        builder.Services.AddScoped<ADService>();
 
         // Konfigurer JWT Authentication
         var jwtSecretKey = Configuration["Jwt:SecretKey"] ?? Environment.GetEnvironmentVariable("JWT_SECRET_KEY");
@@ -61,6 +68,9 @@ public class Program
         // Add services to the container.
         builder.Services.AddControllers();
 
+        // Add Memory Cache for login attempt tracking
+        builder.Services.AddMemoryCache();
+
         // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
         builder.Services.AddSwaggerGen(c =>
         {
@@ -71,7 +81,7 @@ public class Program
                 c.IncludeXmlComments(xmlPath);
             }
 
-            // TilfÃ¸j JWT Bearer support til Swagger
+            // Tilføj JWT Bearer support til Swagger
             c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
             {
                 Description = "JWT Authorization header using the Bearer scheme. Enter 'Bearer' [space] and then your token in the text input below.",
@@ -100,7 +110,7 @@ public class Program
             });
         });
 
-        // TilfÃ¸j CORS for specifikke Blazor WASM domÃ¦ner
+        // Tilføj CORS for specifikke Blazor WASM domæner
         builder.Services.AddCors(options =>
         {
             options.AddPolicy(
@@ -111,7 +121,7 @@ public class Program
                         .WithOrigins(
                             "http://localhost:5085",
                             "http://localhost:8052",
-							"https://localhost:7285/",
+                            "https://localhost:7285/",
                             "http://localhost:7285",
                             "https://localhost:7285",
                             "https://h2.mercantec.tech",
@@ -120,18 +130,24 @@ public class Program
                         )
                         .AllowAnyMethod()
                         .AllowAnyHeader()
+                        // CORS (with credentials for SignalR)
+                        .AllowCredentials()
                         .WithExposedHeaders("Content-Disposition");
                 }
             );
         });
 
-        // TilfÃ¸j basic health checks
+        // Tilføj basic health checks
         builder.Services.AddHealthChecks()
             .AddCheck("self", () => Microsoft.Extensions.Diagnostics.HealthChecks.HealthCheckResult.Healthy(), new[] { "live" });
 
+        // SignalR
+        builder.Services.AddSignalR();
+
+
         var app = builder.Build();
 
-        // Brug CORS - skal vÃ¦re fÃ¸r anden middleware
+        // Brug CORS - skal være før anden middleware
         app.UseCors("AllowSpecificOrigins");
 
         // Map health checks
@@ -163,6 +179,9 @@ public class Program
         app.UseAuthorization();
 
         app.MapControllers();
+
+        // SignalR
+        app.MapHub<ChatHub>("/chathub");
 
         app.Run();
     }
