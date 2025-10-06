@@ -212,54 +212,43 @@ namespace Blazor.Services
 
             return users?.ToArray() ?? [];
         }
-        // /me endpoint 
-        public async Task<UserGetDto?> GetCurrentUserAsync(int maxItems,
-			string? fullToken = null,
-			CancellationToken cancellationToken = default)
-        {
+		
+
+		//me endpoint get current user by id
+		public async Task<UserGetDto?> GetCurrentUserAsync(
+		string? fullToken = null,
+		CancellationToken cancellationToken = default
+	)
+		{
 			AuthenticationHeaderValue? original = _httpClient.DefaultRequestHeaders.Authorization;
-			try
-            {
-				if (!string.IsNullOrWhiteSpace(fullToken))
+			UserGetDto? user = null;
+
+
+				try
 				{
-					_httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", fullToken);
+					if (!string.IsNullOrWhiteSpace(fullToken))
+					{
+						_httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", fullToken);
+					}
+					user = await _httpClient.GetFromJsonAsync<UserGetDto>("/api/Users/me", cancellationToken);
 				}
-				UserGetDto? users = null;
-
-                await foreach (
-                    var user in _httpClient.GetFromJsonAsAsyncEnumerable<UserGetDto>(
-                        "/api/Users/me",
-                        cancellationToken
-                    )
-                    )
+				catch (HttpRequestException ex)
 				{
-
-                    if (users?.Count >= maxItems && maxItems != 0)
-                    {
-                        break;
-                    }
-                    if (user is not null)
-                    {
-                        users ??= [];
-                        users.Add(user);
-                    }
-                }
-				return users;
-			}
-			catch (Exception ex)
-			{
-				Console.WriteLine("Fejl ved hentning af brugere: " + ex.Message);
-				return null;
-			}
-			finally
-			{
-				// Gendan tidligere header (eller fjern hvis der ikke var nogen)
-				_httpClient.DefaultRequestHeaders.Authorization = original;
-			}
-
+					Console.WriteLine("Fejl ved hentning af brugere: " + ex.Message);
+					return null;
+				}
+				finally
+				{
+					// Gendan tidligere header (eller fjern hvis der ikke var nogen)
+					_httpClient.DefaultRequestHeaders.Authorization = original;
+				}
+			return user;
 		}
 
-        public async Task<bool> DeleteUserAsync(int id)
+
+
+
+		public async Task<bool> DeleteUserAsync(int id)
         {
             try
             {

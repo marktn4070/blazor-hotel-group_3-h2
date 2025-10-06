@@ -87,7 +87,7 @@
                 fullToken = await AuthService.GetTokenAsync() ?? string.Empty;
 
                 // Kald API'et med token som parameter
-                users = await ApiService.GetCurrentUserAsync(0, fullToken);
+                users = await ApiService.GetCurrentUserAsync(fullToken);
                 if (users != null)
                 {
                     user = new UserPutDto
@@ -100,7 +100,7 @@
 
                             };
                 }
-
+                
             }
             else
             {
