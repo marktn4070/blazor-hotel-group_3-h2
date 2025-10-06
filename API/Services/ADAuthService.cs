@@ -33,13 +33,13 @@ public class ADService
         _configuration = configuration;
 
         // Læs AD konfiguration fra appsettings.json
-        _server = _configuration["ActiveDirectory:Server"] ?? "10.133.71.100";
-        _domain = _configuration["ActiveDirectory:Domain"] ?? "mags.local";
-        _username = _configuration["ActiveDirectory:ReaderUsername"] ?? "adReader";
-        _password = _configuration["ActiveDirectory:ReaderPassword"] ?? "Merc1234!";
+        _server = _configuration["ActiveDirectory:Server"] ?? "10.133.71.104";
+        _domain = _configuration["ActiveDirectory:Domain"] ?? "suite_dreams.local";
+        _username = _configuration["ActiveDirectory:ReaderUsername"] ?? "mark";
+        _password = _configuration["ActiveDirectory:ReaderPassword"] ?? "Cisco1234!";
         _port = int.Parse(_configuration["ActiveDirectory:Port"] ?? "389");
         _useSSL = bool.Parse(_configuration["ActiveDirectory:UseSSL"] ?? "false");
-        _connectionTimeout = int.Parse(_configuration["ActiveDirectory:ConnectionTimeout"] ?? "30");
+        _connectionTimeout = int.Parse(_configuration["ActiveDirectory:ConnectionTimeout"] ?? "130");
         _maxRetries = int.Parse(_configuration["ActiveDirectory:MaxRetries"] ?? "3");
         _retryDelayMs = int.Parse(_configuration["ActiveDirectory:RetryDelayMs"] ?? "1000");
     }
@@ -75,6 +75,13 @@ public class ADService
                 connection.SessionOptions.VerifyServerCertificate = (conn, cert) => true;
                 connection.Timeout = TimeSpan.FromSeconds(_connectionTimeout);
 
+                var readerCredential = new NetworkCredential($"{_username}@{_domain}", _password);
+                connection.AuthType = AuthType.Basic; // eller AuthType.Negotiate hvis I vil bruge Kerberos/SSPI
+                connection.Credential = readerCredential;
+
+                _logger.LogInformation("Forsøger initial bind med reader account (AuthType={AuthType})", connection.AuthType);
+
+
                 // Tilføj debugging for Docker miljø
                 _logger.LogInformation("LDAP forbindelseskonfiguration: Server={Server}, Port={Port}, SSL={UseSSL}, Timeout={Timeout}s",
                     _server, _port, _useSSL, _connectionTimeout);
@@ -99,8 +106,10 @@ public class ADService
                         fallbackConnection.SessionOptions.ProtocolVersion = 3;
                         fallbackConnection.SessionOptions.SecureSocketLayer = false;
                         fallbackConnection.Timeout = TimeSpan.FromSeconds(_connectionTimeout);
+                        fallbackConnection.AuthType = AuthType.Basic;
+                        fallbackConnection.Credential = readerCredential;
 
-                        var fallbackCredential = new NetworkCredential(_username, _password, _domain);
+                        var fallbackCredential = new NetworkCredential($"{_username}@{_domain}", _password);
                         fallbackConnection.Credential = fallbackCredential;
 
                         await Task.Run(() => fallbackConnection.Bind());
@@ -113,9 +122,9 @@ public class ADService
                             _logger.LogWarning("Bruger {Username} ikke fundet i AD", username);
                             return null;
                         }
-
+                        
                         // Test brugerens credentials med fallback forbindelse
-                        var fallbackUserCredentials = new NetworkCredential(fallbackUserInfo.SamAccountName, password, _domain);
+                        var fallbackUserCredentials = new NetworkCredential($"{fallbackUserInfo.SamAccountName}@{_domain}", password);
                         using var fallbackUserConnection = new LdapConnection(new LdapDirectoryIdentifier(_server, 389));
                         fallbackUserConnection.SessionOptions.ProtocolVersion = 3;
                         fallbackUserConnection.SessionOptions.SecureSocketLayer = false;
@@ -133,7 +142,7 @@ public class ADService
                 }
 
                 // Opret credentials for AD reader bruger
-                var networkCredential = new NetworkCredential(_username, _password, _domain);
+                var networkCredential = new NetworkCredential($"{_username}@{_domain}", _password);
                 connection.Credential = networkCredential;
 
                 // Åbn forbindelse med retry
@@ -151,7 +160,7 @@ public class ADService
                 }
 
                 // Test brugerens credentials
-                var userCredentials = new NetworkCredential(userInfo.SamAccountName, password, _domain);
+                var userCredentials = new NetworkCredential($"{userInfo.SamAccountName}@{_domain}", password);
                 using var userConnection = new LdapConnection(new LdapDirectoryIdentifier(_server, _port));
                 userConnection.SessionOptions.ProtocolVersion = 3;
                 userConnection.SessionOptions.SecureSocketLayer = _useSSL;
@@ -419,7 +428,8 @@ public class ADService
             connection.SessionOptions.VerifyServerCertificate = (conn, cert) => true;
             connection.Timeout = TimeSpan.FromSeconds(10); // Kortere timeout for test
 
-            var networkCredential = new NetworkCredential(_username, _password, _domain);
+            var networkCredential = new NetworkCredential($"{_username}@{_domain}", _password);
+
             connection.Credential = networkCredential;
 
             await Task.Run(() => connection.Bind());

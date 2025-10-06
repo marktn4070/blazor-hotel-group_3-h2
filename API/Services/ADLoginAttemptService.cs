@@ -34,14 +34,14 @@ public class ADLoginAttemptService
         if (attempts == null) return false;
 
         // Tjek om lockout periode er udløbet
-        if (attempts.LockoutUntil.HasValue && DateTime.UtcNow < attempts.LockoutUntil.Value)
+        if (attempts.LockoutUntil.HasValue && DateTime.UtcNow.AddHours(2) < attempts.LockoutUntil.Value)
         {
             _logger.LogWarning("Email {Email} er låst indtil {LockoutUntil}", email, attempts.LockoutUntil.Value);
             return true;
         }
 
         // Hvis lockout periode er udløbet, ryd cache entry
-        if (attempts.LockoutUntil.HasValue && DateTime.UtcNow >= attempts.LockoutUntil.Value)
+        if (attempts.LockoutUntil.HasValue && DateTime.UtcNow.AddHours(2) >= attempts.LockoutUntil.Value)
         {
             _cache.Remove(key);
             _logger.LogInformation("Lockout periode udløbet for email {Email}, cache ryddet", email);
@@ -62,7 +62,7 @@ public class ADLoginAttemptService
         var attempts = _cache.Get<LoginAttemptInfo>(key) ?? new LoginAttemptInfo();
 
         attempts.FailedAttempts++;
-        attempts.LastAttempt = DateTime.UtcNow;
+        attempts.LastAttempt = DateTime.UtcNow.AddHours(2);
 
         _logger.LogWarning("Mislykket login forsøg #{AttemptNumber} for email {Email}",
             attempts.FailedAttempts, email);
@@ -73,7 +73,7 @@ public class ADLoginAttemptService
         // Hvis maksimalt antal forsøg er nået, lås kontoen
         if (attempts.FailedAttempts >= MaxAttempts)
         {
-            attempts.LockoutUntil = DateTime.UtcNow.AddMinutes(LockoutMinutes);
+            attempts.LockoutUntil = DateTime.UtcNow.AddHours(2).AddMinutes(LockoutMinutes);
             _logger.LogWarning("Email {Email} låst efter {MaxAttempts} mislykkede forsøg indtil {LockoutUntil}",
                 email, MaxAttempts, attempts.LockoutUntil.Value);
 
@@ -125,7 +125,7 @@ public class ADLoginAttemptService
         var attempts = GetLoginAttemptInfo(email);
         if (attempts?.LockoutUntil == null) return 0;
 
-        var remaining = (attempts.LockoutUntil.Value - DateTime.UtcNow).TotalSeconds;
+        var remaining = (attempts.LockoutUntil.Value - DateTime.UtcNow.AddHours(2)).TotalSeconds;
         return Math.Max(0, (int)remaining);
     }
 
@@ -151,7 +151,7 @@ public class LoginAttemptInfo
     /// <summary>
     /// Tidspunkt for sidste forsøg
     /// </summary>
-    public DateTime LastAttempt { get; set; } = DateTime.UtcNow;
+    public DateTime LastAttempt { get; set; } = DateTime.UtcNow.AddHours(2);
 
     /// <summary>
     /// Tidspunkt hvor lockout udløber (null hvis ikke låst)
