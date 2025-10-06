@@ -234,16 +234,16 @@ namespace Blazor.Services
                     )
 				{
 
-					//if (users?.Count >= maxItems && maxItems != 0)
-					//{
-					//	break;
-					//}
-					//if (user is not null)
-					//{
-					//	users ??= [];
-					//	users.Add(user);
-					//}
-				}
+                    if (users?.Count >= maxItems && maxItems != 0)
+                    {
+                        break;
+                    }
+                    if (user is not null)
+                    {
+                        users ??= [];
+                        users.Add(user);
+                    }
+                }
 				return users;
 			}
 			catch (Exception ex)

@@ -64,14 +64,11 @@
     private string fullToken = string.Empty;
     private bool foundAccount = true;
 
-    private UserPutDto? user = new()
-    {
-        // Facility = new FacilityGetDto() // ensure Facility is never null
-    };
+    private UserPutDto? user = new();
 
     protected override async Task OnInitializedAsync()
     {
-		await LoadUserInfo();
+        await LoadUserInfo();
 
         // Subscribe to authentication state changes
         AuthService.AuthenticationStateChanged += OnAuthenticationStateChanged;
@@ -92,8 +89,8 @@
                 // Kald API'et med token som parameter
                 users = await ApiService.GetCurrentUserAsync(0, fullToken);
                 if (users != null)
-                        {
-                            user = new UserPutDto
+                {
+                    user = new UserPutDto
                             {
 						        Id = users.Id,
                                 Email = users.Email,
@@ -102,8 +99,8 @@
                                 LastName = users.LastName,
 
                             };
-                        }
-                
+                }
+
             }
             else
             {
@@ -120,6 +117,7 @@
         {
             isLoading = false;
             StateHasChanged();
+            
         }
 
     }
