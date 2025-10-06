@@ -7,7 +7,7 @@ public class User : Common
     public string FirstName { get; set; } = string.Empty;
     public string LastName { get; set; } = string.Empty;
     public string Email { get; set; } = string.Empty;
-    public int? Phone { get; set; }
+    public int Phone { get; set; }
     public string HashedPassword { get; set; } = string.Empty;
     public string? Salt { get; set; }
     public DateTime LastLogin { get; set; }
