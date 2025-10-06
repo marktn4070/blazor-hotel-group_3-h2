@@ -1,4 +1,4 @@
-﻿@page "/dashboard/user"
+﻿@page "/dashboard/booking"
 @using System.Net.Http
 @using Blazor.Services
 @inject AuthenticationService AuthService
@@ -6,26 +6,26 @@
 @inject NavigationManager Navigation
 
 
-<PageTitle>Suite Dreams - View Users</PageTitle>
+<PageTitle>Suite Dreams - View Bookings</PageTitle>
 
-<div class="view_user_page">
+<div class="view_booking_page">
     <div class="text-center mb-4">
         <h3 class="fw-bold">Dashboard</h3>
     </div>
-    @if (users == null)
+    @if (bookings == null)
     {
-        <p><em>Loading users...</em></p>
+        <p><em>Loading bookings...</em></p>
     }
-    else if (users.Length == 0)
+    else if (bookings.Length == 0)
     {
-        <div class="alert alert-info">No users found.</div>
+        <div class="alert alert-info">No bookings found.</div>
     }
     else
     {
         <div class="mx-5">
             <div class="row">
                 <div class="col-12">
-                    <UserTable users="@users" />
+                    <BookingTable bookings="@bookings" />
                 </div>
             </div>
         </div>
@@ -35,19 +35,19 @@
 
 
 @code {
-    private UserGetDto[]? users;
+    private BookingGetDto[]? bookings;
     private bool isLoading = true;
     private string fullToken = string.Empty;
 
     protected override async Task OnInitializedAsync()
     {
-        await LoadUserInfo();
+        await LoadBookingInfo();
 
         // Subscribe to authentication state changes
         AuthService.AuthenticationStateChanged += OnAuthenticationStateChanged;
     }
 
-    private async Task LoadUserInfo()
+    private async Task LoadBookingInfo()
     {
         isLoading = true;
         StateHasChanged();
@@ -59,22 +59,22 @@
                 fullToken = await AuthService.GetTokenAsync() ?? string.Empty;
 
                 // Kald API'et med token som parameter
-                users = await ApiService.GetAllUsersAsync(0, fullToken);
+                bookings = await ApiService.GetAllBookingsAsync(0, fullToken);
     
-                // Sortér efter UserId i stigende rækkefølge
-                if (users != null && users.Length > 1)
-                        users = users.OrderBy(u => u.Id).ToArray();
+                // Sortér efter BookingId i stigende rækkefølge
+                if (bookings != null && bookings.Length > 1)
+                        bookings = bookings.OrderBy(b => b.Id).ToArray();
                 }
             else
             {
-                users = null;
+                bookings = null;
                 Navigation.NavigateTo("/login");
             }
         }
         catch (Exception ex)
         {
             Console.WriteLine($"Fejl ved hentning af brugere: {ex.Message}");
-            users = Array.Empty<UserGetDto>();
+            bookings = Array.Empty<BookingGetDto>();
         }
         finally
         {
@@ -89,12 +89,12 @@
     {
         if (!isAuthenticated)
         {
-            users = null;
+            bookings = null;
             Navigation.NavigateTo("/login");
         }
         else
         {
-            await LoadUserInfo();
+            await LoadBookingInfo();
         }
 
         await InvokeAsync(StateHasChanged);
