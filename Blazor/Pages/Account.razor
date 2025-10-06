@@ -1,0 +1,150 @@
+﻿@page "/account"
+
+@using System.Net.Http
+@using Blazor.Services
+@inject AuthenticationService AuthService
+@inject APIService ApiService
+@inject NavigationManager Navigation
+
+
+<PageTitle>Your account</PageTitle>
+
+<div class="update_account_page">
+    <div class="mx-5">
+        <div class="row">
+            <div class="col-12">
+                <div class="card shadow-sm mt-4 border-0 shadow-none">
+                    <div class="card-body">
+                        @if (!foundAccount)
+                        {
+                            <div class="alert alert-info">No account details found.</div>
+                        }
+                        else if (user == null)
+                        {
+                            <p><em>Loading account details...</em></p>
+                        }
+                        else
+                        {
+                            <EditForm Model="@user" OnValidSubmit="SaveUser">
+                                <DataAnnotationsValidator />
+                                <ValidationSummary />
+
+                                <!-- User fields -->
+                                <div class="mb-3">
+                                    <label class="form-label">Email</label>
+                                    <InputText class="form-control" @bind-Value="user.Email" />
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Phone</label>
+                                    <InputNumber class="form-control" @bind-Value="user.Phone" />
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Firstname</label>
+                                    <InputText class="form-control" @bind-Value="user.FirstName" />
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Lastname</label>
+                                    <InputText class="form-control" @bind-Value="user.LastName" />
+                                </div>
+                               
+
+                                <button class="btn btn-primary mt-3" type="submit">Save</button>
+                            </EditForm>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code{
+    private UserGetDto? users;
+    private bool isLoading = true;  
+    private string fullToken = string.Empty;
+    private bool foundAccount = true;
+
+    private UserPutDto? user = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadUserInfo();
+
+        // Subscribe to authentication state changes
+        AuthService.AuthenticationStateChanged += OnAuthenticationStateChanged;
+    }
+
+    private async Task LoadUserInfo()
+    {
+        isLoading = true;
+        StateHasChanged();
+
+        try
+        {
+            if (await AuthService.IsAuthenticatedAsync())
+            {
+                // Hent token fra AuthService (localStorage)
+                fullToken = await AuthService.GetTokenAsync() ?? string.Empty;
+
+                // Kald API'et med token som parameter
+                users = await ApiService.GetCurrentUserAsync(fullToken);
+                if (users != null)
+                {
+                    user = new UserPutDto
+                            {
+						        Id = users.Id,
+                                Email = users.Email,
+                                Phone = users.Phone,
+                                FirstName = users.FirstName,
+                                LastName = users.LastName,
+
+                            };
+                }
+                
+            }
+            else
+            {
+                users = null;
+                Navigation.NavigateTo("/login");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Fejl ved hentning af brugere: {ex.Message}");
+            users = null;
+        }
+        finally
+        {
+            isLoading = false;
+            StateHasChanged();
+            
+        }
+
+    }
+
+
+
+    private async void OnAuthenticationStateChanged(object? sender, bool isAuthenticated)
+    {
+        if (!isAuthenticated)
+        {
+            users = null;
+            Navigation.NavigateTo("/login");
+        }
+        else
+        {
+            await LoadUserInfo();
+        }
+
+        await InvokeAsync(StateHasChanged);
+    }
+
+    private async Task SaveUser()
+    {
+
+        if (user is null) return;
+
+        await ApiService.UpdateUserAsync(user);
+        Navigation.NavigateTo("/account/users");
+    }
+}

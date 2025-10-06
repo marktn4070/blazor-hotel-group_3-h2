@@ -285,7 +285,8 @@ public class UsersController : ControllerBase
             {
                 Id = user.Id,
                 Email = user.Email,
-                FirstName = user.FirstName,
+                Phone = user.Phone,
+				FirstName = user.FirstName,
                 LastName = user.LastName,
                 CreatedAt = user.CreatedAt,
                 LastLogin = user.LastLogin,
