@@ -81,7 +81,7 @@ public class TokenValidationResult
                     var expirationTime = DateTimeOffset.FromUnixTimeSeconds(exp).DateTime;
                     result.ExpirationTime = expirationTime;
                     
-                    if (expirationTime <= DateTime.UtcNow)
+                    if (expirationTime <= DateTime.UtcNow.AddHours(2))
                     {
                         errors.Add("Token er udløbet");
                     }

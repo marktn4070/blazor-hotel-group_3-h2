@@ -213,13 +213,13 @@ public class AuthController : ControllerBase
 
             // Test AD forbindelse med test credentials
             _logger.LogInformation("Tester AD forbindelse med test credentials");
-            var testUser = await _adService.AuthenticateUserAsync("adReader", "Merc1234!");
+            var testUser = await _adService.AuthenticateUserAsync("mark", "Cisco1234!");
 
             var status = new
             {
                 adConfigured = true,
-                server = "10.133.71.100",
-                domain = "mags.local",
+                server = "10.133.71.104",
+                domain = "suite_dreams.local",
                 port = 389,
                 useSSL = false,
                 ldapConnection = ldapConnectionOk,

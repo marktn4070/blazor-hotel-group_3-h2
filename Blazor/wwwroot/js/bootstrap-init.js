@@ -1,4 +1,4 @@
-// wwwroot/js/bootstrap-init.js
+
 window.initCarousels = () => {
     if (typeof bootstrap === 'undefined') {
         console.warn('Bootstrap ikke fundet');
