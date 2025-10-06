@@ -34,14 +34,14 @@ public class ADLoginAttemptService
         if (attempts == null) return false;
 
         // Tjek om lockout periode er udløbet
-        if (attempts.LockoutUntil.HasValue && DateTime.UtcNow.AddHours(2) < attempts.LockoutUntil.Value)
+        if (attempts.LockoutUntil.HasValue && DateTime.UtcNow < attempts.LockoutUntil.Value)
         {
             _logger.LogWarning("Email {Email} er låst indtil {LockoutUntil}", email, attempts.LockoutUntil.Value);
             return true;
         }
 
         // Hvis lockout periode er udløbet, ryd cache entry
-        if (attempts.LockoutUntil.HasValue && DateTime.UtcNow.AddHours(2) >= attempts.LockoutUntil.Value)
+        if (attempts.LockoutUntil.HasValue && DateTime.UtcNow >= attempts.LockoutUntil.Value)
         {
             _cache.Remove(key);
             _logger.LogInformation("Lockout periode udløbet for email {Email}, cache ryddet", email);

@@ -39,7 +39,7 @@ public class ADService
         _password = _configuration["ActiveDirectory:ReaderPassword"] ?? "Cisco1234!";
         _port = int.Parse(_configuration["ActiveDirectory:Port"] ?? "389");
         _useSSL = bool.Parse(_configuration["ActiveDirectory:UseSSL"] ?? "false");
-        _connectionTimeout = int.Parse(_configuration["ActiveDirectory:ConnectionTimeout"] ?? "130");
+        _connectionTimeout = int.Parse(_configuration["ActiveDirectory:ConnectionTimeout"] ?? "30");
         _maxRetries = int.Parse(_configuration["ActiveDirectory:MaxRetries"] ?? "3");
         _retryDelayMs = int.Parse(_configuration["ActiveDirectory:RetryDelayMs"] ?? "1000");
     }
