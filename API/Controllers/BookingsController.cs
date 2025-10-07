@@ -140,6 +140,8 @@ public class BookingsController : ControllerBase
                 .Include(b => b.User)
                 .Include(b => b.Room)
                     .ThenInclude(r => r.Hotel)
+            .Include(b => b.Room)
+                .ThenInclude(r => r.Roomtype)
                 .Where(b => b.UserId.ToString() == currentUserId)
                 .ToListAsync();
 

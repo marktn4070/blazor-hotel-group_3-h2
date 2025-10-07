@@ -10,7 +10,10 @@ public static RoomGetDto ToRoomGetDto(Room room)
         Id = room.Id,
         RoomNumber = room.RoomNumber,
         HotelId = room.HotelId,
+        HotelName = room.Hotel?.Name ?? string.Empty,
         RoomtypeId = room.RoomtypeId,
+        RoomtypeName = room.Roomtype?.Name ?? string.Empty,
+        RoomtypePricePerNight = room.Roomtype?.PricePerNight,
         CreatedAt = room.CreatedAt,
         UpdatedAt = room.UpdatedAt
     };

@@ -1,13 +1,17 @@
-﻿@inject ChatService ChatService
+﻿@inject AuthenticationService AuthService
+@implements IDisposable
+@inject ChatService ChatService
 @inherits LayoutComponentBase
 <div class="">
     <NavMenu />
 </div>
 <div class="page">
+    @if (isAuthenticated && currentUser != null)
+{
     <div class="sidebar_left">
         <SideBar />
     </div>
-
+        }
     <main>
         <div class="content w-100 h-100">
             <div class="container-lg py-4">
@@ -19,3 +23,76 @@
         </div>
     </main>
 </div>
+
+
+@code {
+    private bool collapseNavMenu = true;
+    private bool isAuthenticated = false;
+    private bool isLoggingOut = false;
+    private AuthUserInfo? currentUser;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await CheckAuthenticationStatus();
+        AuthService.AuthenticationStateChanged += OnAuthenticationStateChanged;
+    }
+
+    private async Task CheckAuthenticationStatus()
+    {
+        isAuthenticated = await AuthService.IsAuthenticatedAsync();
+        if (isAuthenticated)
+        {
+            currentUser = await AuthService.GetCurrentUserAsync();
+        }
+        else
+        {
+            currentUser = null;
+        }
+        StateHasChanged();
+    }
+
+    private async Task HandleLogout()
+    {
+        isLoggingOut = true;
+        StateHasChanged();
+
+        try
+        {
+            await AuthService.LogoutAsync();
+            // AuthService should udløse AuthenticationStateChanged så UI opdateres
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Logout fejl: {ex.Message}");
+        }
+        finally
+        {
+            isLoggingOut = false;
+            StateHasChanged();
+        }
+    }
+
+    private async void OnAuthenticationStateChanged(object? sender, bool authenticated)
+    {
+        isAuthenticated = authenticated;
+        if (authenticated)
+        {
+            currentUser = await AuthService.GetCurrentUserAsync();
+        }
+        else
+        {
+            currentUser = null;
+        }
+        await InvokeAsync(StateHasChanged);
+    }
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+
+    public void Dispose()
+    {
+        AuthService.AuthenticationStateChanged -= OnAuthenticationStateChanged;
+    }
+}

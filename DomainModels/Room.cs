@@ -16,8 +16,10 @@ public class RoomGetDto
     public int Id { get; set; }
     public int RoomNumber { get; set; }
     public int HotelId { get; set; }
+    public string? HotelName { get; set; }
     public int RoomtypeId { get; set; }
-    //public double? RoomtypePricePerNight { get; set; }
+    public string? RoomtypeName { get; set; }
+    public double? RoomtypePricePerNight { get; set; }
     public DateTime CreatedAt { get; set; }
     public DateTime UpdatedAt { get; set; }
 }
