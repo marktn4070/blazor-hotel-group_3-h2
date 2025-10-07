@@ -115,6 +115,19 @@ public partial class APIService
         }
     }
 
+
+    public async Task<BookingGetDto> CreateBookingAsync(BookingPostDto booking)
+    {
+        // Make sure the dates are UTC before sending
+        booking.StartDate = DateTime.SpecifyKind(booking.StartDate, DateTimeKind.Utc);
+        booking.EndDate = DateTime.SpecifyKind(booking.EndDate, DateTimeKind.Utc);
+
+        var response = await _httpClient.PostAsJsonAsync("api/bookings", booking);
+        response.EnsureSuccessStatusCode();
+
+        return await response.Content.ReadFromJsonAsync<BookingGetDto>()
+            ?? throw new Exception("Server returned invalid response");
+    }
     public async Task<bool> DeleteBookingAsync(int id)
     {
         try

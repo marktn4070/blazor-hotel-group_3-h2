@@ -1,0 +1,130 @@
+﻿@page "/booking/{hotelId:int?}/roomtype/{roomTypeId:int?}"
+@inject AuthenticationService AuthService
+@inject APIService ApiService
+@inject NavigationManager Navigation
+
+<h3>Opret Booking</h3>
+
+@if (!isLoggedIn)
+{
+    <p>Du skal være <a href="/login">logget ind</a> for at oprette en booking.</p>
+}
+else
+{
+    <EditForm Model="booking" OnValidSubmit="HandleValidSubmit">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="mb-3">
+            <label>Vælg rum</label>
+            <select class="form-select" @bind="booking.RoomId">
+                <option value="">-- Vælg et rum --</option>
+                @foreach (var room in rooms)
+                {
+                    <option value="@room.Id">@room.RoomNumber (@room.RoomtypeId)</option>
+                }
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label>Start dato</label>
+            <InputDate @bind-Value="booking.StartDate" class="form-control" Min="@TodayString" />
+        </div>
+
+        <div class="mb-3">
+            <label>Slut dato</label>
+            <InputDate @bind-Value="booking.EndDate" class="form-control" Min="@TomorrowString" />
+        </div>
+
+        <div class="mb-3">
+            <label>Ekstra senge</label>
+            <InputNumber @bind-Value="booking.ExtraBeds" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label>Vugge</label>
+            <InputCheckbox @bind-Value="booking.Crib" class="form-check-input" />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Book nu</button>
+    </EditForm>
+
+    @if (successMessage != null)
+    {
+        <div class="alert alert-success mt-3">@successMessage</div>
+    }
+
+    @if (errorMessage != null)
+    {
+        <div class="alert alert-danger mt-3">@errorMessage</div>
+    }
+}
+
+@code {
+    [Parameter] public int? hotelId { get; set; }
+    [Parameter] public int? roomTypeId { get; set; }
+
+    private BookingPostDto booking = new BookingPostDto
+    {
+        StartDate = DateTime.Today,
+        EndDate = DateTime.Today.AddDays(1),
+        Crib = false,
+        ExtraBeds = 0
+    };
+
+    private List<RoomGetDto> rooms = new();
+    private bool isLoggedIn;
+    private string? successMessage;
+    private string? errorMessage;
+
+    private DateTime Today = DateTime.Today;
+    private DateTime Tomorrow => DateTime.Today.AddDays(1);
+    private string TodayString => Today.ToString("yyyy-MM-dd");
+    private string TomorrowString => Tomorrow.ToString("yyyy-MM-dd");
+
+    protected override async Task OnInitializedAsync()
+    {
+        isLoggedIn = await AuthService.IsAuthenticatedAsync();
+
+        if (isLoggedIn)
+        {
+            var currentUser = await AuthService.GetCurrentUserAsync();
+            if (currentUser != null)
+            {
+                booking.UserId = currentUser.Id;
+            }
+
+            rooms = (await ApiService.GetRoomsAsync(0, CancellationToken.None)).ToList();
+
+            if (hotelId.HasValue || roomTypeId.HasValue)
+            {
+                rooms = rooms
+                    .Where(r => (!hotelId.HasValue || r.HotelId == hotelId.Value) &&
+                                (!roomTypeId.HasValue || r.RoomtypeId == roomTypeId.Value))
+                    .ToList();
+            }
+
+        }
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        try
+        {
+            // Ensure UTC before sending
+            booking.StartDate = DateTime.SpecifyKind(booking.StartDate, DateTimeKind.Utc);
+            booking.EndDate = DateTime.SpecifyKind(booking.EndDate, DateTimeKind.Utc);
+            Console.WriteLine(JsonSerializer.Serialize(booking));
+
+            var created = await ApiService.CreateBookingAsync(booking);
+
+            successMessage = $"Booking oprettet! ID: {created.Id}";
+            errorMessage = null;
+        }
+        catch (Exception ex)
+        {
+            errorMessage = "Fejl ved oprettelse af booking: " + ex.Message;
+            successMessage = null;
+        }
+    }
+}
