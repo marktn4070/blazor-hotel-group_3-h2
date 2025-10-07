@@ -44,6 +44,7 @@ public class BookingPostDto
 
     [Required(ErrorMessage = "Room ID is required")]
     public int RoomId { get; set; }
+    public int HotelId { get; set; }
     public double? FinalPrice { get; set; }
 
     [Required(ErrorMessage = "Crib is required")]

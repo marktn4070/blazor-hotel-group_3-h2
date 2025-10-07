@@ -2,6 +2,7 @@
 @inject AuthenticationService AuthService
 @inject APIService ApiService
 @inject NavigationManager Navigation
+@using System.Text.Json
 
 <h3>Opret Booking</h3>
 
@@ -64,13 +65,7 @@ else
     [Parameter] public int? hotelId { get; set; }
     [Parameter] public int? roomTypeId { get; set; }
 
-    private BookingPostDto booking = new BookingPostDto
-    {
-        StartDate = DateTime.Today,
-        EndDate = DateTime.Today.AddDays(1),
-        Crib = false,
-        ExtraBeds = 0
-    };
+
 
     private List<RoomGetDto> rooms = new();
     private bool isLoggedIn;
@@ -81,9 +76,20 @@ else
     private DateTime Tomorrow => DateTime.Today.AddDays(1);
     private string TodayString => Today.ToString("yyyy-MM-dd");
     private string TomorrowString => Tomorrow.ToString("yyyy-MM-dd");
+    private BookingPostDto booking;
+    private int nights => (booking.EndDate - booking.StartDate).Days;
 
     protected override async Task OnInitializedAsync()
     {
+
+        booking = new BookingPostDto
+            {
+                HotelId = hotelId ?? 0,
+                StartDate = DateTime.Today,
+                EndDate = DateTime.Today.AddDays(1),
+                Crib = false,
+                ExtraBeds = 0
+            };
         isLoggedIn = await AuthService.IsAuthenticatedAsync();
 
         if (isLoggedIn)
