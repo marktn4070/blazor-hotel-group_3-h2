@@ -106,38 +106,6 @@ public class UsersController : ControllerBase
     // PUT: api/Users/5
     // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
     [HttpPut("{id}")]
-    public async Task<IActionResult> PutUser(int id, User user)
-    {
-        if (id != user.Id)
-        {
-            _logger.LogWarning("Mismatch mellem route id {Id} og body id {UserId}", id, user.Id);
-            return BadRequest("Id i route stemmer ikke med brugerens id");
-        }
-
-        _context.Entry(user).State = EntityState.Modified;
-
-        try
-        {
-            await _context.SaveChangesAsync();
-            _logger.LogInformation("Bruger {Id} opdateret succesfuldt", id);
-            return NoContent();
-        }
-        catch (DbUpdateConcurrencyException ex)
-        {
-            _logger.LogWarning(ex, "Concurrency fejl ved opdatering af bruger {Id}", id);
-            if (!UserExists(id))
-                return NotFound();
-            else
-                throw;
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "Uventet fejl ved opdatering af bruger {Id}", id);
-            return StatusCode(500, "Der opstod en intern serverfejl ved opdatering af bruger");
-        }
-    }
-
-
     public async Task<IActionResult> PutUser(int id, UserPutDto userDto)
     {
         if (id != userDto.Id)
