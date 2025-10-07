@@ -114,7 +114,7 @@ else
             // Ensure UTC before sending
             booking.StartDate = DateTime.SpecifyKind(booking.StartDate, DateTimeKind.Utc);
             booking.EndDate = DateTime.SpecifyKind(booking.EndDate, DateTimeKind.Utc);
-            Console.WriteLine(JsonSerializer.Serialize(booking));
+            // Console.WriteLine(JsonSerializer.Serialize(booking));
 
             var created = await ApiService.CreateBookingAsync(booking);
 
