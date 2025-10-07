@@ -1,4 +1,6 @@
-﻿namespace DomainModels.Mapping;
+﻿using System.Numerics;
+
+namespace DomainModels.Mapping;
 
 // HotelMapping.cs
 public class UserMapping
@@ -21,5 +23,14 @@ public class UserMapping
     public static List<UserGetDto> ToUsersGetDto(List<User> users)
     {
         return users.Select(u => ToUserGetDto(u)).ToList();
+    }
+    public static void PutUserFromDto(User user, UserPutDto userPutDto)
+    {
+        user.Id = userPutDto.Id;
+            user.Email = userPutDto.Email;
+            user.Phone = userPutDto.Phone;
+            user.FirstName = userPutDto.FirstName;
+            user.LastName = userPutDto.LastName;
+            user.UpdatedAt = DateTime.UtcNow.AddHours(2);
     }
 }

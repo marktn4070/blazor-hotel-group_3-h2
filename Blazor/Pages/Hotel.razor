@@ -22,12 +22,12 @@
 		<div class="row g-4 mb-5">
 			<div class="col-12">
 				<div class="card text-bg-dark rounded-3 overflow-hidden">
-					<!-- Billede: styling flyttet til CSS -->
+					<!-- Billede -->
 					<img src="images/hotel_@(hotel.Id)_outside.jpg"
 							class="card-img about-card-img"
 							alt="Billede af @hotel.Name">
 
-					<!-- Overlay: tekst direkte ovenpå billedet -->
+					<!-- Overlay er tekst direkte ovenpå billedet -->
 					<div class="card-img-overlay d-flex align-items-end p-0">
 						<div class="w-100 overlay-content text-white" style="text-shadow: 0 2px 6px rgba(0,0,0,0.7);">
 
@@ -38,33 +38,19 @@
 							</div>
 							<div style="height: 75.25px">
 
-									@if (showFullDescription || hotel.Description.Length <= descLimit)
-									{
-							<p class="card-text small mb-1 description-scroll" tabindex="0" aria-label="Hotelbeskrivelse">
-										@hotel.Description
+								<p class="card-text small mb-1 description-scroll @(showFullDescription == true ? "d-block" : "d-inline")">
+
+										@(showFullDescription == true ? hotel.Description : shortenedDescription + "...")
 							</p>
-										@if (hotel.Description.Length > descLimit)
-										{
-											<button class="btn btn-link text-white fw-bold p-0 ms-2"
-												style="line-height: 21px; font-size: 14px; text-shadow: 0 2px 6px rgba(0,0,0,0.7);"
-												@onclick="ToggleDescription" 
-												aria-expanded="@showFullDescription">
-													Show less
-											</button>
-										}
-									}
-									else
-							{
-								<p class="card-text small mb-1 description-scroll" tabindex="0" aria-label="Hotelbeskrivelse">
-										@($"{TruncateToWord(hotel.Description, descLimit)}...")
-										<button class="btn btn-link text-white fw-bold p-0 ms-2"
+								@if (showButton)
+								{
+									<button class="btn btn-link text-white fw-bold p-0 ms-2"
 											style="line-height: 21px; font-size: 14px; text-shadow: 0 2px 6px rgba(0,0,0,0.7);"
-											@onclick="ToggleDescription" 
-											aria-expanded="@showFullDescription">
-												Show more
-										</button>
-								</p>
-									}
+											@onclick="ToggleDescription">
+
+									@(showFullDescription == true ? "Show less" : "Show more")
+									</button>
+								}
 							</div>
 
 						</div>
@@ -101,13 +87,12 @@
 								<div class="carousel-indicators">
 								@for (int i = 0; i < 6; i++)
 									{
-										<button type="button" data-bs-target="#@carouselId" data-bs-slide-to="@i"
-												class="@(i == 0 ? "active" : "")"
-												aria-current="@(i == 0 ? "true" : "false")"
-												aria-label="Slide @(i + 1)"></button>
+									<button type="button" data-bs-target="#@carouselId" data-bs-slide-to="@i"
+											class="@(i == 0 ? "active" : "")"
+											aria-current="@(i == 0 ? "true" : "false")"
+											aria-label="Slide @(i + 1)"></button>
 									}
 								</div>
-
 								<div class="carousel-inner">
 									@for (int i = 0; i < 6; i++)
 									{
@@ -153,40 +138,42 @@
 
 	private bool foundHotel = true;
 
-
 	private bool showFullDescription = false;
+	private bool showButton = false;
+
+	string shortenedDescription = string.Empty;
 
 	// antal tegn før "vis mere" vises
-    private int descLimit = 160;
+	int maxLength = 160;
 
-    private void ToggleDescription()
-    {
-        showFullDescription = !showFullDescription;
-    }
-
-    private string TruncateToWord(string text, int maxLength)
-    {
-        if (string.IsNullOrEmpty(text) || text.Length <= maxLength)
-            return text;
-
-        // maxLength
-        var substr = text.Substring(0, maxLength);
-        var lastSpace = substr.LastIndexOf(' ');
-
-		// Substring
-        if (lastSpace > (int)(maxLength * 0.4))
-        {
-            substr = substr.Substring(0, lastSpace);
-        }
-        return substr.TrimEnd();
-    }
+	// Skifter mellem at vise fuld beskrivelse eller forkortet
+	private void ToggleDescription()
+	{
+		showFullDescription = !showFullDescription;
+	}
 
 
-	protected override async Task OnParametersSetAsync()
+	protected override async Task OnInitializedAsync()
 	{
 		try
 		{
 			hotel = await ApiService.GetHotelByIdAsync(hotelId);
+
+			if (hotel.Description != string.Empty)
+			{
+				var substr = hotel.Description.Substring(0, maxLength);
+				var lastSpace = substr.LastIndexOf(' ');
+
+				if (lastSpace > (int)(maxLength * 0.4))
+				{
+					shortenedDescription = substr.Substring(0, lastSpace);
+				}
+
+				if (hotel.Description.Length > maxLength)
+				{
+					showButton = true;
+				}
+			}
 		}
 		catch (Exception ex)
 		{
@@ -194,6 +181,7 @@
 			hotel = null;
 			foundHotel = false;
 		}
+
 
 		try
 		{
@@ -209,6 +197,7 @@
 			rooms = Array.Empty<RoomGetDto>();
 		}
 
+
 		try
 		{
 			roomtypes = await ApiService.GetRoomtypesAsync(0);
@@ -222,6 +211,7 @@
 			Console.WriteLine($"Fejl ved hentning af rumtyper: {ex.Message}");
 			roomtypes = Array.Empty<RoomtypeGetDto>();
 		}
+
 
 		// Henter unikke roomtypeid, hvis tilhørende rum eksistere ud fra nuværrende hotelId
 		if (rooms != null && roomtypes != null)

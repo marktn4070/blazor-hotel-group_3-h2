@@ -137,6 +137,46 @@ public class UsersController : ControllerBase
         }
     }
 
+
+    public async Task<IActionResult> PutUser(int id, UserPutDto userDto)
+    {
+        if (id != userDto.Id)
+        {
+            _logger.LogWarning("Mismatch mellem route id {Id} og body id {UserId}", id, userDto.Id);
+            return BadRequest("Id i route stemmer ikke med userlets id");
+        }
+
+        //_context.Entry(user).State = EntityState.Modified;
+        var user = await _context.Users.FindAsync(id);
+        if (user == null)
+        {
+            return NotFound();
+        }
+
+        UserMapping.PutUserFromDto(user, userDto);
+
+        try
+        {
+            await _context.SaveChangesAsync();
+            _logger.LogInformation("Rumtype med id'et {Id} opdateret succesfuldt", id);
+            return NoContent();
+        }
+        catch (DbUpdateConcurrencyException ex)
+        {
+            _logger.LogWarning(ex, "Concurrency fejl ved opdatering af user {Id}", id);
+            if (!UserExists(id))
+                return NotFound();
+            else
+                throw;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Fejl ved opdatering af user {Id}", id);
+            return StatusCode(500, "Der opstod en intern serverfejl ved opdatering af user");
+        }
+    }
+
+
     /// <summary>
     /// Laver en regestering af en ny bruger.
     /// </summary>

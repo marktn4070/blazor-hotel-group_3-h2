@@ -19,8 +19,8 @@
                 <tr>
                     <th>Id</th>
                     <th>Room@(__)Number</th>
-                    <th>Hotel@(__)Id</th>
-                    <th>Rumtype@(__)Id</th>
+                    <th>Hotel@(__)Name</th>
+                    <th>Rumtype@(__)Named</th>
                     <th></th>
                 </tr>
             </thead>
@@ -30,8 +30,8 @@
                     <tr>
                         <td>@r.Id</td>
                         <td>@r.RoomNumber</td>
-                        <td>@r.HotelId</td>
-                        <td>@r.RoomtypeId</td>
+                        <td>@r.HotelName</td>
+                        <td>@r.RoomtypeName</td>
                         <td class="text-end text-nowrap align-middle">
                             <div class="d-inline-flex flex-nowrap gap-1">
                                 <button class="btn btn-outline-primary" @onclick='() => NavManager.NavigateTo("/dashboard/room/update/" + r.Id)'>
