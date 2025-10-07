@@ -50,18 +50,18 @@ public partial class APIService
         response.EnsureSuccessStatusCode();
     }
 
-    public async Task<HotelDetailsDto?> GetHotelByIdAsync(
+    public async Task<HotelGetDto?> GetHotelByIdAsync(
         int hotelId,
         CancellationToken cancellationToken = default
     )
     {
-        HotelDetailsDto? hotel = null;
+        HotelGetDto? hotel = null;
 
         if (hotelId != 0)
         {
             try
             {
-                hotel = await _httpClient.GetFromJsonAsync<HotelDetailsDto>($"api/hotels/{hotelId}", cancellationToken);
+                hotel = await _httpClient.GetFromJsonAsync<HotelGetDto>($"api/hotels/{hotelId}", cancellationToken);
             }
             catch (HttpRequestException)
             {

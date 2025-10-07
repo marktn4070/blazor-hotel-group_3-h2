@@ -36,7 +36,11 @@ public class Program
             client.BaseAddress = new Uri(apiEndpoint);
         });
 
-        builder.Services.AddSingleton<ChatService>();
+        // Registrer ChatService som Singleton service (SignalR)
+        builder.Services.AddHttpClient<ChatService>(client =>
+        {
+            client.BaseAddress = new Uri(apiEndpoint);
+        });
         // Registrer AuthenticationService som Scoped service
         builder.Services.AddScoped<AuthenticationService>();
 

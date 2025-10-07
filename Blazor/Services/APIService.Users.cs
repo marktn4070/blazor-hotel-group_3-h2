@@ -172,7 +172,7 @@ namespace Blazor.Services
         }
 
 
-        // /me endpoint get current user
+        // /get user by id
         public async Task<UserGetDto?> GetUserAsync(int id)
         {
             try
@@ -212,21 +212,43 @@ namespace Blazor.Services
 
             return users?.ToArray() ?? [];
         }
+		
 
-        public async Task<UserGetDto?> GetCurrentUserAsync()
-        {
-            try
-            {
-                return await _httpClient.GetFromJsonAsync<UserGetDto>("api/users/me");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Fejl ved hentning af nuværende bruger: " + ex.Message);
-                return null;
-            }
-        }
+		//me endpoint get current user by id
+		public async Task<UserGetDto?> GetCurrentUserAsync(
+		string? fullToken = null,
+		CancellationToken cancellationToken = default
+	)
+		{
+			AuthenticationHeaderValue? original = _httpClient.DefaultRequestHeaders.Authorization;
+			UserGetDto? user = null;
 
-        public async Task<bool> DeleteUserAsync(int id)
+
+				try
+				{
+					if (!string.IsNullOrWhiteSpace(fullToken))
+					{
+						_httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", fullToken);
+					}
+					user = await _httpClient.GetFromJsonAsync<UserGetDto>("/api/Users/me", cancellationToken);
+				}
+				catch (HttpRequestException ex)
+				{
+					Console.WriteLine("Fejl ved hentning af brugere: " + ex.Message);
+					return null;
+				}
+				finally
+				{
+					// Gendan tidligere header (eller fjern hvis der ikke var nogen)
+					_httpClient.DefaultRequestHeaders.Authorization = original;
+				}
+			return user;
+		}
+
+
+
+
+		public async Task<bool> DeleteUserAsync(int id)
         {
             try
             {
@@ -246,6 +268,14 @@ namespace Blazor.Services
             // This would typically clear the JWT token from storage
             // Implementation depends on how you store the token
         }
+
+
+         public async Task UpdateUserAsync(UserPutDto user)
+    {
+        // Example implementation using HttpClient (adjust endpoint and logic as needed)
+        var response = await _httpClient.PutAsJsonAsync($"api/users/{user.Id}", user);
+        response.EnsureSuccessStatusCode();
+    }
     }
 
     // Response models for API calls

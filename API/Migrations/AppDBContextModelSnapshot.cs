@@ -85,9 +85,6 @@ namespace API.Migrations
                     b.Property<bool>("Fitness")
                         .HasColumnType("boolean");
 
-                    b.Property<int>("Id")
-                        .HasColumnType("integer");
-
                     b.Property<bool>("Pool")
                         .HasColumnType("boolean");
 
@@ -2657,7 +2654,7 @@ namespace API.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int?>("Phone")
+                    b.Property<int>("Phone")
                         .HasColumnType("integer");
 
                     b.Property<int>("RoleId")

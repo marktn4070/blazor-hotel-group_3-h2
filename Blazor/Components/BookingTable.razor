@@ -1,0 +1,82 @@
+@using DomainModels
+@inject NavigationManager NavManager
+
+<div class="card shadow-sm mt-4 border-0 shadow-none">
+    <div class="card-header bg-transparent border-0">
+        <span class="card-title mb-0">
+            <h4 class="mb-0">
+                <i class="bi bi-person-fill"></i>
+                Bookings
+            </h4>
+            <button class="btn btn-outline-dark float-end" @onclick='() => NavManager.NavigateTo("dashboard/booking/create")'>
+                <i class="bi bi-plus-lg"></i>
+            </button>
+        </span>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped align-middle rounded-3 overflow-hidden">
+            <thead class="table-dark">
+                <tr>
+                    <th>Id</th>
+                    <th>User@(__)Id</th>
+                    <th>User@(__)Email</th>
+                    <th>User@(__)First@(__)Name</th>
+                    <th>User@(__)Last@(__)Name</th>
+                    <th>Room@(__)Id</th>
+                    <th>Room@(__)Number</th>
+                    <th>Price@(__)Per@(__)Night</th>
+                    <th>Hotel@(__)Name</th>
+                    <th>Final@(__)Price</th>
+                    <th>Booking@(__)Status</th>
+                    <th>Crib</th>
+                    <th>Extra@(__)Beds</th>
+                    <th>Start@(__)Date</th>
+                    <th>End@(__)Date</th>
+                    <th>Created@(__)At</th>
+                    <th>Updated@(__)At</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var b in bookings)
+                {
+                    <tr>
+                        <td>@b.Id</td>
+                        <td>@b.UserId</td>
+                        <td>@b.UserEmail</td>
+                        <td>@b.UserFirstName</td>
+                        <td>@b.UserLastName</td>
+                        <td>@b.RoomId</td>
+                        <td>@b.RoomRoomNumber</td>
+                        <td>@b.RoomtypePricePerNight</td>
+                        <td>@b.HotelName</td>
+                        <td>@b.FinalPrice</td>
+                        <td>@b.BookingStatus</td>
+                        <td>@b.Crib</td>
+                        <td>@b.ExtraBeds</td>
+                        <td>@b.StartDate</td>
+                        <td>@b.EndDate</td>
+                        <td>@b.CreatedAt</td>
+                        <td>@b.UpdatedAt</td>
+                        <td class="text-end text-nowrap align-middle">
+                            <div class="d-inline-flex flex-nowrap gap-1">
+                                <button class="btn btn-outline-primary" @onclick='() => NavManager.NavigateTo("/dashboard/booking/update/" + b.Id)'>
+                                    <i class="bi bi-pencil-square"></i>
+                                </button>
+
+                                <button class="btn btn-outline-danger" @onclick='() => NavManager.NavigateTo("/dashboard/booking/delete/" + b.Id)'>
+                                    <i class="bi bi-trash3"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@code {
+    [Parameter] public BookingGetDto[]? bookings { get; set; }
+    private string __ = "\u00A0";
+}
