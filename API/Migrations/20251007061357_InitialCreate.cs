@@ -83,7 +83,6 @@ namespace API.Migrations
                     Pool = table.Column<bool>(type: "boolean", nullable: false),
                     Fitness = table.Column<bool>(type: "boolean", nullable: false),
                     Restaurant = table.Column<bool>(type: "boolean", nullable: false),
-                    Id = table.Column<int>(type: "integer", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
@@ -107,7 +106,7 @@ namespace API.Migrations
                     FirstName = table.Column<string>(type: "text", nullable: false),
                     LastName = table.Column<string>(type: "text", nullable: false),
                     Email = table.Column<string>(type: "text", nullable: false),
-                    Phone = table.Column<int>(type: "integer", nullable: true),
+                    Phone = table.Column<int>(type: "integer", nullable: false),
                     HashedPassword = table.Column<string>(type: "text", nullable: false),
                     Salt = table.Column<string>(type: "text", nullable: true),
                     LastLogin = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),

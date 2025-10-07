@@ -183,35 +183,3 @@ public class HotelPutDto
     public FacilityGetDto? Facility { get; set; }
 }
 
-public class HotelDetailsDto
-{
-    public int Id { get; set; }
-
-    public string Name { get; set; } = string.Empty;
-
-    public string Road { get; set; } = string.Empty;
-
-    public string Zip { get; set; } = string.Empty;
-
-    public string City { get; set; } = string.Empty;
-
-    public string Country { get; set; } = string.Empty;
-
-    public int Phone { get; set; }
-
-    public string Email { get; set; } = string.Empty;
-
-    public string Description { get; set; } = string.Empty;
-    public TimeOnly OpenedAt { get; set; }
-    public TimeOnly ClosedAt { get; set; }
-    public TimeOnly CheckInFrom { get; set; }
-    public TimeOnly CheckInUntil { get; set; }
-    public TimeOnly CheckOutUntil { get; set; }
-
-    public double PercentagePrice { get; set; }
-
-    // Facility data included
-    public FacilityGetDto Facility { get; set; }
-}
-
-
