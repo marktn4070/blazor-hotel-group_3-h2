@@ -58,7 +58,7 @@ public class BookingMapping
     //        UpdatedAt = DateTime.UtcNow.AddHours(2)
     //    };
     //}
-    public static Booking ToBookingFromPostDto(BookingPostDto bookingPostDto, double roomPricePerNight)
+    public static Booking ToBookingFromPostDto(BookingPostDto bookingPostDto, double roomPricePerNight, int parsedUserId)
     {
         var nights = (bookingPostDto.EndDate - bookingPostDto.StartDate).Days;
         return new Booking
