@@ -17,7 +17,6 @@ public class BookingMapping
             UserLastName = booking.User?.LastName,
             RoomId = booking.RoomId,
             RoomRoomNumber = booking.Room?.RoomNumber,
-            RoomtypePricePerNight = booking.Room?.Roomtype?.PricePerNight,
             HotelName = booking.Room?.Hotel?.Name ?? string.Empty,
             StartDate = booking.StartDate,
             EndDate = booking.EndDate,

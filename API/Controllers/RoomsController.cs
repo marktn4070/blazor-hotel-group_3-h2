@@ -39,7 +39,10 @@ public class RoomsController : ControllerBase
         try
         {
             _logger.LogInformation("Henter alle rum");
-            var rooms = await _context.Rooms.ToListAsync();
+            var rooms = await _context.Rooms
+            .Include(r => r.Hotel)
+            .Include(r => r.Roomtype)
+            .ToListAsync(); 
             var result = RoomMapping.ToRoomGetDtos(rooms);
 
             _logger.LogInformation("Hentet {Count} rum succesfuldt", result.Count);
