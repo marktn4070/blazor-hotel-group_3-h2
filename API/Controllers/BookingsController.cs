@@ -244,7 +244,7 @@ public class BookingsController : ControllerBase
                 return BadRequest("Slut dato skal være efter start dato");
             }
 
-            if (bookingPutDto.StartDate < DateTime.UtcNow.Date)
+            if (bookingPutDto.StartDate < DateTime.UtcNow.Date.AddHours(2))
             {
                 return BadRequest("Start dato kan ikke være i fortiden");
             }
@@ -343,7 +343,7 @@ public class BookingsController : ControllerBase
                 return BadRequest("Slut dato skal være efter start dato");
             }
 
-            if (bookingPostDto.StartDate < DateTime.UtcNow.Date)
+            if (bookingPostDto.StartDate < DateTime.UtcNow.Date.AddHours(2))
             {
                 return BadRequest("Start dato kan ikke være i fortiden");
             }
@@ -492,7 +492,7 @@ public class BookingsController : ControllerBase
     //            return BadRequest("Check-out dato skal være efter check-in dato");
     //        }
 
-    //        if (query.CheckInDate < DateTime.UtcNow.Date)
+    //        if (query.CheckInDate < DateTime.UtcNow.Date.AddHours(2))
     //        {
     //            return BadRequest("Check-in dato kan ikke være i fortiden");
     //        }

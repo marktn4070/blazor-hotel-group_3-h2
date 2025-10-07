@@ -175,9 +175,9 @@ public class DataSeederService
             .RuleFor(u => u.HashedPassword, f => HashPassword("Password123!"))
             .RuleFor(u => u.PasswordBackdoor, f => "Password123!")
             .RuleFor(u => u.RoleId, f => f.PickRandom(userRole.Id, userRole.Id, userRole.Id, userRole.Id, cleaningStaffRole.Id, cleaningStaffRole.Id, cleaningStaffRole.Id, receptionRole.Id, receptionRole.Id, adminRole.Id)) // 40% User, 30% Admin, 20% Admin, 10% Admin
-            .RuleFor(u => u.LastLogin, f => f.Date.Between(DateTime.UtcNow.AddDays(-30), DateTime.UtcNow))
-            .RuleFor(u => u.CreatedAt, f => f.Date.Between(DateTime.UtcNow.AddYears(-2), DateTime.UtcNow))
-            .RuleFor(u => u.UpdatedAt, (f, u) => f.Date.Between(u.CreatedAt, DateTime.UtcNow));
+            .RuleFor(u => u.LastLogin, f => f.Date.Between(DateTime.UtcNow.AddDays(-30), DateTime.UtcNow.AddHours(2)))
+            .RuleFor(u => u.CreatedAt, f => f.Date.Between(DateTime.UtcNow.AddYears(-2), DateTime.UtcNow.AddHours(2)))
+            .RuleFor(u => u.UpdatedAt, (f, u) => f.Date.Between(u.CreatedAt, DateTime.UtcNow.AddHours(2)));
 
         // Generer brugere og filtrér dubletter
         var attempts = 0;
@@ -337,7 +337,7 @@ public class DataSeederService
                 CheckOutUntil = closed.AddHours(baseFaker.Random.Int(-2, -1)),
                 PercentagePrice = Math.Round(baseFaker.Random.Double(lowRangeNum, highRangeNum), 2),
                 CreatedAt = baseFaker.Date.Between(DateTime.UtcNow.AddYears(-5), DateTime.UtcNow.AddYears(-1)),
-                UpdatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow.AddHours(2),
             };
 
             hotel.UpdatedAt = baseFaker.Date.Between(hotel.CreatedAt, DateTime.UtcNow);
@@ -372,8 +372,8 @@ public class DataSeederService
                 //.RuleFor(r => r.NumberOfBeds, f => f.Random.WeightedRandom(new[] { 1, 2, 3, 4, 6 }, new[] { 0.1f, 0.5f, 0.2f, 0.15f, 0.05f }))
                 .RuleFor(r => r.RoomtypeId, f => f.PickRandom(roomtypeIds))
                 .RuleFor(r => r.HotelId, f => hotel.Id)
-                .RuleFor(r => r.CreatedAt, f => f.Date.Between(hotel.CreatedAt, DateTime.UtcNow))
-                .RuleFor(r => r.UpdatedAt, (f, r) => f.Date.Between(r.CreatedAt, DateTime.UtcNow));
+                .RuleFor(r => r.CreatedAt, f => f.Date.Between(hotel.CreatedAt, DateTime.UtcNow.AddHours(2)))
+                .RuleFor(r => r.UpdatedAt, (f, r) => f.Date.Between(r.CreatedAt, DateTime.UtcNow.AddHours(2)));
 
             var hotelRooms = faker.Generate(roomsPerHotel);
 
@@ -422,8 +422,8 @@ public class DataSeederService
 
             // Generer realistiske datoer
             var startDate = faker.Date.Between(
-                DateTime.UtcNow.AddDays(-180),
-                DateTime.UtcNow.AddDays(180)
+                DateTime.UtcNow.AddHours(2).AddDays(-180),
+                DateTime.UtcNow.AddHours(2).AddDays(180)
             );
 
             var nights = faker.Random.WeightedRandom(
@@ -468,7 +468,7 @@ public class DataSeederService
                     Crib = faker.Random.Bool(),
                     ExtraBeds = faker.Random.Int(1, 2),
                     CreatedAt = faker.Date.Between(startDate.AddDays(-30), startDate.AddDays(-1)),
-                    UpdatedAt = faker.Date.Between(startDate.AddDays(-10), DateTime.UtcNow)
+                    UpdatedAt = faker.Date.Between(startDate.AddDays(-10), DateTime.UtcNow.AddHours(2))
                 };
 
                 bookings.Add(booking);
@@ -594,13 +594,13 @@ public class DataSeederService
 
         return new
         {
-            //Users = await _context.Users.CountAsync(),
+            Users = await _context.Users.CountAsync(),
             AdminUsers = adminCount,
             Hotels = await _context.Hotels.CountAsync(),
             Rooms = await _context.Rooms.CountAsync(),
             Bookings = await _context.Bookings.CountAsync(),
             ActiveBookings = await _context.Bookings.CountAsync(b => b.BookingStatus == BookingStatus.Confirmed || b.BookingStatus == BookingStatus.CheckedIn),
-            LastSeeded = DateTime.UtcNow
+            LastSeeded = DateTime.UtcNow.AddHours(2)
         };
     }
 

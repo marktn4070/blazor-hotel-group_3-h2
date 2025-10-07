@@ -7,7 +7,7 @@ public class User : Common
     public string FirstName { get; set; } = string.Empty;
     public string LastName { get; set; } = string.Empty;
     public string Email { get; set; } = string.Empty;
-    public int? Phone { get; set; }
+    public int Phone { get; set; }
     public string HashedPassword { get; set; } = string.Empty;
     public string? Salt { get; set; }
     public DateTime LastLogin { get; set; }
@@ -23,7 +23,7 @@ public class UserGetDto
     public int Id { get; set; }
     public string FirstName { get; set; } = string.Empty;
     public string LastName { get; set; } = string.Empty;
-    public int? Phone { get; set; }
+    public int Phone { get; set; }
     public string Email { get; set; } = string.Empty;
     public string Role { get; set; } = string.Empty;
     public DateTime CreatedAt { get; set; }
@@ -67,7 +67,7 @@ public class UserPutDto
     public int Id { get; set; }
     public string FirstName { get; set; } = string.Empty;
     public string LastName { get; set; } = string.Empty;
-    public int? Phone { get; set; }
+    public int Phone { get; set; }
     public string Email { get; set; } = string.Empty;
     public int RoleId { get; set; } = 1; // Default role is 1 (kunde)
 }

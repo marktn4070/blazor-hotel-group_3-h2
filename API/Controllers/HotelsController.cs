@@ -137,6 +137,7 @@ public class HotelsController : ControllerBase
                     hotel.Facility.Pool = hotelDto.Facility.Pool;
                     hotel.Facility.Fitness = hotelDto.Facility.Fitness;
                     hotel.Facility.Restaurant = hotelDto.Facility.Restaurant;
+                    hotel.Facility.UpdatedAt = DateTime.UtcNow.AddHours(2);
 
                     _context.Facilities.Update(hotel.Facility);
                 }
@@ -148,6 +149,8 @@ public class HotelsController : ControllerBase
                         Pool = hotelDto.Facility.Pool,
                         Fitness = hotelDto.Facility.Fitness,
                         Restaurant = hotelDto.Facility.Restaurant,
+                        CreatedAt = DateTime.UtcNow.AddHours(2),
+                        UpdatedAt = DateTime.UtcNow.AddHours(2),
                         HotelId = hotel.Id
                     };
 

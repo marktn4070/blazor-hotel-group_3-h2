@@ -66,7 +66,7 @@ public class DataSeederController : ControllerBase
                 Message = "Database seeding fuldført succesfuldt",
                 Details = result,
                 Statistics = stats,
-                Timestamp = DateTime.UtcNow
+                Timestamp = DateTime.UtcNow.AddHours(2)
             });
 
         }
@@ -105,7 +105,7 @@ public class DataSeederController : ControllerBase
             {
                 Message = "Database ryddet succesfuldt",
                 Details = result,
-                Timestamp = DateTime.UtcNow
+                Timestamp = DateTime.UtcNow.AddHours(2)
             });
         }
         catch (Exception ex)
@@ -134,7 +134,7 @@ public class DataSeederController : ControllerBase
             {
                 Message = "Database statistikker hentet succesfuldt",
                 Statistics = stats,
-                Timestamp = DateTime.UtcNow
+                Timestamp = DateTime.UtcNow.AddHours(2)
             });
         }
         catch (Exception ex)
@@ -167,7 +167,7 @@ public class DataSeederController : ControllerBase
                 Message = "Bruger seeding fuldført succesfuldt",
                 Details = result,
                 Statistics = stats,
-                Timestamp = DateTime.UtcNow
+                Timestamp = DateTime.UtcNow.AddHours(2)
             });
         }
         catch (Exception ex)
@@ -205,7 +205,7 @@ public class DataSeederController : ControllerBase
                 Message = "Hotel og rum seeding fuldført succesfuldt",
                 Details = result,
                 Statistics = stats,
-                Timestamp = DateTime.UtcNow
+                Timestamp = DateTime.UtcNow.AddHours(2)
             });
         }
         catch (Exception ex)
@@ -245,7 +245,7 @@ public class DataSeederController : ControllerBase
                 Message = "Booking seeding fuldført succesfuldt",
                 Details = result,
                 Statistics = stats,
-                Timestamp = DateTime.UtcNow
+                Timestamp = DateTime.UtcNow.AddHours(2)
             });
         }
         catch (Exception ex)
