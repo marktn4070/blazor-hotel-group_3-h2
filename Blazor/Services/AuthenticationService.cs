@@ -35,7 +35,7 @@ public class AuthenticationService
     {
         try
         {
-            var apiResult = await _apiService.LoginAsync(loginDto);
+            var apiResult = await _apiService.LoginAPIAsync(loginDto);
 
             if (apiResult.Success && apiResult.Response?.Token != null && apiResult.Response.User != null)
             {
@@ -49,7 +49,7 @@ public class AuthenticationService
                 // Sæt Authorization header for fremtidige requests
                 _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiResult.Response.Token);
 
-                // Notify listeners om authentication state change
+                // Notify listeners om authentication state change (listener på api kald)
                 AuthenticationStateChanged?.Invoke(this, true);
 
                 return new LoginResult

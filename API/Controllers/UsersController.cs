@@ -163,15 +163,16 @@ public class UsersController : ControllerBase
         try
         {
             _logger.LogInformation("Forsøger at registrere ny bruger med email {Email}", dto.Email);
-
-            if (_context.Users.Any(u => u.Email == dto.Email))
+			// checker om email allerede findes
+			if (_context.Users.Any(u => u.Email == dto.Email))
             {
                 _logger.LogWarning("Bruger med email {Email} findes allerede", dto.Email);
                 return BadRequest("En bruger med denne email findes allerede.");
             }
 
             string hashedPassword = BCrypt.Net.BCrypt.HashPassword(dto.Password);
-            var userRole = await _context.Roles.FirstOrDefaultAsync(r => r.Name == "User");
+			// Makes standard role User
+			var userRole = await _context.Roles.FirstOrDefaultAsync(r => r.Name == "User");
             if (userRole == null)
                 return BadRequest("Standard brugerrolle ikke fundet.");
 
@@ -217,7 +218,8 @@ public class UsersController : ControllerBase
         try
         {
             _logger.LogInformation("Login forsøg for email {Email}", dto.Email);
-            var user = await _context.Users.Include(u => u.Role).FirstOrDefaultAsync(u => u.Email == dto.Email);
+			// Role = roleName OG checker om UserEmal == dto.Email
+			var user = await _context.Users.Include(u => u.Role).FirstOrDefaultAsync(u => u.Email == dto.Email);
 
             if (user == null || !BCrypt.Net.BCrypt.Verify(dto.Password, user.HashedPassword))
             {
