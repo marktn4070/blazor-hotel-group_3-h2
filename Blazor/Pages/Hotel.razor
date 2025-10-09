@@ -162,8 +162,11 @@
 			if (hotel.Description != string.Empty)
 			{
 				var substr = hotel.Description.Substring(0, maxLength);
+
+                // Finder sidste mellemrum i substr
 				var lastSpace = substr.LastIndexOf(' ');
 
+                // Sikrer at der ikke skæres midt i et ord
 				if (lastSpace > (int)(maxLength * 0.4))
 				{
 					shortenedDescription = substr.Substring(0, lastSpace);

@@ -12,6 +12,7 @@
                 {
                     <div class="alert alert-danger" role="alert">
                         @errorMessage
+                        @* indtil at vi kan vise en countdown timer, så vis hvor lang tid der er indtil den er nået null *@
                         @if (remainingLockoutSeconds > 0)
                         {
                             <br />
@@ -20,6 +21,7 @@
                     </div>
                 }
 
+                @* Vis success besked hvis man er logget ind *@
                 @if (!string.IsNullOrEmpty(successMessage))
                 {
                     <div class="alert alert-success" role="alert">
@@ -87,19 +89,6 @@
                         <ValidationMessage For="@(() => registerModel.Email)" class="text-danger" />
                     </div>
 
-
-                    @*               <div class="form-group mb-3">
-                    <label for="Firstname" class="form-label">FørsteNavn</label>
-                        <InputText id="Firstname" @bind-Value="registerModel.Firstname" class="form-control" placeholder="Dit navn" disabled="@isLoading" />
-                        <ValidationMessage For="@(() => registerModel.Firstname)" class="text-danger" />
-                </div>
-
-                <div class="form-group mb-3">
-                    <label for="Lastname" class="form-label">Efternavn</label>
-                        <InputText id="Lastname" @bind-Value="registerModel.Lastname" class="form-control" placeholder="Dit Efternavn" disabled="@isLoading" />
-                        <ValidationMessage For="@(() => registerModel.Lastname)" class="text-danger" />
-                </div>  *@
-
                     <div class="form-group mb-3">
                         <label for="reg-password" class="form-label">Password</label>
                         <InputText id="reg-password" type="password" @bind-Value="registerModel.Password" class="form-control" placeholder="Your Password" disabled="@isLoading" />
@@ -142,9 +131,6 @@
     private int remainingLockoutSeconds = 0;
 
 
-
-
-
     private bool isSubmitting = false;
 
     [Parameter] public EventCallback OnLoginSuccess { get; set; }
@@ -176,7 +162,7 @@
                 successMessage = "Login succesfuldt! Omdirigerer...";
                 StateHasChanged();
 
-                // Vent kort så brugeren kan se success besked
+                // Vent kort så brugeren kan se success besked (1 sekunds ventetid)
                 await Task.Delay(1000);
 
                 // Trigger event for parent component
@@ -209,33 +195,6 @@
     }
 
 
-
-
-    // private async Task HandleRegister()
-    // {
-    //     isSubmitting = true;
-    //     errorMessage = null;
-
-    //     try
-    //     {
-    //         var response = await ApiService.RegisterAsync(registerModel);
-    //         // Redirect back to home page
-    //         Navigation.NavigateTo("/");
-    //     }
-    //     catch (Exception ex)
-    //     {
-    //         errorMessage = $"Failed to registerg: {ex.Message}. Try again.";
-    //         Console.WriteLine($"Registrering fejl: {ex.Message}");
-    //     }
-    //     finally
-    //     {
-    //         isSubmitting = false;
-    //     }
-    // }
-
-
-
-
     private async Task HandleRegister()
     {
         isSubmitting = true;
@@ -254,7 +213,7 @@
                 var currentEmail = registerModel.Email; // Gem email før reset
                 registerModel = new RegisterDto(); // Reset form
 
-                // Kopier email til login form
+                // Kopier email til login form (Virker ikke pga. at login redirecter til forsiden)
                 loginModel.Email = currentEmail;
 
                 // Vent kort så brugeren kan se success besked
@@ -281,59 +240,6 @@
     }
 
 
-
-
-
-
-
-    // private async Task HandleRegister()
-    // {
-    //     isLoading = true;
-    //     errorMessage = string.Empty;
-    //     successMessage = string.Empty;
-    //     StateHasChanged();
-
-    //     try
-    //     {
-    //         // Lav HTTP request direkte da vi ikke har en APIService metode til registrering
-    //         using var httpClient = new HttpClient();
-    //         httpClient.BaseAddress = new Uri("https://25h2-mags.mercantec.tech/");
-
-    //         var response = await httpClient.PostAsJsonAsync("api/users/register", registerModel);
-
-    //         if (response.IsSuccessStatusCode)
-    //         {
-    //             successMessage = "Konto oprettet succesfuldt! Du kan nu logge ind.";
-    //             showRegisterForm = false;
-    //             var currentEmail = registerModel.Email; // Gem email før reset
-    //             registerModel = new RegisterDto(); // Reset form
-
-    //             // Kopier email til login form
-    //             loginModel.Email = currentEmail;
-    //         }
-    //         else
-    //         {
-    //             var errorContent = await response.Content.ReadAsStringAsync();
-    //             errorMessage = errorContent.Contains("email findes allerede")
-    //                 ? "En bruger med denne email findes allerede."
-    //                 : "Der opstod en fejl ved oprettelse af kontoen.";
-    //         }
-    //     }
-    //     catch (Exception ex)
-    //     {
-    //         errorMessage = "Der opstod en uventet fejl. Prøv igen.";
-    //         Console.WriteLine($"Registrering fejl: {ex.Message}");
-    //     }
-    //     finally
-    //     {
-    //         isLoading = false;
-    //         StateHasChanged();
-    //     }
-    // }
-
-
-
-
     private void ShowRegister()
     {
         showRegisterForm = true;
@@ -350,8 +256,5 @@
         successMessage = string.Empty;
         registerModel = new RegisterDto(); // Reset form
     }
-
-
-
 
 }

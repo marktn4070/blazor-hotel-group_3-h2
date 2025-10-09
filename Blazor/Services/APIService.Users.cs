@@ -10,15 +10,16 @@ namespace Blazor.Services
     public partial class APIService
     {
         // User authentication methods
-        public async Task<LoginApiResult> LoginAsync(LoginDto loginDto)
+        public async Task<LoginApiResult> LoginAPIAsync(LoginDto loginDto)
         {
             try
             {
                 var response = await _httpClient.PostAsJsonAsync("api/users/login", loginDto);
 
+                // Tjekker om response er successful, hvor response code er imellem 200-299
                 if (response.IsSuccessStatusCode)
                 {
-                    var responseContent = await response.Content.ReadAsStringAsync();
+                    string responseContent = await response.Content.ReadAsStringAsync();
                     var loginResponse = JsonSerializer.Deserialize<LoginResponse>(responseContent, new JsonSerializerOptions
                     {
                         PropertyNameCaseInsensitive = true
@@ -58,20 +59,6 @@ namespace Blazor.Services
                 };
             }
         }
-
-        //public async Task<bool> RegisterAsync(RegisterDto registerDto)
-        //{
-        //    try
-        //    {
-        //        var response = await _httpClient.PostAsJsonAsync("api/users/register", registerDto);
-        //        return response.IsSuccessStatusCode;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine("Fejl ved registrering: " + ex.Message);
-        //        return false;
-        //    }
-        //}
 
 
         public async Task<RegisterApiResult> RegisterAsync(RegisterDto registerDto)

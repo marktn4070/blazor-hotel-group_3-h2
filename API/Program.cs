@@ -23,6 +23,7 @@ public class Program
         string connectionString = Configuration.GetConnectionString("DefaultConnection")
         ?? Environment.GetEnvironmentVariable("DATABASE_URL");
 
+        // Registrer DbContext med PostgreSQL
         builder.Services.AddDbContext<AppDBContext>(options =>
                 options.UseNpgsql(connectionString));
 
